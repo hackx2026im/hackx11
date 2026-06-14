@@ -43,25 +43,25 @@ export default function UnderwaterEffect() {
       {/* ── Caustic Shimmer (Hardware Accelerated SVG Filter Overlay) ── */}
       <svg width="0" height="0" className="hidden">
         <filter id="water-caustics">
-          <feTurbulence type="fractalNoise" baseFrequency="0.012" numOctaves="3" result="noise" />
-          {/* Increase contrast and brightness of the noise to make water ripples visible */}
-          <feColorMatrix type="matrix" values="0 0 0 0 0.2  0 0 0 0 0.6  0 0 0 0 1  0 0 0 1.2 0" in="noise" result="coloredNoise" />
+          <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="2" result="noise" />
+          {/* Subtle blueish tone with low alpha to prevent washing out the BG image */}
+          <feColorMatrix type="matrix" values="0 0 0 0 0.35  0 0 0 0 0.72  0 0 0 0 1  0 0 0 0.15 0" in="noise" result="coloredNoise" />
           <feBlend in="SourceGraphic" in2="coloredNoise" mode="screen" />
         </filter>
       </svg>
       {/* Container is oversized so we can pan it around smoothly without repainting the SVG */}
       <motion.div 
-        className="absolute inset-[-50%] opacity-80 z-10 pointer-events-none mix-blend-screen" 
+        className="absolute inset-[-50%] opacity-40 z-10 pointer-events-none mix-blend-overlay" 
         style={{ 
           filter: "url(#water-caustics)",
-          background: "radial-gradient(ellipse at top center, rgba(91,184,255,0.4) 0%, transparent 70%)",
+          background: "radial-gradient(ellipse at top center, rgba(91,184,255,0.2) 0%, transparent 60%)",
           willChange: "transform",
         }}
         animate={{ 
           y: ["0%", "3%", "0%"],
           x: ["0%", "-1%", "0%"],
         }}
-        transition={{ duration: 20, ease: "easeInOut", repeat: Infinity }}
+        transition={{ duration: 25, ease: "easeInOut", repeat: Infinity }}
       />
 
       {/* ── Dynamic God Rays ── */}
@@ -74,14 +74,14 @@ export default function UnderwaterEffect() {
               left: `${ray.left}%`,
               width: `${ray.width}px`,
               height: `${ray.height}vh`,
-              background: "linear-gradient(180deg, rgba(91,184,255,0.4) 0%, rgba(91,184,255,0.05) 60%, transparent 100%)",
+              background: "linear-gradient(180deg, rgba(91,184,255,0.3) 0%, rgba(91,184,255,0.05) 60%, transparent 100%)",
               filter: "blur(35px)",
               rotate: ray.rotation,
               willChange: "transform, opacity",
             }}
             animate={{
               rotate: [ray.rotation, ray.rotation + 8, ray.rotation - 5, ray.rotation],
-              opacity: [ray.opacity, ray.opacity * 1.8, ray.opacity * 0.6, ray.opacity],
+              opacity: [ray.opacity, ray.opacity * 1.5, ray.opacity * 0.6, ray.opacity],
             }}
             transition={{
               duration: ray.duration,
