@@ -28,9 +28,8 @@ export default function AmbassadorSection() {
 
             <div className="flex items-center gap-4">
               <button className="px-8 py-4 rounded-full bg-gradient-to-r from-[#1A6FD4] to-[#5BB8FF] text-white font-bold tracking-wide hover:opacity-90 transition-opacity shadow-[0_0_20px_rgba(91,184,255,0.3)] hover:shadow-[0_0_30px_rgba(91,184,255,0.5)]">
-                Apply as an Ambassador
+                Learn More
               </button>
-              <span className="text-xs text-white/40 tracking-wide">Opens June 23</span>
             </div>
           </div>
 
@@ -39,12 +38,12 @@ export default function AmbassadorSection() {
             {/* Background glowing aura */}
             <div className="absolute w-[80%] h-[80%] bg-[#5BB8FF]/5 group-hover:bg-[#5BB8FF]/15 rounded-full blur-[80px] transition-colors duration-700 pointer-events-none" />
             
-            <div className="relative rounded-3xl overflow-hidden shadow-2xl w-full max-w-[480px] aspect-[4/3] z-10 transition-transform duration-500 group-hover:scale-[1.02]">
+            <div className="relative w-full max-w-[480px] aspect-[4/3] z-10 transition-transform duration-500 group-hover:scale-[1.02]">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img 
                 src="/Ambassador image.png"
                 alt="hackX Ambassador" 
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                className="w-full h-full object-contain rounded-3xl transition-transform duration-700 scale-90 group-hover:scale-95"
               />
             </div>
           </div>
