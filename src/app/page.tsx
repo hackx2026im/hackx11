@@ -12,11 +12,13 @@ import TeamSection from "@/components/TeamSection";
 import FAQSection from "@/components/FAQSection";
 import AskAISection from "@/components/AskAISection";
 import Footer from "@/components/Footer";
+import MobileNotice from "@/components/MobileNotice";
 
 export default function Home() {
   return (
     <>
       <NavBar />
+      <MobileNotice />
       <main style={{ background: "#010814", width: "100%", overflowX: "clip" }}>
         <Hero />
         <NewSection2 />

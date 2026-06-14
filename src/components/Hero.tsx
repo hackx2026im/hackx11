@@ -153,10 +153,10 @@ export default function Hero() {
         position: "absolute",
         left: 0,
         right: 0,
-        bottom: 0,
-        height: "240px",
+        bottom: "-2px",
+        height: "380px",
         zIndex: 51,
-        background: "linear-gradient(to bottom, transparent 0%, rgba(1, 8, 20, 0.95) 100%)",
+        background: "linear-gradient(to bottom, transparent 0%, rgba(1, 8, 20, 0.15) 20%, rgba(1, 8, 20, 0.6) 60%, rgba(1, 8, 20, 0.9) 85%, #010814 100%)",
         pointerEvents: "none",
       }} />
 
