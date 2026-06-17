@@ -8,11 +8,9 @@ export default function MobileNotice() {
   const [showNotice, setShowNotice] = useState(false);
 
   useEffect(() => {
-    // Check local storage and screen size on mount
     const checkViewport = () => {
       const isMobile = window.innerWidth < 1024; // 1024px covers mobile & tablet
-      const isDismissed = localStorage.getItem("hackx-mobile-notice-dismissed") === "true";
-      setShowNotice(isMobile && !isDismissed);
+      setShowNotice(isMobile);
     };
 
     checkViewport();
@@ -23,7 +21,6 @@ export default function MobileNotice() {
   }, []);
 
   const handleDismiss = () => {
-    localStorage.setItem("hackx-mobile-notice-dismissed", "true");
     setShowNotice(false);
   };
 
@@ -72,7 +69,7 @@ export default function MobileNotice() {
 
             {/* Content */}
             <p className="text-white/70 text-sm leading-relaxed mb-8">
-              The mobile version of hackX 11.0 is currently under construction. For the best visual experience, immersive animations, and complete detail, please view this website on a <strong>Desktop</strong>.
+              The mobile version of hackX 11.0 has <strong>still not been touched</strong>. For the best visual experience, immersive animations, and complete detail, please view this website on a <strong>Desktop</strong>.
             </p>
 
             {/* Action Buttons */}

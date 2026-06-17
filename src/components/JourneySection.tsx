@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useScroll, useSpring, useTransform } from "framer-motion";
+import { motion, useScroll, useSpring, useTransform, useMotionValue } from "framer-motion";
 import BorderGlow from "@/components/ui/BorderGlow";
 
 /* ─── Event Data ─── */
@@ -15,8 +15,7 @@ const events = [
     accentColor: "#5BB8FF",
     glowColor: "205 100 68",
     colors: ["#5BB8FF", "#1A6FD4", "#0A3878"],
-    imageUrl:
-      "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&auto=format&fit=crop&q=80",
+    imageUrl: "/timeline-images/registration.webp",
   },
   {
     id: "proposal",
@@ -27,8 +26,7 @@ const events = [
     accentColor: "#1A6FD4",
     glowColor: "212 78 47",
     colors: ["#1A6FD4", "#5BB8FF", "#0A3878"],
-    imageUrl:
-      "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&auto=format&fit=crop&q=80",
+    imageUrl: "/timeline-images/submission.webp",
   },
   {
     id: "designx",
@@ -39,8 +37,7 @@ const events = [
     accentColor: "#0A3878",
     glowColor: "215 85 26",
     colors: ["#0A3878", "#1A6FD4", "#5BB8FF"],
-    imageUrl:
-      "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&auto=format&fit=crop&q=80",
+    imageUrl: "/timeline-images/Workshops.webp",
   },
   {
     id: "ideax",
@@ -51,8 +48,7 @@ const events = [
     accentColor: "#5BB8FF",
     glowColor: "205 100 68",
     colors: ["#5BB8FF", "#1A6FD4", "#0A3878"],
-    imageUrl:
-      "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=800&auto=format&fit=crop&q=80",
+    imageUrl: "/timeline-images/semifinals.webp",
   },
   {
     id: "finals",
@@ -63,74 +59,51 @@ const events = [
     accentColor: "#1A6FD4",
     glowColor: "212 78 47",
     colors: ["#1A6FD4", "#5BB8FF", "#0A3878"],
-    imageUrl:
-      "https://images.unsplash.com/photo-1531058020387-3be344556be6?w=800&auto=format&fit=crop&q=80",
+    imageUrl: "/timeline-images/grandfinals.webp",
   },
 ];
 
 /* ════════════════════════════════════════════
-   START ICON — diamond gem (2D flat, sky blue)
-   Sits flush at the very top of the line
+   START ICON — floating artifact image
+   Sits at the very top of the line
    ════════════════════════════════════════════ */
-function StartGem() {
+function StartImage({ scrollYProgress }: { scrollYProgress: any }) {
+  // Reduced vertical travel to stay anchored to the line
+  const y = useTransform(scrollYProgress, [0, 1], [15, -15]);
+  const rotate = useTransform(scrollYProgress, [0, 1], [-45, 45]); // Increased rotation
+
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.6 }}
+      initial={{ opacity: 0, scale: 0.8 }}
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
       className="relative flex items-center justify-center z-20"
-      style={{ width: 64, height: 64 }}
+      style={{ width: 80, height: 80 }}
     >
-      {/* ── Background plate: hides the rail behind the gem ── */}
+      {/* Background plate: completely masks the rail behind the image */}
       <div
-        className="absolute inset-0 rounded-full"
-        style={{ background: "#010814", zIndex: 0 }}
+        className="absolute rounded-full"
+        style={{ width: 60, height: 60, background: "#010814", zIndex: 0 }}
       />
-      {/* Soft glow */}
-      <div
-        className="absolute inset-0 rounded-full blur-lg"
-        style={{ background: "radial-gradient(circle, rgba(91,184,255,0.35) 0%, transparent 70%)", zIndex: 0 }}
+      <motion.img 
+        src="/timeline-start.webp" 
+        alt="Timeline Start" 
+        style={{ y, rotate }}
+        className="relative z-10 w-[70px] md:w-[85px] drop-shadow-[0_15px_25px_rgba(0,0,0,0.5)] object-contain" 
       />
-      <svg viewBox="0 0 48 48" width={52} height={52} style={{ overflow: "visible", position: "relative", zIndex: 1 }}>
-        <defs>
-          <linearGradient id="gem-fill" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#d6f0ff" />
-            <stop offset="45%" stopColor="#5BB8FF" />
-            <stop offset="100%" stopColor="#1A6FD4" />
-          </linearGradient>
-          <linearGradient id="gem-shade" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#5BB8FF" stopOpacity="0.8" />
-            <stop offset="100%" stopColor="#0A3878" stopOpacity="0.95" />
-          </linearGradient>
-        </defs>
-
-        {/* top facet */}
-        <polygon points="24,3 9,18 24,22 39,18" fill="url(#gem-fill)" />
-        {/* bottom-left facet */}
-        <polygon points="9,18 24,22 24,45" fill="url(#gem-shade)" />
-        {/* bottom-right facet */}
-        <polygon points="39,18 24,22 24,45" fill="#1A6FD4" opacity="0.85" />
-
-        <polyline points="24,3 9,18 24,45 39,18 24,3"
-          fill="none" stroke="rgba(255,255,255,0.3)" strokeWidth="0.8" strokeLinejoin="round" />
-        <line x1="9" y1="18" x2="39" y2="18"
-          stroke="rgba(255,255,255,0.2)" strokeWidth="0.6" />
-        <line x1="24" y1="22" x2="24" y2="45"
-          stroke="rgba(255,255,255,0.12)" strokeWidth="0.6" />
-
-        <ellipse cx="21" cy="11" rx="3" ry="2"
-          fill="white" opacity="0.5" transform="rotate(-15 21 11)" />
-      </svg>
     </motion.div>
   );
 }
 
 /* ════════════════════════════════════════════
-   END ICON — pulsing circle orb (gold)
-   Sits flush at the very bottom of the line
+   END ICON — rotating end artifact
+   Sits at the very bottom of the line
    ════════════════════════════════════════════ */
-function EndOrb() {
+function EndImage({ scrollYProgress }: { scrollYProgress: any }) {
+  // Continuous smooth rotation across the entire section's scroll length
+  const rotate = useTransform(scrollYProgress, [0, 1], [0, 360]);
+
   return (
     <motion.div
       initial={{ opacity: 0, scale: 0.5 }}
@@ -138,49 +111,19 @@ function EndOrb() {
       viewport={{ once: true }}
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       className="relative flex items-center justify-center z-20"
-      style={{ width: 72, height: 72 }}
+      style={{ width: 140, height: 140 }}
     >
-      {/* ── Background plate: hides the rail tip behind the orb ── */}
+      {/* Background plate to mask the end of the timeline rail */}
       <div
         className="absolute rounded-full"
-        style={{ width: 40, height: 40, background: "#010814", zIndex: 0 }}
+        style={{ width: 80, height: 80, background: "#010814", zIndex: 0 }}
       />
-
-      {/* Pulse ring 1 */}
-      <motion.div
-        className="absolute rounded-full"
-        style={{ width: 60, height: 60, border: "1px solid rgba(245,165,36,0.35)", zIndex: 1 }}
-        animate={{ scale: [1, 1.45, 1], opacity: [0.7, 0, 0.7] }}
-        transition={{ duration: 2.2, repeat: Infinity, ease: "easeOut" }}
-      />
-      {/* Pulse ring 2 */}
-      <motion.div
-        className="absolute rounded-full"
-        style={{ width: 60, height: 60, border: "1px solid rgba(245,165,36,0.2)", zIndex: 1 }}
-        animate={{ scale: [1, 1.75, 1], opacity: [0.5, 0, 0.5] }}
-        transition={{ duration: 2.2, repeat: Infinity, ease: "easeOut", delay: 0.6 }}
-      />
-
-      {/* Mid ring */}
-      <motion.div
-        className="absolute rounded-full"
-        style={{ width: 36, height: 36, border: "1.5px solid rgba(245,165,36,0.55)", zIndex: 2 }}
-        animate={{ opacity: [0.5, 1, 0.5] }}
-        transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
-      />
-
-      {/* Core dot */}
-      <motion.div
-        className="relative rounded-full"
-        style={{
-          width: 18,
-          height: 18,
-          zIndex: 3,
-          background: "radial-gradient(circle at 38% 36%, #FFE082 0%, #F5A524 55%, #c17200 100%)",
-          boxShadow: "0 0 12px rgba(245,165,36,0.8), 0 0 28px rgba(245,165,36,0.4)",
-        }}
-        animate={{ scale: [1, 1.12, 1] }}
-        transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
+      
+      <motion.img 
+        src="/timeline-images/endorb.webp"
+        alt="Timeline End"
+        style={{ rotate }}
+        className="relative z-10 w-full h-full object-contain drop-shadow-[0_15px_30px_rgba(0,0,0,0.6)]"
       />
     </motion.div>
   );
@@ -190,9 +133,13 @@ function EndOrb() {
 function EventRow({
   event,
   index,
+  smx,
+  smy,
 }: {
   event: (typeof events)[0];
   index: number;
+  smx: any;
+  smy: any;
 }) {
   const rowRef = useRef<HTMLDivElement>(null);
   const isEven = index % 2 === 0;
@@ -219,8 +166,8 @@ function EventRow({
             <GlassCard event={event} />
           </motion.div>
         ) : (
-          <motion.div style={{ opacity, x: imgX }} className="w-full max-w-[420px]">
-            <EventImage event={event} />
+          <motion.div style={{ opacity, x: imgX }} className="w-full flex justify-center max-w-[420px]">
+            <EventImage event={event} index={index} rowRef={rowRef} smx={smx} smy={smy} />
           </motion.div>
         )}
       </div>
@@ -251,8 +198,8 @@ function EventRow({
       {/* ── RIGHT ── */}
       <div className="flex justify-start pl-8 md:pl-12">
         {isEven ? (
-          <motion.div style={{ opacity, x: imgX }} className="w-full max-w-[420px]">
-            <EventImage event={event} />
+          <motion.div style={{ opacity, x: imgX }} className="w-full flex justify-center max-w-[420px]">
+            <EventImage event={event} index={index} rowRef={rowRef} smx={smx} smy={smy} />
           </motion.div>
         ) : (
           <motion.div style={{ opacity, x: cardX }}>
@@ -317,23 +264,35 @@ function GlassCard({ event }: { event: (typeof events)[0] }) {
   );
 }
 
-/* ─── Event image ─── */
-function EventImage({ event }: { event: (typeof events)[0] }) {
+/* ─── Event floating image ─── */
+function EventImage({ event, index, rowRef, smx, smy }: { event: (typeof events)[0]; index: number; rowRef: React.RefObject<HTMLElement>; smx: any; smy: any }) {
+  // Use a full-viewport scroll hook for continuous floating parallax as it moves across screen
+  const { scrollYProgress: floatProgress } = useScroll({
+    target: rowRef,
+    offset: ["start end", "end start"],
+  });
+
+  // Increased scroll reactivity
+  const y = useTransform(floatProgress, [0, 1], [100, -100]);
+  const rotateRange = index % 2 === 0 ? [-20, 20] : [20, -20];
+  const rotate = useTransform(floatProgress, [0, 1], rotateRange);
+
+  // Mouse reactivity
+  const mx = useTransform(smx, [-1, 1], index % 2 === 0 ? [-40, 40] : [40, -40]);
+  const my = useTransform(smy, [-1, 1], [-40, 40]);
+
   return (
-    <div
-      className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden"
-      style={{
-        border: `1px solid ${event.accentColor}20`,
-        boxShadow: `0 12px 40px rgba(0,0,0,0.5), 0 0 20px ${event.accentColor}10`,
-      }}
+    <motion.div
+      className="relative w-full flex justify-center items-center"
+      style={{ y, rotate }}
     >
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={event.imageUrl} alt={event.title} className="w-full h-full object-cover" />
-      <div
-        className="absolute inset-0"
-        style={{ background: "linear-gradient(135deg, rgba(1,8,20,0.35) 0%, rgba(1,8,20,0.08) 100%)" }}
+      <motion.img 
+        src={event.imageUrl} 
+        alt={event.title} 
+        style={{ x: mx, y: my }}
+        className="w-full h-auto drop-shadow-[0_20px_30px_rgba(0,0,0,0.4)] object-contain max-w-[250px] md:max-w-[320px]" 
       />
-    </div>
+    </motion.div>
   );
 }
 
@@ -342,6 +301,20 @@ function EventImage({ event }: { event: (typeof events)[0] }) {
    ════════════════════════════════════════════ */
 export default function JourneySection() {
   const sectionRef = useRef<HTMLElement>(null);
+
+  // Mouse tracking logic for interactive floating
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const springConfig = { damping: 20, stiffness: 100 };
+  const smx = useSpring(mouseX, springConfig);
+  const smy = useSpring(mouseY, springConfig);
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    const { clientX, clientY } = e;
+    const { innerWidth, innerHeight } = window;
+    mouseX.set((clientX / innerWidth) * 2 - 1);
+    mouseY.set((clientY / innerHeight) * 2 - 1);
+  };
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -363,6 +336,7 @@ export default function JourneySection() {
     <section
       id="timeline"
       ref={sectionRef}
+      onMouseMove={handleMouseMove}
       className="relative w-full bg-[#010814] py-32 overflow-hidden z-10"
     >
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -411,14 +385,14 @@ export default function JourneySection() {
 
           {/* ── Faint background rail — spans full height of this block ── */}
           <div
-            className="absolute top-0 bottom-0 w-px pointer-events-none"
+            className="absolute top-[24px] bottom-0 w-px pointer-events-none"
             style={{ left: lineLeft, background: "rgba(255,255,255,0.06)" }}
           />
 
           {/* ── Scroll-filled colored line ── */}
           <div
-            className="absolute top-0 w-px overflow-hidden pointer-events-none"
-            style={{ left: lineLeft, height: "100%" }}
+            className="absolute top-[24px] w-px overflow-hidden pointer-events-none"
+            style={{ left: lineLeft, height: "calc(100% - 24px)" }}
           >
             <motion.div
               className="w-full origin-top"
@@ -430,22 +404,21 @@ export default function JourneySection() {
             />
           </div>
 
-          {/* ── START GEM ── */}
+          {/* ── START IMAGE ── */}
           <div
-            className="relative z-20 flex justify-center"
-            style={{ gridTemplateColumns: "1fr 48px 1fr" }}
+            className="relative z-20 flex justify-center pb-8 -mt-4"
           >
-            <StartGem />
+            <StartImage scrollYProgress={scrollYProgress} />
           </div>
 
           {/* ── EVENT ROWS ── */}
           {events.map((event, index) => (
-            <EventRow key={event.id} event={event} index={index} />
+            <EventRow key={event.id} event={event} index={index} smx={smx} smy={smy} />
           ))}
 
-          {/* ── END ORB ── pushed down; cover strip blocks line below orb center ── */}
+          {/* ── END IMAGE ── pushed down; cover strip blocks line below image center ── */}
           <div className="relative z-20 flex justify-center" style={{ paddingTop: 24 }}>
-            {/* Downward cover: blocks the rail that bleeds below the orb center */}
+            {/* Downward cover: blocks the rail that bleeds below the center */}
             <div
               className="absolute"
               style={{
@@ -458,7 +431,7 @@ export default function JourneySection() {
                 zIndex: 1,
               }}
             />
-            <EndOrb />
+            <EndImage scrollYProgress={scrollYProgress} />
           </div>
         </div>
       </div>

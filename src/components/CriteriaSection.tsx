@@ -1,39 +1,37 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 
 const criteria = [
   {
     title: "Your Team",
     desc: "Two to five members. All currently enrolled undergraduates from the same university or higher education institute.",
-    normalIcon: "/guide-icons/icon 1.webp",
-    hoverIcon: "/guide-icons/icon 1 hover.webp",
+    imageUrl: "/criteria-images/icon 1.webp",
     color: "#5BB8FF",
   },
   {
     title: "Your Idea",
     desc: "Any real-world problem with a scalable, technology-driven solution. Innovation from any field is welcome: healthcare, agriculture, finance, education, and beyond.",
-    normalIcon: "/guide-icons/icon 2.webp",
-    hoverIcon: "/guide-icons/icon 2 hover.webp",
+    imageUrl: "/criteria-images/icon 2.webp",
     color: "#1A6FD4",
   },
   {
     title: "Your Entry",
     desc: "Completely free. No registration fee, no prerequisites. Sign up, submit your proposal by July 31, and let your idea do the talking.",
-    normalIcon: "/guide-icons/icon 3.webp",
-    hoverIcon: "/guide-icons/icon 3 hover.webp",
+    imageUrl: "/criteria-images/icon 3.webp",
     color: "#5BB8FF",
   },
 ];
 
 const CardDecorator = ({ 
-  normalIconUrl, 
-  hoverIconUrl, 
-  accentColor 
+  imageUrl, 
+  accentColor,
+  rotate
 }: { 
-  normalIconUrl: string; 
-  hoverIconUrl: string; 
+  imageUrl: string; 
   accentColor: string;
+  rotate: any;
 }) => (
   <div aria-hidden className="relative mx-auto size-48 [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)]">
     {/* Grid lines */}
@@ -45,27 +43,29 @@ const CardDecorator = ({
       }}
     />
     
-    {/* Icons (without any background square/box behind them) */}
-    <div className="absolute inset-0 m-auto flex size-36 items-center justify-center transition-transform duration-500 group-hover:scale-110">
-      {/* eslint-disable-next-line @next/next/no-img-element */}
+    {/* Icon with scroll rotation and hover enlarge */}
+    <motion.div 
+      style={{ rotate }}
+      className="absolute inset-0 m-auto flex size-36 items-center justify-center transition-transform duration-500 group-hover:scale-110"
+    >
       <img
-        src={normalIconUrl}
+        src={imageUrl}
         alt="Icon"
-        className="absolute w-32 h-32 object-contain transition-opacity duration-300 opacity-100 group-hover:opacity-0"
+        className="absolute w-32 h-32 object-contain drop-shadow-[0_15px_25px_rgba(0,0,0,0.4)]"
       />
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src={hoverIconUrl}
-        alt="Icon Hover"
-        className="absolute w-32 h-32 object-contain transition-opacity duration-300 opacity-0 group-hover:opacity-100"
-      />
-    </div>
+    </motion.div>
   </div>
 );
 
 export default function CriteriaSection() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"]
+  });
+
   return (
-    <section id="criteria" className="relative w-full bg-[#010814] py-32 overflow-hidden z-10">
+    <section id="criteria" ref={sectionRef} className="relative w-full bg-[#010814] py-32 overflow-hidden z-10">
       
       {/* Background Ambient */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
@@ -115,9 +115,9 @@ export default function CriteriaSection() {
                 <div className="relative p-10 rounded-[23px] bg-[#010814] h-full w-full flex flex-col items-center text-center group-hover:bg-[#020d20] transition-colors duration-300 z-20">
                   {/* Visual Grid Decorator */}
                   <CardDecorator 
-                    normalIconUrl={item.normalIcon}
-                    hoverIconUrl={item.hoverIcon}
+                    imageUrl={item.imageUrl}
                     accentColor={item.color}
+                    rotate={useTransform(scrollYProgress, [0, 1], idx % 2 === 0 ? [-20, 20] : [20, -20])}
                   />
 
                   <h3 className="text-2xl font-bold text-white mt-6 mb-4">{item.title}</h3>
