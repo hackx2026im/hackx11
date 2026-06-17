@@ -114,74 +114,54 @@ function StartGem() {
 }
 
 /* ════════════════════════════════════════════
-   END ICON — trophy cup (2D flat, gold)
+   END ICON — pulsing circle orb (gold)
    Sits flush at the very bottom of the line
    ════════════════════════════════════════════ */
-function EndTrophy() {
+function EndOrb() {
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.6 }}
+      initial={{ opacity: 0, scale: 0.5 }}
       whileInView={{ opacity: 1, scale: 1 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       className="relative flex items-center justify-center z-20"
-      style={{ width: 52, height: 52 }}
+      style={{ width: 56, height: 56 }}
     >
-      {/* Pulsing glow */}
+      {/* Outer pulse ring 1 */}
       <motion.div
-        className="absolute inset-0 rounded-full blur-lg pointer-events-none"
-        style={{ background: "radial-gradient(circle, rgba(245,165,36,0.45) 0%, transparent 70%)" }}
-        animate={{ opacity: [0.6, 1, 0.6] }}
+        className="absolute rounded-full"
+        style={{ width: 56, height: 56, border: "1px solid rgba(245,165,36,0.35)" }}
+        animate={{ scale: [1, 1.5, 1], opacity: [0.7, 0, 0.7] }}
+        transition={{ duration: 2.2, repeat: Infinity, ease: "easeOut" }}
+      />
+      {/* Outer pulse ring 2 — offset */}
+      <motion.div
+        className="absolute rounded-full"
+        style={{ width: 56, height: 56, border: "1px solid rgba(245,165,36,0.2)" }}
+        animate={{ scale: [1, 1.8, 1], opacity: [0.5, 0, 0.5] }}
+        transition={{ duration: 2.2, repeat: Infinity, ease: "easeOut", delay: 0.6 }}
+      />
+
+      {/* Mid ring */}
+      <motion.div
+        className="absolute rounded-full"
+        style={{ width: 36, height: 36, border: "1.5px solid rgba(245,165,36,0.5)" }}
+        animate={{ opacity: [0.5, 1, 0.5] }}
         transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
       />
-      <svg viewBox="0 0 52 52" width={52} height={52} style={{ overflow: "visible" }}>
-        <defs>
-          <linearGradient id="trophy-body" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#FFE082" />
-            <stop offset="50%" stopColor="#F5A524" />
-            <stop offset="100%" stopColor="#c17200" />
-          </linearGradient>
-          <linearGradient id="trophy-base" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#F5A524" />
-            <stop offset="100%" stopColor="#7a4400" />
-          </linearGradient>
-        </defs>
 
-        {/* Cup body */}
-        <path
-          d="M16,8 L36,8 L33,26 Q26,32 26,32 Q26,32 19,26 Z"
-          fill="url(#trophy-body)"
-        />
-        {/* Left handle arc */}
-        <path
-          d="M16,10 Q6,10 6,18 Q6,26 16,24"
-          fill="none" stroke="url(#trophy-body)" strokeWidth="4" strokeLinecap="round"
-        />
-        {/* Right handle arc */}
-        <path
-          d="M36,10 Q46,10 46,18 Q46,26 36,24"
-          fill="none" stroke="url(#trophy-body)" strokeWidth="4" strokeLinecap="round"
-        />
-        {/* Stem */}
-        <rect x="23" y="32" width="6" height="7" fill="#c17200" rx="1" />
-        {/* Base plate */}
-        <rect x="15" y="38" width="22" height="5" rx="2" fill="url(#trophy-base)" />
-        {/* Base highlight line */}
-        <line x1="16" y1="39.5" x2="36" y2="39.5"
-          stroke="rgba(255,230,100,0.4)" strokeWidth="1" />
-
-        {/* Cup highlight */}
-        <path
-          d="M19,10 Q20,9 24,9"
-          fill="none" stroke="rgba(255,255,255,0.5)" strokeWidth="1.2" strokeLinecap="round"
-        />
-
-        {/* Star on cup */}
-        <polygon
-          points="26,14 27.2,17.4 30.8,17.4 28,19.4 29.2,22.8 26,20.8 22.8,22.8 24,19.4 21.2,17.4 24.8,17.4"
-          fill="rgba(255,255,255,0.5)"
-        />
-      </svg>
+      {/* Core dot */}
+      <motion.div
+        className="relative rounded-full"
+        style={{
+          width: 18,
+          height: 18,
+          background: "radial-gradient(circle at 38% 36%, #FFE082 0%, #F5A524 55%, #c17200 100%)",
+          boxShadow: "0 0 12px rgba(245,165,36,0.8), 0 0 28px rgba(245,165,36,0.4)",
+        }}
+        animate={{ scale: [1, 1.1, 1] }}
+        transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
+      />
     </motion.div>
   );
 }
