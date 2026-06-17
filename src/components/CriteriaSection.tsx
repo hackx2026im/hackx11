@@ -1,31 +1,41 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Users, Lightbulb, CheckCircle2 } from "lucide-react";
 
 const criteria = [
   {
     title: "Your Team",
     desc: "Two to five members. All currently enrolled undergraduates from the same university or higher education institute.",
-    icon: Users,
+    normalIcon: "/guide-icons/icon 1.webp",
+    hoverIcon: "/guide-icons/icon 1 hover.webp",
     color: "#5BB8FF",
   },
   {
     title: "Your Idea",
     desc: "Any real-world problem with a scalable, technology-driven solution. Innovation from any field is welcome: healthcare, agriculture, finance, education, and beyond.",
-    icon: Lightbulb,
+    normalIcon: "/guide-icons/icon 2.webp",
+    hoverIcon: "/guide-icons/icon 2 hover.webp",
     color: "#1A6FD4",
   },
   {
     title: "Your Entry",
     desc: "Completely free. No registration fee, no prerequisites. Sign up, submit your proposal by July 31, and let your idea do the talking.",
-    icon: CheckCircle2,
-    color: "#F5A524",
+    normalIcon: "/guide-icons/icon 3.webp",
+    hoverIcon: "/guide-icons/icon 3 hover.webp",
+    color: "#5BB8FF",
   },
 ];
 
-const CardDecorator = ({ children, accentColor }: { children: React.ReactNode; accentColor: string }) => (
-  <div aria-hidden className="relative mx-auto size-36 [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)]">
+const CardDecorator = ({ 
+  normalIconUrl, 
+  hoverIconUrl, 
+  accentColor 
+}: { 
+  normalIconUrl: string; 
+  hoverIconUrl: string; 
+  accentColor: string;
+}) => (
+  <div aria-hidden className="relative mx-auto size-48 [mask-image:radial-gradient(ellipse_50%_50%_at_50%_50%,#000_70%,transparent_100%)]">
     {/* Grid lines */}
     <div 
       className="absolute inset-0 opacity-20 transition-opacity duration-300 group-hover:opacity-35"
@@ -34,21 +44,21 @@ const CardDecorator = ({ children, accentColor }: { children: React.ReactNode; a
         backgroundSize: "24px 24px",
       }}
     />
-    {/* Floating icon container with border and hover glow */}
-    <div 
-      className="absolute inset-0 m-auto flex size-14 items-center justify-center border-t border-l border-white/10 bg-[#010814] rounded-xl transition-all duration-500 group-hover:scale-110 group-hover:border-t-white/30 group-hover:border-l-white/30 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]"
-      style={{
-        boxShadow: `inset 0 1px 0 rgba(255,255,255,0.05), 0 0 0px transparent`,
-      }}
-    >
-      {/* Dynamic hover aura */}
-      <div 
-        className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-md pointer-events-none"
-        style={{
-          background: `radial-gradient(circle, ${accentColor}40 0%, transparent 80%)`,
-        }}
+    
+    {/* Icons (without any background square/box behind them) */}
+    <div className="absolute inset-0 m-auto flex size-36 items-center justify-center transition-transform duration-500 group-hover:scale-110">
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={normalIconUrl}
+        alt="Icon"
+        className="absolute w-32 h-32 object-contain transition-opacity duration-300 opacity-100 group-hover:opacity-0"
       />
-      <div className="relative z-10">{children}</div>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={hoverIconUrl}
+        alt="Icon Hover"
+        className="absolute w-32 h-32 object-contain transition-opacity duration-300 opacity-0 group-hover:opacity-100"
+      />
     </div>
   </div>
 );
@@ -73,14 +83,13 @@ export default function CriteriaSection() {
           <span className="text-xs font-bold tracking-[0.2em] uppercase text-[#5BB8FF] mb-4 block">
             Who Can Compete
           </span>
-          <h2 className="text-4xl md:text-5xl font-black text-white mb-6 tracking-tight">
+          <h2 className="text-4xl md:text-5xl font-extrabold text-white mb-6 tracking-tight">
             Built for Builders. <br className="hidden md:block"/> Open to All Universities.
           </h2>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {criteria.map((item, idx) => {
-            const IconComponent = item.icon;
             return (
               <motion.div 
                 key={idx}
@@ -97,7 +106,7 @@ export default function CriteriaSection() {
                   <div 
                     className="absolute w-[200%] h-[200%] aspect-square left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 animate-[spin_4.5s_linear_infinite] pointer-events-none"
                     style={{
-                      background: `conic-gradient(from 0deg, transparent 0 280deg, ${item.color} 360deg)`,
+                      background: `conic-gradient(from 0deg, transparent 0 260deg, #0A3878 290deg, #1A6FD4 320deg, #5BB8FF 345deg, #ffffff 355deg, transparent 360deg)`,
                     }}
                   />
                 </div>
@@ -105,11 +114,11 @@ export default function CriteriaSection() {
                 {/* Inner Card Body */}
                 <div className="relative p-10 rounded-[23px] bg-[#010814] h-full w-full flex flex-col items-center text-center group-hover:bg-[#020d20] transition-colors duration-300 z-20">
                   {/* Visual Grid Decorator */}
-                  <CardDecorator accentColor={item.color}>
-                    <IconComponent 
-                      className="size-6 text-white/70 group-hover:text-white transition-all duration-300"
-                    />
-                  </CardDecorator>
+                  <CardDecorator 
+                    normalIconUrl={item.normalIcon}
+                    hoverIconUrl={item.hoverIcon}
+                    accentColor={item.color}
+                  />
 
                   <h3 className="text-2xl font-bold text-white mt-6 mb-4">{item.title}</h3>
                   <p className="text-white/60 font-light leading-relaxed text-sm">{item.desc}</p>

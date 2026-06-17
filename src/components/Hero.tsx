@@ -86,7 +86,7 @@ export default function Hero() {
         position: "absolute", inset: 0, zIndex: 5,
         display: "flex", flexDirection: "column",
         alignItems: "center", justifyContent: "flex-start",
-        paddingTop: "clamp(110px, 22vh, 200px)",
+        paddingTop: "clamp(90px, 18vh, 200px)",
         y: titleY, opacity: titleOp,
       }}>
         <h1 style={{
@@ -104,7 +104,7 @@ export default function Hero() {
             transition={{ duration: 0.9, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
             style={{
               display: "block",
-              fontSize: "clamp(2.2rem, 4.8vw, 4.5rem)",
+              fontSize: "clamp(1.6rem, 6vw, 4.5rem)",
               color: "#ffffff",
               // NO text shadow per user request
             }}
@@ -119,7 +119,7 @@ export default function Hero() {
             transition={{ duration: 0.9, delay: 0.38, ease: [0.22, 1, 0.36, 1] }}
             style={{
               display: "block",
-              fontSize: "clamp(2.2rem, 4.8vw, 4.5rem)",
+              fontSize: "clamp(1.6rem, 6vw, 4.5rem)",
               background: "linear-gradient(100deg, #5BB8FF 0%, #d6f0ff 50%, #5BB8FF 100%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
@@ -136,7 +136,7 @@ export default function Hero() {
             transition={{ duration: 0.9, delay: 0.56, ease: [0.22, 1, 0.36, 1] }}
             style={{
               display: "block",
-              fontSize: "clamp(2.2rem, 4.8vw, 4.5rem)",
+              fontSize: "clamp(1.6rem, 6vw, 4.5rem)",
               color: "rgba(255,255,255,0.88)",
             }}
           >

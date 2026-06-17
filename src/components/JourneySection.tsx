@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
+import BorderGlow from "@/components/ui/BorderGlow";
 
 /* ─── Event Data ─── */
 const events = [
@@ -12,6 +13,8 @@ const events = [
     description:
       "Doors open to universities across Sri Lanka. Free to enter. Just bring an idea worth fighting for.",
     accentColor: "#5BB8FF",
+    glowColor: "205 100 68",
+    colors: ["#5BB8FF", "#1A6FD4", "#0A3878"],
     imageUrl:
       "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&auto=format&fit=crop&q=80",
   },
@@ -22,6 +25,8 @@ const events = [
     description:
       "Teams submit structured proposals and a one to two minute product introduction video, screened by industry professionals.",
     accentColor: "#1A6FD4",
+    glowColor: "212 78 47",
+    colors: ["#1A6FD4", "#5BB8FF", "#0A3878"],
     imageUrl:
       "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&auto=format&fit=crop&q=80",
   },
@@ -31,7 +36,9 @@ const events = [
     title: "designX Workshops",
     description:
       "Four expert-led sessions covering business modelling, startup structuring, and market validation. Exclusive to semi-finalists.",
-    accentColor: "#F5A524",
+    accentColor: "#0A3878",
+    glowColor: "215 85 26",
+    colors: ["#0A3878", "#1A6FD4", "#5BB8FF"],
     imageUrl:
       "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&auto=format&fit=crop&q=80",
   },
@@ -42,6 +49,8 @@ const events = [
     description:
       "Thirty teams. One stage. Present a working prototype to a panel of expert judges and earn your spot at the Grand Finals.",
     accentColor: "#5BB8FF",
+    glowColor: "205 100 68",
+    colors: ["#5BB8FF", "#1A6FD4", "#0A3878"],
     imageUrl:
       "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=800&auto=format&fit=crop&q=80",
   },
@@ -51,7 +60,9 @@ const events = [
     title: "Grand Finals",
     description:
       "The main event. Finalist teams present fully developed solutions before industry leaders, investors, and government officials.",
-    accentColor: "#F5A524",
+    accentColor: "#1A6FD4",
+    glowColor: "212 78 47",
+    colors: ["#1A6FD4", "#5BB8FF", "#0A3878"],
     imageUrl:
       "https://images.unsplash.com/photo-1531058020387-3be344556be6?w=800&auto=format&fit=crop&q=80",
   },
@@ -256,50 +267,53 @@ function EventRow({
 /* ─── Liquid glass card ─── */
 function GlassCard({ event }: { event: (typeof events)[0] }) {
   return (
-    <div
-      className="relative w-full max-w-[420px] rounded-2xl p-7 overflow-hidden"
-      style={{
-        background: "rgba(4, 20, 50, 0.45)",
-        backdropFilter: "blur(24px) saturate(1.8)",
-        WebkitBackdropFilter: "blur(24px) saturate(1.8)",
-        border: `1px solid ${event.accentColor}28`,
-        boxShadow: `0 8px 40px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.08), 0 0 24px ${event.accentColor}08`,
-      }}
+    <BorderGlow
+      edgeSensitivity={30}
+      glowColor={event.glowColor}
+      backgroundColor="rgba(4, 20, 50, 0.45)"
+      borderRadius={16}
+      glowRadius={30}
+      glowIntensity={0.8}
+      coneSpread={25}
+      animated={false}
+      colors={event.colors}
+      fillOpacity={0}
+      className="w-full max-w-[420px]"
     >
-      {/* Top refraction line */}
-      <div
-        className="absolute inset-x-0 top-0 h-px"
-        style={{
-          background: `linear-gradient(90deg, transparent, ${event.accentColor}55, transparent)`,
-        }}
-      />
-      {/* Corner glow */}
-      <div
-        className="absolute top-0 right-0 w-32 h-32 pointer-events-none"
-        style={{
-          background: `radial-gradient(circle at top right, ${event.accentColor}12 0%, transparent 70%)`,
-        }}
-      />
+      <div className="relative p-7 overflow-hidden w-full h-full">
+        {/* Top refraction line */}
+        <div
+          className="absolute inset-x-0 top-0 h-px"
+          style={{
+            background: `linear-gradient(90deg, transparent, ${event.accentColor}55, transparent)`,
+          }}
+        />
+        {/* Corner glow */}
+        <div
+          className="absolute top-0 right-0 w-32 h-32 pointer-events-none"
+          style={{
+            background: `radial-gradient(circle at top right, ${event.accentColor}12 0%, transparent 70%)`,
+          }}
+        />
 
-      <div
-        className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest mb-5"
-        style={{
-          background: `${event.accentColor}15`,
-          border: `1px solid ${event.accentColor}35`,
-          color: event.accentColor,
-        }}
-      >
-        <span className="w-1.5 h-1.5 rounded-full" style={{ background: event.accentColor }} />
-        {event.date}
+        {/* Date — tight above the title */}
+        <div className="mb-2 relative z-10">
+          <span
+            className="block text-[10px] font-semibold tracking-[0.2em] uppercase select-none"
+            style={{ color: event.accentColor, opacity: 0.8 }}
+          >
+            {event.date}
+          </span>
+        </div>
+
+        <h3 className="text-white font-extrabold text-xl md:text-2xl tracking-tight leading-tight mb-3 relative z-10">
+          {event.title}
+        </h3>
+        <p className="text-white/55 text-sm leading-relaxed font-light relative z-10">
+          {event.description}
+        </p>
       </div>
-
-      <h3 className="text-white font-black text-xl md:text-2xl tracking-tight leading-tight mb-3">
-        {event.title}
-      </h3>
-      <p className="text-white/55 text-sm leading-relaxed font-light">
-        {event.description}
-      </p>
-    </div>
+    </BorderGlow>
   );
 }
 
@@ -410,7 +424,7 @@ export default function JourneySection() {
               className="w-full origin-top"
               style={{
                 height: lineHeight,
-                background: "linear-gradient(to bottom, #5BB8FF 0%, #1A6FD4 50%, #F5A524 100%)",
+                background: "linear-gradient(to bottom, #5BB8FF 0%, #1A6FD4 100%)",
                 boxShadow: "0 0 6px rgba(91,184,255,0.5)",
               }}
             />

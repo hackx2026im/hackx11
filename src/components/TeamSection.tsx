@@ -1,7 +1,8 @@
 "use client";
 
-import { motion, useMotionValue, useTransform, useMotionTemplate } from "framer-motion";
-import React, { useState, useCallback, useRef, useEffect } from "react";
+import React, { useState, useCallback, useEffect } from "react";
+import { motion } from "framer-motion";
+import BorderGlow from "@/components/ui/BorderGlow";
 
 /* ─── OC Data ─── */
 const coordinators = [
@@ -10,117 +11,108 @@ const coordinators = [
     role: "President — hackX 11.0",
     email: "president@hackx.lk",
     phone: "+94 77 000 0001",
-    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80",
+    avatar: "/OC Images/Draft OC.webp",
   },
   {
     name: "Dilmi Rathnayake",
     role: "Secretary General",
     email: "secretary@hackx.lk",
     phone: "+94 77 000 0002",
-    avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&q=80",
+    avatar: "/OC Images/Draft OC.webp",
   },
   {
     name: "Kavinda Silva",
     role: "Head of Technology",
     email: "tech@hackx.lk",
     phone: "+94 77 000 0003",
-    avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=800&q=80",
+    avatar: "/OC Images/Draft OC.webp",
   },
   {
     name: "Nethmi Fernando",
     role: "Head of Marketing",
     email: "marketing@hackx.lk",
     phone: "+94 77 000 0004",
-    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=800&q=80",
+    avatar: "/OC Images/Draft OC.webp",
   },
   {
     name: "Isuru Wickrama",
     role: "Head of Finance",
     email: "finance@hackx.lk",
     phone: "+94 77 000 0005",
-    avatar: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=800&q=80",
+    avatar: "/OC Images/Draft OC.webp",
   },
 ];
 
 function CoordCard({ coord }: { coord: typeof coordinators[0] }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const mouseX = useMotionValue(0.5);
-  const mouseY = useMotionValue(0.5);
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!ref.current) return;
-    const rect = ref.current.getBoundingClientRect();
-    mouseX.set((e.clientX - rect.left) / rect.width);
-    mouseY.set((e.clientY - rect.top) / rect.height);
-  };
-
-  const handleMouseLeave = () => {
-    mouseX.set(0.5);
-    mouseY.set(0.5);
-  };
-
-  const rotateX = useTransform(mouseY, [0, 1], [8, -8]);
-  const rotateY = useTransform(mouseX, [0, 1], [-8, 8]);
-  const background = useMotionTemplate`radial-gradient(circle at ${useTransform(mouseX, v => v*100)}% ${useTransform(mouseY, v => v*100)}%, rgba(255,255,255,0.15) 0%, transparent 60%)`;
-
   return (
-    <motion.div 
-      ref={ref}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
-      className="relative w-full h-full rounded-3xl overflow-hidden group shadow-2xl bg-[#041A3A]/20"
+    <BorderGlow
+      edgeSensitivity={30}
+      glowColor="205 100 68" // Brand Sky Blue HSL
+      backgroundColor="rgba(3, 17, 38, 0.4)"
+      borderRadius={24}
+      glowRadius={32}
+      glowIntensity={1.1}
+      coneSpread={25}
+      animated={false}
+      colors={['#1A6FD4', '#5BB8FF', '#0A3878']}
+      fillOpacity={0}
+      className="w-full h-full group"
     >
-      {/* Background Image */}
-      <img
-        src={coord.avatar}
-        alt={coord.name}
-        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-      />
-      
-      {/* Dark gradient for text readability */}
-      <div className="absolute inset-0 bg-gradient-to-t from-[#010814] via-[#010814]/40 to-transparent opacity-90 transition-opacity duration-300 group-hover:opacity-70" />
+      <div className="relative w-full h-full flex flex-col justify-end p-5 md:p-6 rounded-[24px] overflow-hidden">
+        {/* Background Image Container */}
+        <div className="absolute inset-0 z-0 overflow-hidden">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={coord.avatar}
+            alt={coord.name}
+            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+          />
+        </div>
 
-      {/* Glare effect */}
-      <motion.div 
-        style={{ background }} 
-        className="absolute inset-0 pointer-events-none z-50 opacity-0 group-hover:opacity-100 transition-opacity duration-500" 
-      />
+        {/* Blurred fade overlay from the bottom up behind the text details */}
+        <div 
+          className="absolute inset-x-0 bottom-0 h-[60%] z-10 bg-gradient-to-t from-[#010814] via-[#010814]/75 to-transparent backdrop-blur-xl pointer-events-none"
+          style={{
+            maskImage: "linear-gradient(to top, black 35%, transparent 100%)",
+            WebkitMaskImage: "linear-gradient(to top, black 35%, transparent 100%)",
+          }}
+        />
 
-      {/* Info overlay */}
-      <div className="absolute bottom-0 left-0 right-0 p-5 md:p-6 flex flex-col justify-end" style={{ transform: "translateZ(30px)" }}>
-        <p className="text-white font-bold text-xl md:text-2xl tracking-tight leading-tight mb-1">
-          {coord.name}
-        </p>
-        <p className="text-[#5BB8FF] text-xs md:text-sm font-medium tracking-wide">
-          {coord.role}
-        </p>
+        {/* Info overlay (sitting clean on top of the blurred fade background) */}
+        <div className="relative z-20 flex flex-col w-full">
+          <p className="text-white font-extrabold text-lg md:text-xl tracking-tight leading-tight mb-1">
+            {coord.name}
+          </p>
+          <p className="text-[#5BB8FF] text-xs md:text-sm font-semibold tracking-wide mb-4">
+            {coord.role}
+          </p>
 
-        {/* Links (reveal on hover for desktop, always show on mobile) */}
-        <div className="mt-3 flex flex-col gap-2 opacity-100 md:opacity-0 md:translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
-          <a
-            href={`mailto:${coord.email}`}
-            className="flex items-center gap-1.5 text-white/70 hover:text-white transition-colors text-[11px]"
-            onClick={e => e.stopPropagation()}
-          >
-            <svg className="w-3 h-3 shrink-0" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-            </svg>
-            <span className="truncate">{coord.email}</span>
-          </a>
-          <a
-            href={`tel:${coord.phone.replace(/\s/g, "")}`}
-            className="flex items-center gap-1.5 text-white/70 hover:text-white transition-colors text-[11px]"
-            onClick={e => e.stopPropagation()}
-          >
-            <svg className="w-3 h-3 shrink-0" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
-            </svg>
-            <span>{coord.phone}</span>
-          </a>
+          {/* Always show contact details as glass buttons */}
+          <div className="flex gap-2 w-full">
+            <a
+              href={`mailto:${coord.email}`}
+              className="flex-1 py-2 px-2.5 rounded-xl bg-white/[0.04] border border-white/10 backdrop-blur-md hover:bg-[#1A6FD4]/20 hover:border-[#5BB8FF]/30 transition-all duration-300 text-center flex items-center justify-center gap-1.5 text-xs text-white/80 hover:text-white"
+              onClick={e => e.stopPropagation()}
+            >
+              <svg className="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+              </svg>
+              <span className="truncate">Email</span>
+            </a>
+            <a
+              href={`tel:${coord.phone.replace(/\s/g, "")}`}
+              className="flex-1 py-2 px-2.5 rounded-xl bg-white/[0.04] border border-white/10 backdrop-blur-md hover:bg-[#1A6FD4]/20 hover:border-[#5BB8FF]/30 transition-all duration-300 text-center flex items-center justify-center gap-1.5 text-xs text-white/80 hover:text-white"
+              onClick={e => e.stopPropagation()}
+            >
+              <svg className="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+              </svg>
+              <span>Call</span>
+            </a>
+          </div>
         </div>
       </div>
-    </motion.div>
+    </BorderGlow>
   );
 }
 
@@ -171,7 +163,7 @@ export default function TeamSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.65, delay: 0.07 }}
-              className="text-4xl md:text-5xl font-black text-white tracking-tight"
+              className="text-4xl md:text-5xl font-extrabold text-white tracking-tight"
             >
               Meet the OC.
             </motion.h2>
@@ -207,7 +199,7 @@ export default function TeamSection() {
           </div>
         </div>
 
-        {/* ─── Arc Carousel ─── */}
+        {/* ─── Straight Line Carousel ─── */}
         <div 
           className="relative w-full h-[450px] md:h-[550px] mt-16 flex justify-center items-center overflow-hidden [perspective:1200px]"
           style={{
@@ -221,20 +213,27 @@ export default function TeamSection() {
             const coord = coordinators[wrappedIndex];
             const absOffset = Math.abs(offset);
             
-            // The magic math for the arc layout
-            const rotateZ = offset * 4; // Tilt cards on the sides
-            const translateY = absOffset * absOffset * 15; // Drop down on the sides
+            // Align in a straight horizontal line (no rotateZ, no translateY curve)
+            const rotateZ = 0;
+            const translateY = 0;
             
             // Dynamic translation for responsive horizontal spread
             const translateX = `calc(${offset} * clamp(200px, 20vw, 320px))`; 
             
-            const scale = 1 - absOffset * 0.05; // Slightly shrink outer cards
+            const scale = 1 - absOffset * 0.05; // Slightly shrink outer cards for focus/depth
             const zIndex = 20 - absOffset; // Center item on top
             
             return (
               <motion.div
                 key={absoluteIndex}
                 className="absolute w-[220px] h-[320px] md:w-[280px] md:h-[420px] cursor-pointer touch-none"
+                initial={{
+                  x: translateX,
+                  y: translateY,
+                  rotateZ: rotateZ,
+                  scale: scale,
+                  opacity: 0,
+                }}
                 animate={{
                   x: translateX,
                   y: translateY,

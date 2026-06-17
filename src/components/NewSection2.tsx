@@ -1,7 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { ReactNode } from "react";
+import { motion, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
+import { ReactNode, useState, useRef } from "react";
 import { PixelCanvas } from "@/components/ui/pixel-canvas";
 
 const fade = (delay = 0) => ({
@@ -30,13 +30,56 @@ const StatCard = ({
       colors={["#1A6FD4", "#5BB8FF", "#0A3878"]}
     />
     <div className="absolute inset-0 bg-gradient-to-br from-white/0 to-white/0 group-hover:from-white/[0.03] group-hover:to-transparent transition-colors duration-500 pointer-events-none" />
-    <div className="relative z-10 w-full h-full">{children}</div>
+    <div className="relative z-10 w-full h-full flex flex-col justify-center items-center p-8 text-center">{children}</div>
   </motion.div>
 );
 
 export default function NewSection2() {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+  
+  // Mouse tracking hooks
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const springConfig = { damping: 20, stiffness: 100 };
+  const smx = useSpring(mouseX, springConfig);
+  const smy = useSpring(mouseY, springConfig);
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    const { clientX, clientY } = e;
+    const { innerWidth, innerHeight } = window;
+    mouseX.set((clientX / innerWidth) * 2 - 1);
+    mouseY.set((clientY / innerHeight) * 2 - 1);
+  };
+
+  // Scroll tracking hooks
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "end start"]
+  });
+
+  // Scroll Parallax Transforms
+  const y1 = useTransform(scrollYProgress, [0, 1], [150, -150]);
+  const y2 = useTransform(scrollYProgress, [0, 1], [100, -100]);
+  const y3 = useTransform(scrollYProgress, [0, 1], [250, -250]);
+  const rotate1 = useTransform(scrollYProgress, [0, 1], [-15, 15]);
+  const rotate2 = useTransform(scrollYProgress, [0, 1], [10, -20]);
+  const rotate3 = useTransform(scrollYProgress, [0, 1], [-10, 30]);
+
+  // Mouse Parallax Transforms
+  const mx1 = useTransform(smx, [-1, 1], [-25, 25]);
+  const my1 = useTransform(smy, [-1, 1], [-25, 25]);
+  const mx2 = useTransform(smx, [-1, 1], [30, -30]);
+  const my2 = useTransform(smy, [-1, 1], [30, -30]);
+  const mx3 = useTransform(smx, [-1, 1], [-40, 40]);
+  const my3 = useTransform(smy, [-1, 1], [-40, 40]);
+
   return (
-    <section className="relative w-full bg-[#010814] pt-48 pb-0 overflow-hidden z-10">
+    <section 
+      ref={sectionRef}
+      onMouseMove={handleMouseMove}
+      className="relative w-full bg-[#010814] pt-48 pb-0 overflow-hidden z-10"
+    >
       {/* Ambient blobs */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <motion.div
@@ -49,6 +92,50 @@ export default function NewSection2() {
           transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
           className="absolute bottom-[10%] right-[5%] w-[800px] h-[800px] bg-[#5BB8FF] opacity-[0.03] blur-[180px] rounded-full"
         />
+      </div>
+
+      {/* Floating 3D Artifact Images */}
+      <div className="absolute inset-0 max-w-7xl mx-auto pointer-events-none z-20">
+        
+        {/* Top Left (Cylinder) */}
+        <motion.div 
+          style={{ y: y1, rotate: rotate1 }} 
+          className="absolute top-[2%] left-[42%] w-[250px] xl:w-[350px] opacity-90 hidden md:block"
+        >
+          <motion.img 
+            src="/section 2/Top left.webp" 
+            alt="Artifact" 
+            style={{ x: mx1, y: my1 }}
+            className="w-full h-auto drop-shadow-[0_20px_30px_rgba(0,0,0,0.5)]"
+          />
+        </motion.div>
+
+        {/* Top Right (Pillar) */}
+        <motion.div 
+          style={{ y: y2, rotate: rotate2 }} 
+          className="absolute top-[5%] -right-[2%] xl:-right-[5%] w-[220px] xl:w-[320px] opacity-90 hidden md:block"
+        >
+          <motion.img 
+            src="/section 2/Top Right.webp" 
+            alt="Artifact" 
+            style={{ x: mx2, y: my2 }}
+            className="w-full h-auto drop-shadow-[0_20px_30px_rgba(0,0,0,0.5)]"
+          />
+        </motion.div>
+
+        {/* Bottom Center (Brick) */}
+        <motion.div 
+          style={{ y: y3, rotate: rotate3 }} 
+          className="absolute top-[35%] left-[60%] w-[280px] xl:w-[400px] opacity-90 hidden md:block"
+        >
+          <motion.img 
+            src="/section 2/Bottom Center.webp" 
+            alt="Artifact" 
+            style={{ x: mx3, y: my3 }}
+            className="w-full h-auto drop-shadow-[0_20px_30px_rgba(0,0,0,0.5)]"
+          />
+        </motion.div>
+
       </div>
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
@@ -74,7 +161,7 @@ export default function NewSection2() {
               More Than a<br className="hidden md:block" /> Hackathon.
             </motion.h2>
 
-            <motion.div {...fade(0.15)} className="space-y-6 text-[1.05rem] md:text-[1.15rem] text-white/55 font-light leading-relaxed">
+            <motion.div {...fade(0.15)} className="space-y-6 text-[1.05rem] md:text-[1.15rem] text-white/55 font-light leading-relaxed relative z-30">
               <p>
                 hackX is Sri Lanka&apos;s premier inter-university startup challenge, organised by the Industrial
                 Management Science Students&apos; Association at the Department of Industrial Management,
@@ -87,7 +174,7 @@ export default function NewSection2() {
               </p>
             </motion.div>
 
-            <motion.div {...fade(0.25)}>
+            <motion.div {...fade(0.25)} className="relative z-30">
               <button className="btn-primary">
                 Delegate Booklet
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -98,25 +185,25 @@ export default function NewSection2() {
           </div>
 
           {/* RIGHT — Bento Stats Grid */}
-          <div className="md:col-span-6 grid grid-cols-2 gap-5">
+          <div className="md:col-span-6 grid grid-cols-2 gap-5 relative z-30">
             {/* Stat: 11 Editions */}
-            <StatCard className="col-span-1 min-h-[200px] p-8 flex flex-col justify-center items-center text-center" delay={0.1}>
-              <div className="text-5xl md:text-6xl font-black text-white mb-2 tracking-tighter">11</div>
+            <StatCard className="col-span-1 min-h-[200px]" delay={0.1}>
+              <div className="text-3xl md:text-4xl font-extrabold text-white mb-2 tracking-tight">11</div>
               <p className="text-white/75 font-medium tracking-wide text-sm">Editions</p>
               <p className="text-[10px] text-white/35 mt-1 uppercase tracking-widest">10+ Years Impact</p>
             </StatCard>
 
             {/* Stat: 24 Universities */}
-            <StatCard className="col-span-1 min-h-[200px] p-8 flex flex-col justify-center items-center text-center" delay={0.18}>
-              <div className="text-5xl md:text-6xl font-black text-white mb-2 tracking-tighter">24</div>
+            <StatCard className="col-span-1 min-h-[200px]" delay={0.18}>
+              <div className="text-3xl md:text-4xl font-extrabold text-white mb-2 tracking-tight">24</div>
               <p className="text-white/75 font-medium tracking-wide text-sm">Universities</p>
               <p className="text-[10px] text-white/35 mt-1 uppercase tracking-widest">In 2025</p>
             </StatCard>
 
             {/* Stat: 265+ Teams — spans full width */}
-            <StatCard className="col-span-2 min-h-[220px] p-10 flex flex-col justify-center items-center text-center" delay={0.26}>
+            <StatCard className="col-span-2 min-h-[220px]" delay={0.26}>
               <div
-                className="text-6xl md:text-7xl font-black mb-3 tracking-tighter"
+                className="text-4xl md:text-5xl font-extrabold mb-2 tracking-tight"
                 style={{
                   background: "linear-gradient(135deg, #5BB8FF 0%, #ffffff 60%)",
                   WebkitBackgroundClip: "text",
@@ -130,15 +217,13 @@ export default function NewSection2() {
               <p className="text-white/75 font-medium text-lg tracking-wide">Teams Participating</p>
               <p className="text-xs text-white/35 mt-1 uppercase tracking-widest">Across The Country</p>
             </StatCard>
-
-
           </div>
         </div>
 
         {/* ── Video Player ── */}
         <motion.div
           {...fade(0.2)}
-          className="w-full mt-28 md:mt-40"
+          className="w-full mt-28 md:mt-40 relative z-30"
         >
           {/* Label */}
           <motion.p {...fade(0.1)} className="text-xs font-bold tracking-[0.2em] uppercase text-white/40 mb-6 text-center">
@@ -159,18 +244,50 @@ export default function NewSection2() {
             <div className="absolute inset-0 rounded-[2rem] bg-[#5BB8FF] opacity-[0.06] blur-2xl pointer-events-none group-hover:opacity-[0.12] transition-opacity duration-700" />
 
             {/* Frame */}
-            <div className="relative rounded-[2rem] bg-[#010814]/90 backdrop-blur-3xl p-3 md:p-5 border border-white/5">
+            <div className="relative rounded-[2rem] bg-[#010814]/90 p-3 md:p-5 border border-white/5">
               <div className="aspect-video w-full rounded-[1.25rem] overflow-hidden bg-black relative border border-white/10 shadow-[inset_0_2px_10px_rgba(0,0,0,0.5)]">
-                <iframe
-                  width="100%"
-                  height="100%"
-                  src="https://www.youtube.com/embed/JSFG-IE8n_c?modestbranding=1&rel=0&color=white"
-                  title="hackX Previous Year Video"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                  className="absolute inset-0 w-full h-full"
-                  style={{ border: 0 }}
-                />
+                {isPlaying ? (
+                  <iframe
+                    width="100%"
+                    height="100%"
+                    src="https://www.youtube.com/embed/JSFG-IE8n_c?autoplay=1&modestbranding=1&rel=0&color=white"
+                    title="hackX Previous Year Video"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    className="absolute inset-0 w-full h-full"
+                    style={{ border: 0 }}
+                  />
+                ) : (
+                  <button
+                    onClick={() => setIsPlaying(true)}
+                    className="absolute inset-0 w-full h-full group/btn flex items-center justify-center overflow-hidden"
+                    aria-label="Play video"
+                  >
+                    {/* Thumbnail Image */}
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src="https://img.youtube.com/vi/JSFG-IE8n_c/maxresdefault.jpg"
+                      alt="hackX Grand Finals Thumbnail"
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 scale-100 group-hover/btn:scale-105"
+                      loading="lazy"
+                    />
+                    
+                    {/* Dark gradient overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-black/40 transition-opacity duration-500 group-hover/btn:opacity-90" />
+                    
+                    {/* Play Button Icon */}
+                    <div className="relative z-10 flex size-20 items-center justify-center rounded-full bg-white/10 border border-white/20 backdrop-blur-md text-white transition-all duration-500 group-hover/btn:scale-110 group-hover/btn:bg-[#5BB8FF]/20 group-hover/btn:border-[#5BB8FF]/40 shadow-lg shadow-black/40">
+                      <svg
+                        className="w-8 h-8 fill-current transition-transform duration-300 group-hover/btn:scale-105"
+                        viewBox="0 0 24 24"
+                      >
+                        <polygon points="6 3 20 12 6 21 6 3" />
+                      </svg>
+                      {/* Glow ripple effect */}
+                      <div className="absolute inset-0 rounded-full bg-white/5 opacity-0 group-hover/btn:animate-ping group-hover/btn:opacity-100 duration-1000" />
+                    </div>
+                  </button>
+                )}
               </div>
             </div>
 
@@ -186,7 +303,7 @@ export default function NewSection2() {
 
       {/* Seamless bottom fade into next section */}
       <div
-        className="absolute bottom-0 left-0 right-0 h-48 pointer-events-none"
+        className="absolute bottom-0 left-0 right-0 h-48 pointer-events-none z-40"
         style={{ background: "linear-gradient(to bottom, transparent, #010814)" }}
       />
     </section>

@@ -1,12 +1,13 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
 export default function NavBar() {
   const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -16,35 +17,41 @@ export default function NavBar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const navLinks = ["Timeline", "Ambassadors", "Memories", "FAQ"];
+
   return (
     <motion.header
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       className="fixed top-0 left-0 right-0 z-50"
-      style={{ paddingTop: scrolled ? "12px" : "20px", paddingBottom: scrolled ? "12px" : "20px", transition: "padding 0.5s ease" }}
+      style={{ 
+        paddingTop: scrolled ? "12px" : "20px", 
+        paddingBottom: scrolled ? "12px" : "20px", 
+        transition: "padding 0.5s ease" 
+      }}
     >
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6">
         {/* Liquid Glass Panel */}
         <div
-          className="flex items-center justify-between rounded-full px-6 py-3 transition-all duration-500"
+          className="flex items-center justify-between rounded-full px-4 sm:px-6 py-3 transition-all duration-500 relative z-50"
           style={{
-            background: scrolled
+            background: scrolled || mobileMenuOpen
               ? "rgba(1, 8, 20, 0.35)"
               : "rgba(255, 255, 255, 0.04)",
             backdropFilter: "blur(28px) saturate(1.8) brightness(1.15)",
             WebkitBackdropFilter: "blur(28px) saturate(1.8) brightness(1.15)",
-            border: scrolled
+            border: scrolled || mobileMenuOpen
               ? "1px solid rgba(255,255,255,0.10)"
               : "1px solid rgba(255,255,255,0.07)",
-            boxShadow: scrolled
+            boxShadow: scrolled || mobileMenuOpen
               ? "0 8px 40px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.08), 0 0 0 0.5px rgba(255,255,255,0.04)"
               : "0 4px 24px rgba(0,0,0,0.15), inset 0 1px 0 rgba(255,255,255,0.06)",
           }}
         >
           {/* Logo */}
-          <Link href="/" className="flex items-center group">
-            <div className="relative" style={{ width: "120px", height: "36px" }}>
+          <Link href="/" className="flex items-center group relative z-50">
+            <div className="relative w-[100px] sm:w-[120px] h-[32px] sm:h-[36px]">
               <Image
                 src="/hackxlogo.webp"
                 alt="hackX Logo"
@@ -57,7 +64,7 @@ export default function NavBar() {
 
           {/* Desktop Links */}
           <nav className="hidden lg:flex items-center gap-8">
-            {["Timeline", "Ambassadors", "Memories", "FAQ"].map((item) => (
+            {navLinks.map((item) => (
               <Link
                 key={item}
                 href={`#${item.toLowerCase().replace(/\s+/g, "-")}`}
@@ -68,8 +75,8 @@ export default function NavBar() {
             ))}
           </nav>
 
-          {/* CTA Buttons */}
-          <div className="flex items-center gap-3">
+          {/* Desktop CTA Buttons & Mobile Hamburger */}
+          <div className="flex items-center gap-3 relative z-50">
             <button
               className="hidden md:flex items-center justify-center px-5 py-2 rounded-full text-sm font-medium text-white/70 hover:text-white transition-all duration-300"
               style={{
@@ -81,7 +88,7 @@ export default function NavBar() {
               Contact
             </button>
             <button
-              className="flex items-center justify-center px-5 py-2 rounded-full text-sm font-bold text-white transition-all duration-300"
+              className="hidden sm:flex items-center justify-center px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-bold text-white transition-all duration-300"
               style={{
                 background: "linear-gradient(135deg, #1A6FD4 0%, #5BB8FF 100%)",
                 boxShadow: "0 0 20px rgba(91,184,255,0.25), inset 0 1px 0 rgba(255,255,255,0.2)",
@@ -91,8 +98,71 @@ export default function NavBar() {
             >
               Register Now
             </button>
+            
+            {/* Mobile Hamburger Icon */}
+            <button 
+              className="lg:hidden flex items-center justify-center w-10 h-10 rounded-full bg-white/5 border border-white/10 text-white"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                {mobileMenuOpen ? (
+                  <>
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                  </>
+                ) : (
+                  <>
+                    <line x1="4" y1="12" x2="20" y2="12" />
+                    <line x1="4" y1="6" x2="20" y2="6" />
+                    <line x1="4" y1="18" x2="20" y2="18" />
+                  </>
+                )}
+              </svg>
+            </button>
           </div>
         </div>
+
+        {/* Mobile Dropdown Menu */}
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: -20, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -20, scale: 0.95 }}
+              transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              className="absolute top-full left-4 right-4 mt-2 p-4 rounded-3xl bg-[#041A3A]/90 backdrop-blur-xl border border-[#5BB8FF]/20 shadow-2xl lg:hidden z-40"
+            >
+              <nav className="flex flex-col gap-2">
+                {navLinks.map((item) => (
+                  <Link
+                    key={item}
+                    href={`#${item.toLowerCase().replace(/\s+/g, "-")}`}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="px-4 py-3 rounded-xl text-sm font-semibold text-white/80 hover:text-white hover:bg-white/5 transition-colors"
+                  >
+                    {item}
+                  </Link>
+                ))}
+                <div className="h-px w-full bg-white/10 my-2" />
+                <button
+                  className="w-full flex sm:hidden items-center justify-center px-5 py-3 rounded-xl text-sm font-bold text-white transition-all duration-300 mt-2"
+                  style={{
+                    background: "linear-gradient(135deg, #1A6FD4 0%, #5BB8FF 100%)",
+                  }}
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Register Now
+                </button>
+                <button
+                  className="w-full md:hidden flex items-center justify-center px-5 py-3 rounded-xl text-sm font-semibold text-white/70 hover:text-white hover:bg-white/5 transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  Contact
+                </button>
+              </nav>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </motion.header>
   );

@@ -65,8 +65,8 @@ export default function MemoriesSection() {
 
                 {/* Hover overlay details */}
                 <div className="absolute inset-0 z-20 flex flex-col justify-end p-6 md:p-8 opacity-0 group-hover:opacity-100 transition-all duration-300 bg-black/70 backdrop-blur-[2px] translate-y-3 group-hover:translate-y-0">
-                  <span className="text-xs font-bold tracking-widest text-[#5BB8FF] uppercase mb-1">Edition</span>
-                  <h3 className="text-2xl font-black text-white mb-2">hackX {editionNumber}.0</h3>
+                  <span className="text-xs font-semibold tracking-widest text-[#5BB8FF] uppercase mb-1">Edition</span>
+                  <h3 className="text-xl font-extrabold text-white mb-1.5">hackX {editionNumber}.0</h3>
                   <p className="text-white/70 text-xs md:text-sm font-light leading-relaxed">
                     A description of the breakthrough solutions and memories built during this landmark challenge.
                   </p>

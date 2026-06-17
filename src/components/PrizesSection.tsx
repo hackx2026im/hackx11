@@ -1,7 +1,8 @@
 "use client";
 
-import { motion, animate, useMotionTemplate, useMotionValue } from "framer-motion";
-import { useRef, useEffect } from "react";
+import { motion } from "framer-motion";
+import { useRef } from "react";
+import { PixelCanvas } from "@/components/ui/pixel-canvas";
 
 const fade = (delay = 0) => ({
   initial: { opacity: 0, y: 28, filter: "blur(6px)" },
@@ -17,8 +18,8 @@ const prizes = [
     tagline: "The pinnacle. National recognition, investor access, and a prize that matches the ambition.",
     accent: "#FFD700",
     glow: "rgba(255,215,0,0.18)",
-    border: "rgba(255,215,0,0.22)",
-    icon: "✦",
+    imageUrl: "/winner-cards/1.webp",
+    pixelColors: ["#FFD700", "#FFF3A0", "#D4A800", "#FFEA50"],
     size: "large",
   },
   {
@@ -27,8 +28,8 @@ const prizes = [
     tagline: "Second on stage. First in line for what comes next.",
     accent: "#C0C8D8",
     glow: "rgba(192,200,216,0.14)",
-    border: "rgba(192,200,216,0.18)",
-    icon: "◆",
+    imageUrl: "/winner-cards/2.webp",
+    pixelColors: ["#C0C8D8", "#E8ECF4", "#9098A8", "#D8DDE8"],
     size: "medium",
   },
   {
@@ -37,54 +38,11 @@ const prizes = [
     tagline: "The podium is proof. Your idea earned its place on a national stage.",
     accent: "#CD8B4A",
     glow: "rgba(205,139,74,0.14)",
-    border: "rgba(205,139,74,0.18)",
-    icon: "◇",
+    imageUrl: "/winner-cards/3.webp",
+    pixelColors: ["#CD7F32", "#E8A060", "#A05828", "#D4944A"],
     size: "medium",
   },
 ];
-
-interface AIGradientBorderProps {
-  children: React.ReactNode;
-  className?: string;
-  duration?: number;
-  accentColor: string;
-}
-
-const AIGradientBorder = ({
-  children,
-  className = "",
-  duration = 4,
-  accentColor,
-}: AIGradientBorderProps) => {
-  const turn = useMotionValue(0);
-
-  useEffect(() => {
-    const controls = animate(turn, 1, {
-      ease: "linear",
-      duration,
-      repeat: Infinity,
-    });
-    return () => controls.stop();
-  }, [duration, turn]);
-
-  // Premium rotating gradient mixing the prize's custom accent color with royal blue, sky blue and white highlights
-  const gradient = useMotionTemplate`conic-gradient(from ${turn}turn, transparent 0%, ${accentColor}00 5%, ${accentColor} 12%, #ffffff 20%, #1A6FD4 28%, #5BB8FF 36%, ${accentColor} 44%, ${accentColor}00 52%, transparent 56%)`;
-
-  return (
-    <div className={`relative p-px ${className}`}>
-      {/* Rotating border line */}
-      <motion.div
-        style={{ backgroundImage: gradient }}
-        className="absolute inset-0 rounded-[inherit] z-10"
-      />
-
-      {/* Card Content Wrapper */}
-      <div className="relative rounded-[inherit] overflow-hidden h-full flex flex-col z-20">
-        <div className="relative h-full flex flex-col">{children}</div>
-      </div>
-    </div>
-  );
-};
 
 export default function PrizesSection() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -98,7 +56,7 @@ export default function PrizesSection() {
           animate={{ scale: [1, 1.15, 1], opacity: [0.06, 0.1, 0.06] }}
           transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
           className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[500px] rounded-full"
-          style={{ background: "radial-gradient(ellipse, rgba(255,215,0,0.07) 0%, transparent 70%)" }}
+          style={{ background: "radial-gradient(ellipse, rgba(91,184,255,0.06) 0%, transparent 70%)" }}
         />
       </div>
 
@@ -131,41 +89,74 @@ export default function PrizesSection() {
                 className="w-full md:w-[330px] relative group flex flex-col"
                 style={{ alignSelf: "stretch" }}
               >
-                <AIGradientBorder
-                  accentColor={prize.accent}
-                  duration={isFirst ? 3 : 4.5}
-                  className="rounded-3xl border border-white/[0.06] transition-all duration-500 group-hover:scale-[1.02] h-full flex-1 flex flex-col"
+              <div
+                  className="relative overflow-hidden rounded-3xl h-full flex flex-col justify-between p-6 md:p-8 flex-1 group-hover:scale-[1.02]"
+                  style={{
+                    background: "linear-gradient(145deg, #031126 0%, #010610 100%)",
+                    backdropFilter: "blur(32px) saturate(1.6)",
+                    WebkitBackdropFilter: "blur(32px) saturate(1.6)",
+                    border: "1px solid rgba(255,255,255,0.06)",
+                    minHeight: isFirst ? "440px" : "380px",
+                    transition: "box-shadow 0.5s ease, border-color 0.5s ease, transform 0.5s ease",
+                  }}
+                  onMouseEnter={e => {
+                    const el = e.currentTarget as HTMLDivElement;
+                    el.style.boxShadow = `0 0 0 1px ${prize.accent}35, 0 0 28px ${prize.accent}22, 0 0 64px ${prize.accent}0C`;
+                    el.style.borderColor = `${prize.accent}35`;
+                  }}
+                  onMouseLeave={e => {
+                    const el = e.currentTarget as HTMLDivElement;
+                    el.style.boxShadow = "none";
+                    el.style.borderColor = "rgba(255,255,255,0.06)";
+                  }}
                 >
-                  {/* Inner Card Container */}
-                  <div
-                    className="relative overflow-hidden rounded-[23px] h-full flex flex-col justify-between p-8 md:p-10 flex-1"
-                    style={{
-                      background: `linear-gradient(145deg, #031126 0%, #010610 100%)`,
-                      backdropFilter: "blur(32px) saturate(1.6)",
-                      WebkitBackdropFilter: "blur(32px) saturate(1.6)",
-                      minHeight: isFirst ? "480px" : "420px",
-                    }}
-                  >
+                    {/* Pixel canvas — gold/silver/bronze on hover */}
+                    <PixelCanvas
+                      gap={12}
+                      speed={28}
+                      colors={prize.pixelColors}
+                      style={{ opacity: 0.35 }}
+                    />
                     <div>
-                      {/* Icon */}
+                      {/* Badge icon — mix-blend-mode: multiply erases white bg over dark card */}
                       <motion.div
-                        animate={{ y: [0, -6, 0], opacity: [0.7, 1, 0.7] }}
+                        animate={{ y: [0, -8, 0] }}
                         transition={{ duration: 3 + visualIdx, repeat: Infinity, ease: "easeInOut" }}
-                        className="mb-6"
+                        className="mb-6 relative"
                         style={{
-                          fontSize: isFirst ? "3rem" : "2rem",
-                          color: prize.accent,
-                          filter: `drop-shadow(0 0 12px ${prize.accent})`,
+                          width: isFirst ? 108 : 86,
+                          height: isFirst ? 108 : 86,
                         }}
                       >
-                        {prize.icon}
+                        {/* Accent glow behind the icon */}
+                        <div
+                          className="absolute inset-0 rounded-full blur-2xl"
+                          style={{
+                            background: `radial-gradient(circle, ${prize.accent}40 0%, transparent 70%)`,
+                            transform: "scale(1.2)",
+                          }}
+                        />
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={prize.imageUrl}
+                          alt={prize.label}
+                          style={{
+                            width: "100%",
+                            height: "100%",
+                            objectFit: "contain",
+                            mixBlendMode: "multiply",
+                            filter: `drop-shadow(0 4px 16px ${prize.accent}60)`,
+                            position: "relative",
+                            zIndex: 1,
+                          }}
+                        />
                       </motion.div>
 
                       {/* Rank */}
                       <div
-                        className="font-black tracking-tighter mb-2 leading-none"
+                        className="font-extrabold tracking-tight mb-2 leading-none"
                         style={{
-                          fontSize: isFirst ? "5.5rem" : "3.5rem",
+                          fontSize: isFirst ? "3.5rem" : "2.75rem",
                           background: `linear-gradient(135deg, ${prize.accent} 0%, rgba(255,255,255,0.75) 100%)`,
                           WebkitBackgroundClip: "text",
                           WebkitTextFillColor: "transparent",
@@ -190,7 +181,6 @@ export default function PrizesSection() {
                       style={{ background: `radial-gradient(circle at bottom right, ${prize.glow} 0%, transparent 70%)` }}
                     />
                   </div>
-                </AIGradientBorder>
               </motion.div>
             );
           })}
