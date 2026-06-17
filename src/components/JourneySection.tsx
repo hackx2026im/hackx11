@@ -265,7 +265,7 @@ function GlassCard({ event }: { event: (typeof events)[0] }) {
 }
 
 /* ─── Event floating image ─── */
-function EventImage({ event, index, rowRef, smx, smy }: { event: (typeof events)[0]; index: number; rowRef: React.RefObject<HTMLElement>; smx: any; smy: any }) {
+function EventImage({ event, index, rowRef, smx, smy }: { event: (typeof events)[0]; index: number; rowRef: React.RefObject<HTMLDivElement | null>; smx: any; smy: any }) {
   // Use a full-viewport scroll hook for continuous floating parallax as it moves across screen
   const { scrollYProgress: floatProgress } = useScroll({
     target: rowRef,
