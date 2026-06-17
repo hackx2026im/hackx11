@@ -429,8 +429,21 @@ export default function JourneySection() {
             <EventRow key={event.id} event={event} index={index} />
           ))}
 
-          {/* ── END ORB ── */}
-          <div className="relative z-20 flex justify-center">
+          {/* ── END ORB ── pushed down; cover strip blocks line below orb center ── */}
+          <div className="relative z-20 flex justify-center" style={{ paddingTop: 24 }}>
+            {/* Downward cover: blocks the rail that bleeds below the orb center */}
+            <div
+              className="absolute"
+              style={{
+                top: "50%",
+                left: "50%",
+                transform: "translateX(-50%)",
+                width: 6,
+                height: "200px",
+                background: "#010814",
+                zIndex: 1,
+              }}
+            />
             <EndOrb />
           </div>
         </div>
