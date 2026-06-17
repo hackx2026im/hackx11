@@ -420,9 +420,9 @@ export default function JourneySection() {
             <EventRow key={event.id} event={event} index={index} />
           ))}
 
-          {/* ── END TROPHY ── */}
+          {/* ── END ORB ── */}
           <div className="relative z-20 flex justify-center">
-            <EndTrophy />
+            <EndOrb />
           </div>
         </div>
       </div>
