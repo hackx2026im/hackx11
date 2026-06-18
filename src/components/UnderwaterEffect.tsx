@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
 export default function UnderwaterEffect() {
-  const [bubbles, setBubbles] = useState<Array<{ id: number; left: string; size: number; duration: number; delay: number; wobble: number; blur: number }>>([]);
+  const [bubbles, setBubbles] = useState<Array<{ id: number; left: string; size: number; duration: number; delay: number; wobble: number; opacity: number }>>([]);
   const [rays, setRays] = useState<Array<{ id: number; width: number; height: number; left: number; rotation: number; delay: number; duration: number; opacity: number }>>([]);
 
   useEffect(() => {
