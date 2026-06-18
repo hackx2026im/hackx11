@@ -163,14 +163,12 @@ export default function NewSection2() {
 
             <motion.div {...fade(0.15)} className="space-y-6 text-[1.05rem] md:text-[1.15rem] text-white/55 font-light leading-relaxed relative z-30">
               <p>
-                hackX is Sri Lanka&apos;s premier inter-university startup challenge, organised by the Industrial
+                hackX 11.0 is Sri Lanka&apos;s premier inter-university startup challenge, organized by the Industrial
                 Management Science Students&apos; Association at the Department of Industrial Management,
                 University of Kelaniya.
               </p>
               <p>
-                Since 2015, hackX has brought together the sharpest undergraduate minds from across the
-                country to turn real problems into scalable, investable solutions — through mentorship,
-                business development, prototype building, and a Grand Finals stage.
+                hackX provides a platform for undergraduate students to work in teams and transform real-world problems into innovative solutions with startup potential. Whether it is a product, service, or technology-driven solution, participants will receive guidance, mentorship, and industry exposure through multiple phases of the competition to help develop, validate, and refine their ideas into viable business ventures.
               </p>
             </motion.div>
 
@@ -190,14 +188,14 @@ export default function NewSection2() {
             <StatCard className="col-span-1 min-h-[200px]" delay={0.1}>
               <div className="text-3xl md:text-4xl font-extrabold text-white mb-2 tracking-tight">11</div>
               <p className="text-white/75 font-medium tracking-wide text-sm">Editions</p>
-              <p className="text-[10px] text-white/35 mt-1 uppercase tracking-widest">10+ Years Impact</p>
+              <p className="text-[10px] text-white/35 mt-1 uppercase tracking-widest">More Than a Decade of Innovation</p>
             </StatCard>
 
-            {/* Stat: 24 Universities */}
+            {/* Stat: 25+ Universities */}
             <StatCard className="col-span-1 min-h-[200px]" delay={0.18}>
-              <div className="text-3xl md:text-4xl font-extrabold text-white mb-2 tracking-tight">24</div>
+              <div className="text-3xl md:text-4xl font-extrabold text-white mb-2 tracking-tight">25+</div>
               <p className="text-white/75 font-medium tracking-wide text-sm">Universities</p>
-              <p className="text-[10px] text-white/35 mt-1 uppercase tracking-widest">In 2025</p>
+              <p className="text-[10px] text-white/35 mt-1 uppercase tracking-widest">Represented Nationwide</p>
             </StatCard>
 
             {/* Stat: 265+ Teams — spans full width */}
@@ -215,7 +213,7 @@ export default function NewSection2() {
                 265+
               </div>
               <p className="text-white/75 font-medium text-lg tracking-wide">Teams Participating</p>
-              <p className="text-xs text-white/35 mt-1 uppercase tracking-widest">Across The Country</p>
+              <p className="text-xs text-white/35 mt-1 uppercase tracking-widest">Registered in 2025</p>
             </StatCard>
           </div>
         </div>

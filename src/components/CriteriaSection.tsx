@@ -5,20 +5,20 @@ import { useRef } from "react";
 
 const criteria = [
   {
-    title: "Your Team",
-    desc: "Two to five members. All currently enrolled undergraduates from the same university or higher education institute.",
+    title: "Go Solo or Build a Team",
+    desc: "Participate individually or form a team of two to five members. All team members must be currently enrolled undergraduates from the same university or higher education institute.",
     imageUrl: "/criteria-images/icon 1.webp",
     color: "#5BB8FF",
   },
   {
     title: "Your Idea",
-    desc: "Any real-world problem with a scalable, technology-driven solution. Innovation from any field is welcome: healthcare, agriculture, finance, education, and beyond.",
+    desc: "Present an innovative startup idea, product, service, or solution that addresses a real-world problem or creates meaningful value. Your idea should demonstrate originality, practical potential, and the ability to grow into a sustainable venture.",
     imageUrl: "/criteria-images/icon 2.webp",
     color: "#1A6FD4",
   },
   {
-    title: "Your Entry",
-    desc: "Completely free. No registration fee, no prerequisites. Sign up, submit your proposal by July 31, and let your idea do the talking.",
+    title: "Start Your Journey",
+    desc: "Participation is completely free with no registration fees or prerequisites. Simply sign up, submit your proposal, and let your idea do the talking.",
     imageUrl: "/criteria-images/icon 3.webp",
     color: "#5BB8FF",
   },
@@ -80,11 +80,8 @@ export default function CriteriaSection() {
           viewport={{ once: true }}
           className="text-center mb-24"
         >
-          <span className="text-xs font-bold tracking-[0.2em] uppercase text-[#5BB8FF] mb-4 block">
-            Who Can Compete
-          </span>
           <h2 className="text-4xl md:text-5xl font-extrabold text-white mb-6 tracking-tight">
-            Built for Builders. <br className="hidden md:block"/> Open to All Universities.
+            Who Can Compete
           </h2>
         </motion.div>
 

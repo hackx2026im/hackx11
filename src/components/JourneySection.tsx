@@ -11,7 +11,7 @@ const events = [
     date: "June 23",
     title: "Registrations Open",
     description:
-      "Doors open to universities across Sri Lanka. Free to enter. Just bring an idea worth fighting for.",
+      "Create your team, submit your details, and secure your place in Sri Lanka's premier inter-university startup challenge.",
     accentColor: "#5BB8FF",
     glowColor: "205 100 68",
     colors: ["#5BB8FF", "#1A6FD4", "#0A3878"],
@@ -22,7 +22,7 @@ const events = [
     date: "July 31",
     title: "Proposal Submission",
     description:
-      "Teams submit structured proposals and a one to two minute product introduction video, screened by industry professionals.",
+      "Present your startup concept through a proposal and introductory video, showcasing the problem, solution, and potential behind your idea.",
     accentColor: "#1A6FD4",
     glowColor: "212 78 47",
     colors: ["#1A6FD4", "#5BB8FF", "#0A3878"],
@@ -33,7 +33,7 @@ const events = [
     date: "Sep – Oct",
     title: "designX Workshops",
     description:
-      "Four expert-led sessions covering business modelling, startup structuring, and market validation. Exclusive to semi-finalists.",
+      "Refine your business model, validate your solution, and gain valuable insights through expert-led startup development workshops.",
     accentColor: "#0A3878",
     glowColor: "215 85 26",
     colors: ["#0A3878", "#1A6FD4", "#5BB8FF"],
@@ -42,9 +42,9 @@ const events = [
   {
     id: "ideax",
     date: "October 3",
-    title: "ideaX Semi-Finals",
+    title: "ideaX: Semi-Finals",
     description:
-      "Thirty teams. One stage. Present a working prototype to a panel of expert judges and earn your spot at the Grand Finals.",
+      "Pitch your idea before an expert judging panel and compete for a place among the nation's top startup teams.",
     accentColor: "#5BB8FF",
     glowColor: "205 100 68",
     colors: ["#5BB8FF", "#1A6FD4", "#0A3878"],
@@ -55,7 +55,7 @@ const events = [
     date: "November 11",
     title: "Grand Finals",
     description:
-      "The main event. Finalist teams present fully developed solutions before industry leaders, investors, and government officials.",
+      "Take the national stage and present your fully developed startup to industry leaders, investors, and distinguished guests.",
     accentColor: "#1A6FD4",
     glowColor: "212 78 47",
     colors: ["#1A6FD4", "#5BB8FF", "#0A3878"],

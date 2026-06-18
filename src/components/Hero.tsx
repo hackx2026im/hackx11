@@ -126,7 +126,7 @@ export default function Hero() {
               backgroundClip: "text",
             }}
           >
-            National Startup
+            Inter-University Startup
           </motion.span>
 
           {/* Line 3 */}
@@ -195,7 +195,7 @@ export default function Hero() {
             padding: "0 24px",
           }}
         >
-          Where university students turn bold ideas into real ventures.
+          Where university students transform bold ideas into opportunities.
         </motion.p>
 
         <motion.div

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "hackX 11.0 — Sri Lanka's Premier National Startup Challenge",
+  title: "hackX 11.0 — Sri Lanka's Premier Inter-University Startup Challenge",
   description: "Where university students turn bold ideas into real ventures. Backed by the nation. Built by students. Eleven years running.",
 };
 
