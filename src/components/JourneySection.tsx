@@ -339,10 +339,11 @@ export default function JourneySection() {
       onMouseMove={handleMouseMove}
       className="relative w-full bg-[#010814] py-32 overflow-hidden z-10"
     >
+      {/* Ambient Background - Optimized */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full blur-[200px]"
-          style={{ background: "rgba(91,184,255,0.03)" }}
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full"
+          style={{ background: "radial-gradient(circle, rgba(91,184,255,0.04) 0%, rgba(91,184,255,0) 70%)" }}
         />
       </div>
 

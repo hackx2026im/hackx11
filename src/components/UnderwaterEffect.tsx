@@ -16,7 +16,7 @@ export default function UnderwaterEffect() {
       duration: Math.random() * 12 + 12, // 12s to 24s
       delay: Math.random() * -20, // Start some mid-animation
       wobble: Math.random() * 40 - 20, // Wobble range
-      blur: Math.random() > 0.5 ? Math.random() * 2 : 0, // Depth of field blur
+      opacity: Math.random() > 0.5 ? 0.4 : 0.8, // Depth of field via opacity instead of blur
     }));
     setBubbles(newBubbles);
 
@@ -40,29 +40,7 @@ export default function UnderwaterEffect() {
       {/* ── Background Deep Water Overlay ── */}
       <div className="absolute inset-0 bg-gradient-to-b from-[#010814]/10 via-[#0A3878]/10 to-[#010814]/80 z-10 mix-blend-multiply" />
 
-      {/* ── Caustic Shimmer (Hardware Accelerated SVG Filter Overlay) ── */}
-      <svg width="0" height="0" className="hidden">
-        <filter id="water-caustics">
-          <feTurbulence type="fractalNoise" baseFrequency="0.015" numOctaves="2" result="noise" />
-          {/* Subtle blueish tone with low alpha to prevent washing out the BG image */}
-          <feColorMatrix type="matrix" values="0 0 0 0 0.35  0 0 0 0 0.72  0 0 0 0 1  0 0 0 0.15 0" in="noise" result="coloredNoise" />
-          <feBlend in="SourceGraphic" in2="coloredNoise" mode="screen" />
-        </filter>
-      </svg>
-      {/* Container is oversized so we can pan it around smoothly without repainting the SVG */}
-      <motion.div 
-        className="absolute inset-[-50%] opacity-40 z-10 pointer-events-none mix-blend-overlay" 
-        style={{ 
-          filter: "url(#water-caustics)",
-          background: "radial-gradient(ellipse at top center, rgba(91,184,255,0.2) 0%, transparent 60%)",
-          willChange: "transform",
-        }}
-        animate={{ 
-          y: ["0%", "3%", "0%"],
-          x: ["0%", "-1%", "0%"],
-        }}
-        transition={{ duration: 25, ease: "easeInOut", repeat: Infinity }}
-      />
+      {/* Removed heavy SVG feTurbulence caustic effect to massively improve scroll performance */}
 
       {/* ── Dynamic God Rays ── */}
       <div className="absolute inset-0 z-20 overflow-hidden mix-blend-screen" style={{ perspective: "1000px" }}>
@@ -74,8 +52,7 @@ export default function UnderwaterEffect() {
               left: `${ray.left}%`,
               width: `${ray.width}px`,
               height: `${ray.height}vh`,
-              background: "linear-gradient(180deg, rgba(91,184,255,0.3) 0%, rgba(91,184,255,0.05) 60%, transparent 100%)",
-              filter: "blur(35px)",
+              background: "linear-gradient(180deg, rgba(91,184,255,0.15) 0%, rgba(91,184,255,0.02) 60%, transparent 100%)",
               rotate: ray.rotation,
               willChange: "transform, opacity",
             }}
@@ -103,13 +80,12 @@ export default function UnderwaterEffect() {
               left: bubble.left,
               width: bubble.size,
               height: bubble.size,
-              filter: `blur(${bubble.blur}px)`,
               willChange: "transform, opacity",
             }}
             animate={{
               y: ["0vh", "-120vh"],
               x: ["0px", `${bubble.wobble}px`, `-${bubble.wobble}px`, "0px"],
-              opacity: [0, 0.6, 0.8, 0],
+              opacity: [0, bubble.opacity, bubble.opacity, 0],
             }}
             transition={{
               y: { duration: bubble.duration, repeat: Infinity, ease: "linear", delay: bubble.delay },

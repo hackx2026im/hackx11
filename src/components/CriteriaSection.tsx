@@ -67,9 +67,9 @@ export default function CriteriaSection() {
   return (
     <section id="criteria" ref={sectionRef} className="relative w-full bg-[#010814] py-32 overflow-hidden z-10">
       
-      {/* Background Ambient */}
+      {/* Background Ambient - Optimized */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-[#5BB8FF]/5 rounded-full blur-[100px]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] rounded-full" style={{ background: "radial-gradient(ellipse, rgba(91,184,255,0.08) 0%, rgba(91,184,255,0) 70%)" }} />
       </div>
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">

@@ -80,17 +80,19 @@ export default function NewSection2() {
       onMouseMove={handleMouseMove}
       className="relative w-full bg-[#010814] pt-48 pb-0 overflow-hidden z-10"
     >
-      {/* Ambient blobs */}
+      {/* Ambient blobs - Optimized without CSS blur */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <motion.div
           animate={{ x: [0, 50, -50, 0], y: [0, -50, 50, 0], scale: [1, 1.1, 0.9, 1] }}
           transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-          className="absolute top-[-10%] left-[10%] w-[600px] h-[600px] bg-[#1A6FD4] opacity-[0.05] blur-[150px] rounded-full"
+          className="absolute top-[-10%] left-[10%] w-[600px] h-[600px] rounded-full"
+          style={{ background: "radial-gradient(circle, rgba(26,111,212,0.15) 0%, rgba(26,111,212,0) 70%)" }}
         />
         <motion.div
           animate={{ x: [0, -60, 60, 0], y: [0, 60, -60, 0], scale: [1, 0.8, 1.2, 1] }}
           transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-          className="absolute bottom-[10%] right-[5%] w-[800px] h-[800px] bg-[#5BB8FF] opacity-[0.03] blur-[180px] rounded-full"
+          className="absolute bottom-[10%] right-[5%] w-[800px] h-[800px] rounded-full"
+          style={{ background: "radial-gradient(circle, rgba(91,184,255,0.1) 0%, rgba(91,184,255,0) 70%)" }}
         />
       </div>
 
