@@ -64,6 +64,7 @@ export default function Hero() {
             src="/Hero - BG Img.png"
             alt=""
             fill
+            sizes="100vw"
             priority
             style={{ objectFit: "cover", objectPosition: "center center" }}
             quality={95}
@@ -203,12 +204,17 @@ export default function Hero() {
           transition={{ duration: 0.9, delay: 1.2, ease: [0.22, 1, 0.36, 1] }}
           className="flex flex-col md:flex-row gap-3.5 items-center justify-center w-full px-6 md:px-0"
         >
-          <button className="btn-primary w-full max-w-[280px] md:w-auto">
+          <a
+            href={process.env.NEXT_PUBLIC_REGISTRATION_URL || "#"}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-primary w-full max-w-[280px] md:w-auto"
+          >
             Register Now
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <path d="M5 12h14M12 5l7 7-7 7"/>
             </svg>
-          </button>
+          </a>
           <button className="btn-secondary w-full max-w-[280px] md:w-auto">
             Learn More
           </button>

@@ -27,9 +27,14 @@ export default function AmbassadorSection() {
             </div>
 
             <div className="flex items-center justify-center lg:justify-start gap-4">
-              <button className="px-8 py-4 rounded-full bg-gradient-to-r from-[#1A6FD4] to-[#5BB8FF] text-white font-bold tracking-wide hover:opacity-90 transition-opacity shadow-[0_0_20px_rgba(91,184,255,0.3)] hover:shadow-[0_0_30px_rgba(91,184,255,0.5)]">
+              <a 
+                href={process.env.NEXT_PUBLIC_AMBASSADOR_URL || "#"}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-8 py-4 rounded-full bg-gradient-to-r from-[#1A6FD4] to-[#5BB8FF] text-white font-bold tracking-wide hover:opacity-90 transition-opacity shadow-[0_0_20px_rgba(91,184,255,0.3)] hover:shadow-[0_0_30px_rgba(91,184,255,0.5)]"
+              >
                 Learn More
-              </button>
+              </a>
             </div>
           </div>
 

@@ -61,6 +61,7 @@ export default function Footer() {
             src="/footer-side.webp"
             alt=""
             fill
+            sizes="400px"
             style={{ objectFit: "contain", objectPosition: "bottom left" }}
           />
         </div>
@@ -76,6 +77,7 @@ export default function Footer() {
             src="/footer-side.webp"
             alt=""
             fill
+            sizes="400px"
             style={{ objectFit: "contain", objectPosition: "bottom right", transform: "scaleX(-1)" }}
           />
         </div>
@@ -100,6 +102,7 @@ export default function Footer() {
           src="/footer-center.webp"
           alt=""
           fill
+          sizes="(max-width: 768px) 520px, 560px"
           className="object-contain object-bottom"
         />
         {/* Subtle bottom fade */}
@@ -133,6 +136,7 @@ export default function Footer() {
                   src="/hackxlogo.webp"
                   alt="hackX Logo"
                   fill
+                  sizes="130px"
                   className="object-contain object-center md:object-left"
                 />
               </div>
@@ -156,6 +160,7 @@ export default function Footer() {
                   src="/allorganizerslogo.webp"
                   alt="Organizers"
                   fill
+                  sizes="(max-width: 640px) 280px, 320px"
                   className="object-contain object-center md:object-right"
                 />
               </div>

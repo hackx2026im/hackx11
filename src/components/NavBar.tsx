@@ -56,6 +56,7 @@ export default function NavBar() {
                 src="/hackxlogo.webp"
                 alt="hackX Logo"
                 fill
+                sizes="(max-width: 640px) 100px, 120px"
                 style={{ objectFit: "contain", objectPosition: "left center" }}
                 priority
               />
@@ -87,7 +88,10 @@ export default function NavBar() {
             >
               Contact
             </button>
-            <button
+            <a
+              href={process.env.NEXT_PUBLIC_REGISTRATION_URL || "#"}
+              target="_blank"
+              rel="noopener noreferrer"
               className="hidden sm:flex items-center justify-center px-4 sm:px-5 py-2 rounded-full text-xs sm:text-sm font-bold text-white transition-all duration-300"
               style={{
                 background: "linear-gradient(135deg, #1A6FD4 0%, #5BB8FF 100%)",
@@ -97,7 +101,7 @@ export default function NavBar() {
               onMouseLeave={e => (e.currentTarget.style.boxShadow = "0 0 20px rgba(91,184,255,0.25), inset 0 1px 0 rgba(255,255,255,0.2)")}
             >
               Register Now
-            </button>
+            </a>
             
             {/* Mobile Hamburger Icon */}
             <button 
@@ -144,7 +148,10 @@ export default function NavBar() {
                   </Link>
                 ))}
                 <div className="h-px w-full bg-white/10 my-2" />
-                <button
+                <a
+                  href={process.env.NEXT_PUBLIC_REGISTRATION_URL || "#"}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-full flex sm:hidden items-center justify-center px-5 py-3 rounded-xl text-sm font-bold text-white transition-all duration-300 mt-2"
                   style={{
                     background: "linear-gradient(135deg, #1A6FD4 0%, #5BB8FF 100%)",
@@ -152,7 +159,7 @@ export default function NavBar() {
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Register Now
-                </button>
+                </a>
                 <button
                   className="w-full md:hidden flex items-center justify-center px-5 py-3 rounded-xl text-sm font-semibold text-white/70 hover:text-white hover:bg-white/5 transition-colors"
                   onClick={() => setMobileMenuOpen(false)}
