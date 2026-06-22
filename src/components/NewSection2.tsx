@@ -96,35 +96,8 @@ export default function NewSection2() {
         />
       </div>
 
-      {/* Floating 3D Artifact Images */}
+      {/* Floating 3D Artifact Images - Behind */}
       <div className="absolute inset-0 max-w-7xl mx-auto pointer-events-none z-20">
-        
-        {/* Top Left (Cylinder) */}
-        <motion.div 
-          style={{ y: y1, rotate: rotate1 }} 
-          className="absolute top-[2%] left-[42%] w-[250px] xl:w-[350px] opacity-90 hidden md:block"
-        >
-          <motion.img 
-            src="/section 2/Top left.webp" 
-            alt="Artifact" 
-            style={{ x: mx1, y: my1 }}
-            className="w-full h-auto drop-shadow-[0_20px_30px_rgba(0,0,0,0.5)]"
-          />
-        </motion.div>
-
-        {/* Top Right (Pillar) */}
-        <motion.div 
-          style={{ y: y2, rotate: rotate2 }} 
-          className="absolute top-[5%] -right-[2%] xl:-right-[5%] w-[220px] xl:w-[320px] opacity-90 hidden md:block"
-        >
-          <motion.img 
-            src="/section 2/Top Right.webp" 
-            alt="Artifact" 
-            style={{ x: mx2, y: my2 }}
-            className="w-full h-auto drop-shadow-[0_20px_30px_rgba(0,0,0,0.5)]"
-          />
-        </motion.div>
-
         {/* Bottom Center (Brick) */}
         <motion.div 
           style={{ y: y3, rotate: rotate3 }} 
@@ -137,7 +110,35 @@ export default function NewSection2() {
             className="w-full h-auto drop-shadow-[0_20px_30px_rgba(0,0,0,0.5)]"
           />
         </motion.div>
+      </div>
 
+      {/* Floating 3D Artifact Images - In Front */}
+      <div className="absolute inset-0 max-w-7xl mx-auto pointer-events-none z-[60]">
+        {/* Top Left (Cylinder) */}
+        <motion.div 
+          style={{ y: y1, rotate: rotate1 }} 
+          className="absolute top-[-3%] left-[42%] w-[250px] xl:w-[350px] opacity-90 hidden md:block"
+        >
+          <motion.img 
+            src="/section 2/Top left.webp" 
+            alt="Artifact" 
+            style={{ x: mx1, y: my1 }}
+            className="w-full h-auto drop-shadow-[0_20px_30px_rgba(0,0,0,0.5)]"
+          />
+        </motion.div>
+
+        {/* Top Right (Pillar) */}
+        <motion.div 
+          style={{ y: y2, rotate: rotate2 }} 
+          className="absolute top-[0%] -right-[2%] xl:-right-[5%] w-[220px] xl:w-[320px] opacity-90 hidden md:block"
+        >
+          <motion.img 
+            src="/section 2/Top Right.webp" 
+            alt="Artifact" 
+            style={{ x: mx2, y: my2 }}
+            className="w-full h-auto drop-shadow-[0_20px_30px_rgba(0,0,0,0.5)]"
+          />
+        </motion.div>
       </div>
 
       <div className="max-w-7xl mx-auto px-6 relative z-50">
