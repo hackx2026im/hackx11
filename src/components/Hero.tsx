@@ -215,9 +215,12 @@ export default function Hero() {
               <path d="M5 12h14M12 5l7 7-7 7"/>
             </svg>
           </a>
-          <button className="btn-secondary w-full max-w-[280px] md:w-auto">
+          <a
+            href="#what-is-hackx"
+            className="btn-secondary w-full max-w-[280px] md:w-auto"
+          >
             Learn More
-          </button>
+          </a>
         </motion.div>
 
         {/* Scroll cue */}

@@ -78,7 +78,8 @@ export default function NavBar() {
 
           {/* Desktop CTA Buttons & Mobile Hamburger */}
           <div className="flex items-center gap-3 relative z-50">
-            <button
+            <a
+              href="#oc"
               className="hidden md:flex items-center justify-center px-5 py-2 rounded-full text-sm font-medium text-white/70 hover:text-white transition-all duration-300"
               style={{
                 background: "rgba(255,255,255,0.06)",
@@ -87,7 +88,7 @@ export default function NavBar() {
               }}
             >
               Contact
-            </button>
+            </a>
             <a
               href={process.env.NEXT_PUBLIC_REGISTRATION_URL || "#"}
               target="_blank"
@@ -160,12 +161,13 @@ export default function NavBar() {
                 >
                   Register Now
                 </a>
-                <button
-                  className="w-full md:hidden flex items-center justify-center px-5 py-3 rounded-xl text-sm font-semibold text-white/70 hover:text-white hover:bg-white/5 transition-colors"
+                <a
+                  href="#oc"
+                  className="w-full md:hidden flex items-center justify-center px-5 py-3 rounded-xl text-sm font-semibold text-white/70 hover:text-white hover:bg-white/5 transition-colors text-center"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   Contact
-                </button>
+                </a>
               </nav>
             </motion.div>
           )}

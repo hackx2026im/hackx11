@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
-import { ReactNode, useState, useRef } from "react";
+import { ReactNode, useState, useRef, useEffect } from "react";
 import { PixelCanvas } from "@/components/ui/pixel-canvas";
 
 const fade = (delay = 0) => ({
@@ -35,8 +35,37 @@ const StatCard = ({
 );
 
 export default function NewSection2() {
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(true);
+  const [isMuted, setIsMuted] = useState(true);
+  const [thumbnailUrl, setThumbnailUrl] = useState("");
+  
   const sectionRef = useRef<HTMLElement>(null);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+
+  const handleUnmute = () => {
+    if (iframeRef.current && iframeRef.current.contentWindow) {
+      iframeRef.current.contentWindow.postMessage(
+        JSON.stringify({ method: "setMuted", value: false }),
+        "*"
+      );
+      iframeRef.current.contentWindow.postMessage(
+        JSON.stringify({ method: "setVolume", value: 1 }),
+        "*"
+      );
+    }
+    setIsMuted(false);
+  };
+
+  useEffect(() => {
+    fetch("https://vimeo.com/api/oembed.json?url=https://vimeo.com/1203805610")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.thumbnail_url) {
+          setThumbnailUrl(data.thumbnail_url);
+        }
+      })
+      .catch((err) => console.error("Error fetching Vimeo thumbnail:", err));
+  }, []);
   
   // Mouse tracking hooks
   const mouseX = useMotionValue(0);
@@ -76,6 +105,7 @@ export default function NewSection2() {
 
   return (
     <section 
+      id="what-is-hackx"
       ref={sectionRef}
       onMouseMove={handleMouseMove}
       className="relative w-full bg-[#010814] pt-12 md:pt-28 pb-0 overflow-hidden z-10"
@@ -248,16 +278,42 @@ export default function NewSection2() {
             <div className="relative rounded-[2rem] bg-[#010814]/90 p-3 md:p-5 border border-white/5">
               <div className="aspect-video w-full rounded-[1.25rem] overflow-hidden bg-black relative border border-white/10 shadow-[inset_0_2px_10px_rgba(0,0,0,0.5)]">
                 {isPlaying ? (
-                  <iframe
-                    width="100%"
-                    height="100%"
-                    src="https://www.youtube.com/embed/JSFG-IE8n_c?autoplay=1&modestbranding=1&rel=0&color=white"
-                    title="hackX Previous Year Video"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                    className="absolute inset-0 w-full h-full"
-                    style={{ border: 0 }}
-                  />
+                  <>
+                    <iframe
+                      ref={iframeRef}
+                      width="100%"
+                      height="100%"
+                      src="https://player.vimeo.com/video/1203805610?autoplay=1&muted=1&background=1&title=0&byline=0&portrait=0"
+                      title="hackX Previous Year Video"
+                      allow="autoplay; fullscreen; picture-in-picture"
+                      allowFullScreen
+                      className="absolute inset-0 w-full h-full"
+                      style={{ border: 0 }}
+                    />
+                    {isMuted && (
+                      <button
+                        onClick={handleUnmute}
+                        className="absolute inset-0 m-auto z-30 size-24 rounded-full bg-white/10 border border-white/20 backdrop-blur-md text-white flex flex-col items-center justify-center gap-1.5 transition-all duration-500 hover:scale-110 hover:bg-[#5BB8FF]/20 hover:border-[#5BB8FF]/40 shadow-2xl group cursor-pointer"
+                        aria-label="Unmute video"
+                      >
+                        <svg 
+                          className="size-8 text-[#5BB8FF] group-hover:text-white transition-colors duration-300"
+                          viewBox="0 0 24 24" 
+                          fill="none" 
+                          stroke="currentColor" 
+                          strokeWidth="2.5" 
+                          strokeLinecap="round" 
+                          strokeLinejoin="round"
+                        >
+                          <path d="M11 5L6 9H2v6h4l5 4V5z"/>
+                          <line x1="22" y1="9" x2="16" y2="15"/>
+                          <line x1="16" y1="9" x2="22" y2="15"/>
+                        </svg>
+                        <span className="text-[10px] uppercase font-black tracking-widest text-white/80 group-hover:text-white transition-colors">Unmute</span>
+                        <div className="absolute inset-0 rounded-full bg-white/5 opacity-40 animate-ping pointer-events-none" />
+                      </button>
+                    )}
+                  </>
                 ) : (
                   <button
                     onClick={() => setIsPlaying(true)}
@@ -267,7 +323,7 @@ export default function NewSection2() {
                     {/* Thumbnail Image */}
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img
-                      src="https://img.youtube.com/vi/JSFG-IE8n_c/maxresdefault.jpg"
+                      src={thumbnailUrl || "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200"}
                       alt="hackX Grand Finals Thumbnail"
                       className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 scale-100 group-hover/btn:scale-105"
                       loading="lazy"
