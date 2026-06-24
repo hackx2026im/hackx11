@@ -38,7 +38,7 @@ export default function NewSection2() {
   const [isPlaying, setIsPlaying] = useState(true);
   const [isMuted, setIsMuted] = useState(true);
   const [thumbnailUrl, setThumbnailUrl] = useState("");
-  
+
   const sectionRef = useRef<HTMLElement>(null);
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
@@ -66,7 +66,7 @@ export default function NewSection2() {
       })
       .catch((err) => console.error("Error fetching Vimeo thumbnail:", err));
   }, []);
-  
+
   // Mouse tracking hooks
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -104,7 +104,7 @@ export default function NewSection2() {
   const my3 = useTransform(smy, [-1, 1], [-40, 40]);
 
   return (
-    <section 
+    <section
       id="what-is-hackx"
       ref={sectionRef}
       onMouseMove={handleMouseMove}
@@ -126,73 +126,70 @@ export default function NewSection2() {
         />
       </div>
 
-      {/* Floating 3D Artifact Images - Behind */}
-      <div className="absolute inset-0 max-w-7xl mx-auto pointer-events-none z-20">
-        {/* Bottom Center (Brick) */}
-        <motion.div 
-          style={{ y: y3, rotate: rotate3 }} 
-          className="absolute top-[35%] left-[60%] w-[280px] xl:w-[400px] opacity-90 hidden md:block"
-        >
-          <motion.img 
-            src="/section 2/Bottom Center.webp" 
-            alt="Artifact" 
-            style={{ x: mx3, y: my3 }}
-            className="w-full h-auto drop-shadow-[0_20px_30px_rgba(0,0,0,0.5)]"
-          />
-        </motion.div>
-      </div>
-
       {/* Floating 3D Artifact Images - In Front */}
       <div className="absolute inset-0 max-w-7xl mx-auto pointer-events-none z-[60]">
         {/* Top Left (Cylinder) */}
-        <motion.div 
-          style={{ y: y1, rotate: rotate1 }} 
-          className="absolute top-[-3%] left-[42%] w-[250px] xl:w-[350px] opacity-90 hidden md:block"
+        <motion.div
+          style={{ y: y1, rotate: rotate1 }}
+          className="absolute top-[-6%] left-[42%] w-[250px] xl:w-[350px] opacity-90 hidden md:block"
         >
-          <motion.img 
-            src="/section 2/Top left.webp" 
-            alt="Artifact" 
+          <motion.img
+            src="/section 2/Top left.webp"
+            alt="Artifact"
             style={{ x: mx1, y: my1 }}
             className="w-full h-auto drop-shadow-[0_20px_30px_rgba(0,0,0,0.5)]"
           />
         </motion.div>
 
         {/* Top Right (Pillar) */}
-        <motion.div 
-          style={{ y: y2, rotate: rotate2 }} 
-          className="absolute top-[0%] -right-[2%] xl:-right-[5%] w-[220px] xl:w-[320px] opacity-90 hidden md:block"
+        <motion.div
+          style={{ y: y2, rotate: rotate2 }}
+          className="absolute top-[-4%] -right-[2%] xl:-right-[5%] w-[220px] xl:w-[320px] opacity-90 hidden md:block"
         >
-          <motion.img 
-            src="/section 2/Top Right.webp" 
-            alt="Artifact" 
+          <motion.img
+            src="/section 2/Top Right.webp"
+            alt="Artifact"
             style={{ x: mx2, y: my2 }}
+            className="w-full h-auto drop-shadow-[0_20px_30px_rgba(0,0,0,0.5)]"
+          />
+        </motion.div>
+
+        {/* Bottom Center (Brick) */}
+        <motion.div
+          style={{ y: y3, rotate: rotate3 }}
+          className="absolute top-[22%] left-[60%] w-[280px] xl:w-[400px] opacity-90 hidden md:block"
+        >
+          <motion.img
+            src="/section 2/Bottom Center.webp"
+            alt="Artifact"
+            style={{ x: mx3, y: my3 }}
             className="w-full h-auto drop-shadow-[0_20px_30px_rgba(0,0,0,0.5)]"
           />
         </motion.div>
       </div>
 
       <div className="max-w-7xl mx-auto px-6 relative z-50">
-        {/* Eyebrow */}
-        <motion.div {...fade(0)} className="flex justify-center md:justify-start mb-8 md:mb-16">
-          <div className="px-5 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-md flex items-center gap-3">
-            <div className="w-2 h-2 rounded-full bg-[#5BB8FF] animate-pulse shadow-[0_0_10px_#5BB8FF]" />
-            <span className="text-xs font-bold tracking-[0.2em] uppercase text-white/80">
-              What is hackX?
-            </span>
-          </div>
-        </motion.div>
+
 
         {/* ── Two-Column Layout: Left = Narrative, Right = Bento Stats ── */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-20 items-start">
 
           {/* LEFT — Narrative */}
           <div className="md:col-span-6 flex flex-col space-y-8 md:pt-4">
-            <motion.h2
-              {...fade(0.05)}
-              className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.05] text-center md:text-left"
-            >
-              More Than a<br className="hidden md:block" /> Hackathon.
-            </motion.h2>
+            <div className="flex flex-col space-y-3 md:space-y-4">
+              <motion.span
+                {...fade(0)}
+                className="text-xs font-bold tracking-[0.2em] uppercase text-[#5BB8FF] text-center md:text-left block"
+              >
+                What Is HackX?
+              </motion.span>
+              <motion.h2
+                {...fade(0.05)}
+                className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.05] text-center md:text-left"
+              >
+                More Than a<br className="hidden md:block" /> Hackathon.
+              </motion.h2>
+            </div>
 
             <motion.div {...fade(0.15)} className="space-y-6 text-[1.05rem] md:text-[1.15rem] text-white/55 font-light leading-relaxed relative z-30 text-center md:text-left">
               <p>
@@ -296,18 +293,18 @@ export default function NewSection2() {
                         className="absolute inset-0 m-auto z-30 size-24 rounded-full bg-white/10 border border-white/20 backdrop-blur-md text-white flex flex-col items-center justify-center gap-1.5 transition-all duration-500 hover:scale-110 hover:bg-[#5BB8FF]/20 hover:border-[#5BB8FF]/40 shadow-2xl group cursor-pointer"
                         aria-label="Unmute video"
                       >
-                        <svg 
+                        <svg
                           className="size-8 text-[#5BB8FF] group-hover:text-white transition-colors duration-300"
-                          viewBox="0 0 24 24" 
-                          fill="none" 
-                          stroke="currentColor" 
-                          strokeWidth="2.5" 
-                          strokeLinecap="round" 
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2.5"
+                          strokeLinecap="round"
                           strokeLinejoin="round"
                         >
-                          <path d="M11 5L6 9H2v6h4l5 4V5z"/>
-                          <line x1="22" y1="9" x2="16" y2="15"/>
-                          <line x1="16" y1="9" x2="22" y2="15"/>
+                          <path d="M11 5L6 9H2v6h4l5 4V5z" />
+                          <line x1="22" y1="9" x2="16" y2="15" />
+                          <line x1="16" y1="9" x2="22" y2="15" />
                         </svg>
                         <span className="text-[10px] uppercase font-black tracking-widest text-white/80 group-hover:text-white transition-colors">Unmute</span>
                         <div className="absolute inset-0 rounded-full bg-white/5 opacity-40 animate-ping pointer-events-none" />
@@ -328,10 +325,10 @@ export default function NewSection2() {
                       className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 scale-100 group-hover/btn:scale-105"
                       loading="lazy"
                     />
-                    
+
                     {/* Dark gradient overlay */}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-black/40 transition-opacity duration-500 group-hover/btn:opacity-90" />
-                    
+
                     {/* Play Button Icon */}
                     <div className="relative z-10 flex size-20 items-center justify-center rounded-full bg-white/10 border border-white/20 backdrop-blur-md text-white transition-all duration-500 group-hover/btn:scale-110 group-hover/btn:bg-[#5BB8FF]/20 group-hover/btn:border-[#5BB8FF]/40 shadow-lg shadow-black/40">
                       <svg

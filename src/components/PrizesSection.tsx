@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { PixelCanvas } from "@/components/ui/pixel-canvas";
 
 const fade = (delay = 0) => ({
@@ -25,7 +25,7 @@ const prizes = [
   },
   {
     rank: "2nd",
-    label: "Runners-Up",
+    label: "First Runners-Up",
     amount: "LKR 150,000",
     tagline: "Cash Prize",
     accent: "#C0C8D8",
@@ -49,6 +49,16 @@ const prizes = [
 
 export default function PrizesSection() {
   const sectionRef = useRef<HTMLElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   return (
     <section ref={sectionRef} className="relative w-full bg-[#010814] pt-10 pb-10 md:py-20 overflow-hidden z-10">
@@ -97,19 +107,28 @@ export default function PrizesSection() {
               <div
                   className="relative overflow-hidden rounded-3xl h-full flex flex-col justify-between p-6 md:p-8 flex-1 group-hover:scale-[1.02]"
                   style={{
-                    background: "linear-gradient(145deg, #031126 0%, #010610 100%)",
+                    background: isMobile 
+                      ? "linear-gradient(145deg, #051833 0%, #010a17 100%)" 
+                      : "linear-gradient(145deg, #031126 0%, #010610 100%)",
                     backdropFilter: "blur(32px) saturate(1.6)",
                     WebkitBackdropFilter: "blur(32px) saturate(1.6)",
-                    border: "1px solid rgba(255,255,255,0.06)",
+                    border: isMobile
+                      ? `1px solid ${prize.accent}40`
+                      : "1px solid rgba(255,255,255,0.06)",
+                    boxShadow: isMobile
+                      ? `0 0 0 1px ${prize.accent}25, 0 0 24px ${prize.accent}15, 0 8px 32px rgba(0,0,0,0.5)`
+                      : "none",
                     minHeight: isFirst ? "440px" : "380px",
                     transition: "box-shadow 0.5s ease, border-color 0.5s ease, transform 0.5s ease",
                   }}
                   onMouseEnter={e => {
+                    if (isMobile) return;
                     const el = e.currentTarget as HTMLDivElement;
                     el.style.boxShadow = `0 0 0 1px ${prize.accent}35, 0 0 28px ${prize.accent}22, 0 0 64px ${prize.accent}0C`;
                     el.style.borderColor = `${prize.accent}35`;
                   }}
                   onMouseLeave={e => {
+                    if (isMobile) return;
                     const el = e.currentTarget as HTMLDivElement;
                     el.style.boxShadow = "none";
                     el.style.borderColor = "rgba(255,255,255,0.06)";
@@ -166,6 +185,7 @@ export default function PrizesSection() {
                           WebkitBackgroundClip: "text",
                           WebkitTextFillColor: "transparent",
                           backgroundClip: "text",
+                          color: "transparent",
                         }}
                       >
                         {prize.rank}
