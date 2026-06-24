@@ -223,12 +223,15 @@ export default function AskAISection() {
           viewport={{ once: true }}
           className="text-center mb-10 md:mb-12"
         >
-          <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-md mb-6 shadow-[0_0_20px_rgba(91,184,255,0.1)]">
-            <div className="w-2 h-2 rounded-full bg-[#5BB8FF] animate-pulse" />
-            <span className="text-xs font-bold tracking-[0.2em] uppercase text-white/80">
-              AI Assistant
-            </span>
-          </div>
+
+          <motion.span
+            initial={{ opacity: 0, y: 14 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-xs font-bold tracking-[0.2em] uppercase text-[#5BB8FF] mb-4 block text-center"
+          >
+            AI Assistant
+          </motion.span>
           <h2 className="text-4xl md:text-5xl font-black text-white mb-6 tracking-tight">Ask Mascot Anything</h2>
           <p className="text-lg text-white/60 font-light max-w-2xl mx-auto text-center">
             Chat with our AI Assistant to get instant answers about hackX 11.0
