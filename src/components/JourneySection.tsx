@@ -384,7 +384,7 @@ export default function JourneySection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="text-5xl md:text-6xl font-black text-white tracking-tight"
+            className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-tight"
           >
             The Journey
           </motion.h2>

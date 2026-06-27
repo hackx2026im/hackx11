@@ -217,7 +217,7 @@ export default function TeamSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="text-xs font-bold tracking-[0.2em] uppercase text-[#5BB8FF] mb-3 block text-center md:text-left"
+              className="eyebrow mb-4 text-center md:text-left"
             >
               Organising Committee
             </motion.span>

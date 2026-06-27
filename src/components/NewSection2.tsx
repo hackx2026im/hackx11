@@ -3,6 +3,8 @@
 import { motion, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
 import { ReactNode, useState, useRef, useEffect } from "react";
 import { PixelCanvas } from "@/components/ui/pixel-canvas";
+import AnimatedDownloadIcon from "@/components/ui/AnimatedDownloadIcon";
+import VimeoPlayer from "@/components/ui/VimeoPlayer";
 
 const fade = (delay = 0) => ({
   initial: { opacity: 0, y: 24, filter: "blur(4px)" },
@@ -35,26 +37,9 @@ const StatCard = ({
 );
 
 export default function NewSection2() {
-  const [isPlaying, setIsPlaying] = useState(true);
-  const [isMuted, setIsMuted] = useState(true);
   const [thumbnailUrl, setThumbnailUrl] = useState("");
 
   const sectionRef = useRef<HTMLElement>(null);
-  const iframeRef = useRef<HTMLIFrameElement>(null);
-
-  const handleUnmute = () => {
-    if (iframeRef.current && iframeRef.current.contentWindow) {
-      iframeRef.current.contentWindow.postMessage(
-        JSON.stringify({ method: "setMuted", value: false }),
-        "*"
-      );
-      iframeRef.current.contentWindow.postMessage(
-        JSON.stringify({ method: "setVolume", value: 1 }),
-        "*"
-      );
-    }
-    setIsMuted(false);
-  };
 
   useEffect(() => {
     fetch("https://vimeo.com/api/oembed.json?url=https://vimeo.com/1203805610")
@@ -179,7 +164,7 @@ export default function NewSection2() {
             <div className="flex flex-col space-y-3 md:space-y-4">
               <motion.span
                 {...fade(0)}
-                className="text-xs font-bold tracking-[0.2em] uppercase text-[#5BB8FF] text-center md:text-left block"
+                className="eyebrow text-center md:text-left"
               >
                 What Is HackX?
               </motion.span>
@@ -203,11 +188,9 @@ export default function NewSection2() {
             </motion.div>
 
             <motion.div {...fade(0.25)} className="relative z-30 flex justify-center md:justify-start">
-              <button className="btn-primary">
+              <button className="btn-primary group">
                 Delegate Booklet
-                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M12 10v6m0 0l-3-3m3 3l3-3M3 17V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
-                </svg>
+                <AnimatedDownloadIcon size={17} />
               </button>
             </motion.div>
           </div>
@@ -273,76 +256,7 @@ export default function NewSection2() {
 
             {/* Frame */}
             <div className="relative rounded-[2rem] bg-[#010814]/90 p-3 md:p-5 border border-white/5">
-              <div className="aspect-video w-full rounded-[1.25rem] overflow-hidden bg-black relative border border-white/10 shadow-[inset_0_2px_10px_rgba(0,0,0,0.5)]">
-                {isPlaying ? (
-                  <>
-                    <iframe
-                      ref={iframeRef}
-                      width="100%"
-                      height="100%"
-                      src="https://player.vimeo.com/video/1203805610?autoplay=1&muted=1&background=1&title=0&byline=0&portrait=0"
-                      title="hackX Previous Year Video"
-                      allow="autoplay; fullscreen; picture-in-picture"
-                      allowFullScreen
-                      className="absolute inset-0 w-full h-full"
-                      style={{ border: 0 }}
-                    />
-                    {isMuted && (
-                      <button
-                        onClick={handleUnmute}
-                        className="absolute inset-0 m-auto z-30 size-24 rounded-full bg-white/10 border border-white/20 backdrop-blur-md text-white flex flex-col items-center justify-center gap-1.5 transition-all duration-500 hover:scale-110 hover:bg-[#5BB8FF]/20 hover:border-[#5BB8FF]/40 shadow-2xl group cursor-pointer"
-                        aria-label="Unmute video"
-                      >
-                        <svg
-                          className="size-8 text-[#5BB8FF] group-hover:text-white transition-colors duration-300"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2.5"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        >
-                          <path d="M11 5L6 9H2v6h4l5 4V5z" />
-                          <line x1="22" y1="9" x2="16" y2="15" />
-                          <line x1="16" y1="9" x2="22" y2="15" />
-                        </svg>
-                        <span className="text-[10px] uppercase font-black tracking-widest text-white/80 group-hover:text-white transition-colors">Unmute</span>
-                        <div className="absolute inset-0 rounded-full bg-white/5 opacity-40 animate-ping pointer-events-none" />
-                      </button>
-                    )}
-                  </>
-                ) : (
-                  <button
-                    onClick={() => setIsPlaying(true)}
-                    className="absolute inset-0 w-full h-full group/btn flex items-center justify-center overflow-hidden"
-                    aria-label="Play video"
-                  >
-                    {/* Thumbnail Image */}
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={thumbnailUrl || "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200"}
-                      alt="hackX Grand Finals Thumbnail"
-                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 scale-100 group-hover/btn:scale-105"
-                      loading="lazy"
-                    />
-
-                    {/* Dark gradient overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-black/40 transition-opacity duration-500 group-hover/btn:opacity-90" />
-
-                    {/* Play Button Icon */}
-                    <div className="relative z-10 flex size-20 items-center justify-center rounded-full bg-white/10 border border-white/20 backdrop-blur-md text-white transition-all duration-500 group-hover/btn:scale-110 group-hover/btn:bg-[#5BB8FF]/20 group-hover/btn:border-[#5BB8FF]/40 shadow-lg shadow-black/40">
-                      <svg
-                        className="w-8 h-8 fill-current transition-transform duration-300 group-hover/btn:scale-105"
-                        viewBox="0 0 24 24"
-                      >
-                        <polygon points="6 3 20 12 6 21 6 3" />
-                      </svg>
-                      {/* Glow ripple effect */}
-                      <div className="absolute inset-0 rounded-full bg-white/5 opacity-0 group-hover/btn:animate-ping group-hover/btn:opacity-100 duration-1000" />
-                    </div>
-                  </button>
-                )}
-              </div>
+              <VimeoPlayer videoId={1203805610} poster={thumbnailUrl} />
             </div>
 
             <style>{`

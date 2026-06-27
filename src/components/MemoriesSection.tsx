@@ -22,7 +22,7 @@ export default function MemoriesSection() {
           viewport={{ once: true }}
           className="text-center"
         >
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-white mb-6 tracking-tight">
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-6 tracking-tight">
             Moments of Innovation
           </h2>
           <p className="text-lg text-white/60 font-light max-w-3xl mx-auto text-center">
