@@ -72,7 +72,7 @@ const STAGES = [
 ];
 
 // ─────────────────────────────────────────────────────────
-export default function JourneySection() {
+export default function TimelinePage() {
   const containerRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start start", "end end"] });
   const p = useSpring(scrollYProgress, { stiffness: 80, damping: 25, restDelta: 0.001 });
@@ -128,7 +128,7 @@ export default function JourneySection() {
   }, []);
 
   return (
-    <section id="timeline" className="bg-[#010814] w-full relative">
+    <div className="bg-[#010814] w-full relative">
       <div ref={containerRef} style={{ height: "900vh" }}>
         <div className="sticky top-0 h-screen w-full overflow-hidden">
 
@@ -402,6 +402,6 @@ export default function JourneySection() {
           100% { transform: translateY(-110vh) scale(1.4); opacity: 0; }
         }
       `}</style>
-    </section>
+    </div>
   );
 }
