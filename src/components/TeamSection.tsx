@@ -150,7 +150,7 @@ export default function TeamSection() {
     return { totalItemWidth, cycleWidth };
   };
 
-  // Initialize scroll position to the second cycle so users can freely swipe left immediately
+  // Initialize scroll position to start of the second cycle
   useEffect(() => {
     if (scrollRef.current) {
       const { cycleWidth } = getMetrics();
@@ -161,9 +161,8 @@ export default function TeamSection() {
   const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
     const el = e.currentTarget;
     const { cycleWidth } = getMetrics();
-
-    // We render 4 cycles. Keep the user in the middle cycles to allow infinite swipe.
-    if (el.scrollLeft > cycleWidth * 2.5) {
+    // Seamless loop: when past 2 cycles jump back 1 cycle, when before 1 cycle jump forward 1 cycle
+    if (el.scrollLeft >= cycleWidth * 2) {
       el.scrollLeft -= cycleWidth;
     } else if (el.scrollLeft < cycleWidth * 0.5) {
       el.scrollLeft += cycleWidth;
@@ -175,10 +174,15 @@ export default function TeamSection() {
     const timer = setInterval(() => {
       const el = scrollRef.current;
       if (el && !isInteracting.current) {
-        const { totalItemWidth } = getMetrics();
-        el.scrollBy({ left: totalItemWidth, behavior: "smooth" });
+        const { cycleWidth } = getMetrics();
+        // If we've scrolled past 1 full cycle, jump back by 1 cycle instantly (no glitch)
+        if (el.scrollLeft >= cycleWidth * 2) {
+          el.scrollLeft -= cycleWidth;
+        } else {
+          el.scrollLeft += 1;
+        }
       }
-    }, 2500); // Advance every 2.5 seconds
+    }, 16); // ~60fps smooth crawl
     return () => clearInterval(timer);
   }, []);
 
@@ -269,8 +273,8 @@ export default function TeamSection() {
           onTouchEnd={() => { isInteracting.current = false; }}
           style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
-          {/* Output 4 complete cycles for a seamless infinite scroll experience */}
-          {[...coordinators, ...coordinators, ...coordinators, ...coordinators].map((coord, idx) => (
+          {/* 3 cycles: start in cycle 1 (scrollLeft=cycleWidth), reset when past cycle 2 or before cycle 0.5 */}
+          {[...coordinators, ...coordinators, ...coordinators].map((coord, idx) => (
             <div key={idx} className="relative w-[220px] h-[320px] md:w-[280px] md:h-[420px] shrink-0 snap-center">
               <CoordCard coord={coord} />
             </div>

@@ -1,5 +1,6 @@
 "use client";
 
+
 export default function AmbassadorSection() {
   return (
     <section id="ambassadors" className="relative w-full bg-[#010814] pt-10 pb-10 md:pt-20 md:pb-20 overflow-hidden z-10">
@@ -35,18 +36,54 @@ export default function AmbassadorSection() {
             </div>
           </div>
 
-          {/* Right: Ambassador Image with Hover Glow */}
+          {/* Right: Sri Lanka Map with Rotating Edge Glow */}
           <div className="hidden lg:flex lg:col-span-6 items-center justify-center min-h-[400px] relative group">
-            {/* Background glowing aura */}
-            <div className="absolute w-[80%] h-[80%] bg-[#5BB8FF]/5 group-hover:bg-[#5BB8FF]/15 rounded-full blur-[80px] transition-colors duration-700 pointer-events-none" />
-            
-            <div className="relative w-full max-w-[480px] aspect-[4/3] z-10 transition-transform duration-500 group-hover:scale-[1.02]">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img 
-                src="/Ambassador image.png"
-                alt="hackX Ambassador" 
-                className="w-full h-full object-contain rounded-3xl transition-transform duration-700 scale-90 group-hover:scale-95"
-              />
+
+            <div className="relative w-full max-w-[320px] mx-auto transition-transform duration-500 group-hover:scale-[1.02]">
+              <style>{`
+                @property --glow-angle {
+                  syntax: '<angle>';
+                  initial-value: 0deg;
+                  inherits: false;
+                }
+                @keyframes glowSweep {
+                  to { --glow-angle: 360deg; }
+                }
+                .map-glow-sweep {
+                  --glow-angle: 0deg;
+                  animation: glowSweep 4s linear infinite;
+                  -webkit-mask-image: conic-gradient(from var(--glow-angle), transparent 0deg, white 40deg, transparent 80deg);
+                  mask-image: conic-gradient(from var(--glow-angle), transparent 0deg, white 40deg, transparent 80deg);
+                }
+              `}</style>
+
+              {/* Rotating bright arc traced along the map edge */}
+              <div className="map-glow-sweep absolute inset-0 z-0 pointer-events-none" style={{ transform: 'scale(1.02)' }}>
+                <img
+                  src="/Sri Lankan Map.png"
+                  alt=""
+                  aria-hidden="true"
+                  className="w-full h-full object-contain"
+                  style={{
+                    filter: 'drop-shadow(0 0 5px rgba(91,184,255,0.9)) drop-shadow(0 0 2px rgba(91,184,255,0.4))',
+                  }}
+                />
+              </div>
+
+              {/* Hover ambient glow behind the map */}
+              <div className="absolute inset-0 z-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700">
+                <div className="absolute inset-[-20%] rounded-full" style={{ background: 'radial-gradient(ellipse at center, rgba(91,184,255,0.12) 0%, transparent 70%)' }} />
+              </div>
+
+              {/* The actual map image on top */}
+              <div className="relative z-10 pointer-events-none">
+                <img
+                  src="/Sri Lankan Map.png"
+                  alt="Sri Lanka Map"
+                  className="w-full h-auto object-contain transition-all duration-700"
+                  style={{ filter: 'drop-shadow(0 0 0px transparent)' }}
+                />
+              </div>
             </div>
           </div>
 

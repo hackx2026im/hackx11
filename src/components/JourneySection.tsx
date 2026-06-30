@@ -18,12 +18,12 @@ import {
 // Scale up to 80vh so they are much bigger and prominent.
 const IMG_H = 80;   // vh
 
-// During Phase 2, camera is at worldY = -50vh.
-// This means worldY = 150vh maps exactly to screen 100vh (the bottom edge).
-const IMG_TOP = 150 - IMG_H; // 70 vh
+// During Phase 2, camera is at worldY = -90vh.
+// This means worldY = 190vh maps exactly to screen 100vh (the bottom edge).
+const IMG_TOP = 190 - IMG_H; // 110 vh
 
-// The line is at exactly 100 world-vh (screen 50vh, center)
-const LINE_Y = 100; // world-vh
+// The line is at exactly 140 world-vh (screen 50vh, center)
+const LINE_Y = 140; // world-vh
 const LINE_L = 50;  // vw start (mountain center)
 const LINE_W = 180; // vw width (spans to 230vw, exactly the center of Image 3!)
 
@@ -77,15 +77,16 @@ export default function JourneySection() {
   const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start start", "end end"] });
   const p = useSpring(scrollYProgress, { stiffness: 80, damping: 25, restDelta: 0.001 });
 
-  // Phase 1: worldY drops 50vh. To keep text vertically fixed on screen, we move it down 50vh!
-  const introY = useTransform(p, [0, 0.15], ["0vh", "50vh"]);
-  const textOp = useTransform(p, [0.10, 0.15], [1, 0]); // Fade out exactly as camera movement finishes
+  // Phase 1: worldY drops 90vh. To keep text vertically fixed on screen, we move it down 90vh!
+  const introY = useTransform(p, [0, 0.20], ["0vh", "90vh"]);
+  const textOp = useTransform(p, [0.08, 0.15], [1, 0]); // Fade out exactly as camera movement finishes
   const lineScale = useTransform(p, [0.15, 0.84], [0, 1]);
 
   // We need a numeric pan value to drive the node fade-ins
-  const panVal = useTransform(p, [0.15, 0.85], [0, CAM_END]);
+  // Start X panning early at 0.08 while Y is still dropping until 0.20 for a smooth diagonal curve
+  const panVal = useTransform(p, [0.08, 0.85], [0, CAM_END]);
   const worldX = useMotionTemplate`${panVal}vw`;
-  const worldY = useTransform(p, [0, 0.15, 0.85, 1.0], ["0vh", "-50vh", "-50vh", "-55vh"]);
+  const worldY = useTransform(p, [0, 0.20, 0.85, 1.0], ["0vh", "-90vh", "-90vh", "-100vh"]);
 
   // Phase 3: Reveal numbers
   const counterVal = useTransform(p, [0.72, 0.84], [1, 11]);
@@ -131,7 +132,9 @@ export default function JourneySection() {
     <section id="timeline" className="bg-[#010814] w-full relative">
       <div ref={containerRef} style={{ height: "900vh" }}>
         <div className="sticky top-0 h-screen w-full overflow-hidden">
-
+          {/* Top screen feathering to guarantee no harsh lines against the previous section */}
+          <div className="absolute top-0 left-0 w-full h-[15vh] z-[100] pointer-events-none" style={{ background: "linear-gradient(to bottom, #010814 0%, transparent 100%)" }} />
+          
           {/* ── ATMOSPHERE ── */}
           <div className="absolute inset-0 z-0 pointer-events-none"
             style={{ background: "radial-gradient(ellipse 150% 100% at 50% 130%, #041a3a 0%, #010814 60%)" }} />
@@ -167,19 +170,18 @@ export default function JourneySection() {
               className="absolute pointer-events-none select-none flex justify-center items-center"
               style={{
                 left: "230vw", // Center of Image 3 and GF
-                top: "75vh", // Brought down slightly
+                top: "115vh", // Shifted down 40vh to match new world scale
                 transform: "translate(-50%, -50%)",
                 opacity: novOp,
                 zIndex: 0,
               }}
             >
-              <div style={{
-                fontFamily: "'TT Hoves Pro Expanded', sans-serif",
-                fontSize: "clamp(6rem, 18vw, 16rem)", fontWeight: 900,
+              <div className="font-extrabold tracking-tight" style={{
+                fontSize: "clamp(6rem, 18vw, 16rem)",
                 background: "linear-gradient(to bottom, #ffffff, #041a3a)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
-                letterSpacing: "-0.02em", lineHeight: 1,
+                lineHeight: 1,
               }}>
                 NOV {date}
               </div>
@@ -188,24 +190,34 @@ export default function JourneySection() {
             {/* ── INTRO TEXT ── */}
             <motion.div
               className="absolute w-[100vw] flex flex-col items-center text-center px-10"
-              style={{ left: 0, top: "5vh", y: introY, opacity: textOp, zIndex: 10 }}
+              style={{ left: 0, top: "12vh", y: introY, opacity: textOp, zIndex: 10 }}
             >
-              <h1 style={{
-                fontFamily: "'TT Hoves Pro Expanded', sans-serif",
-                fontSize: "clamp(3rem, 8vw, 8rem)", fontWeight: 900, color: "white",
-                letterSpacing: "-0.03em", textShadow: `0 0 100px rgba(91,184,255,0.3)`,
-                lineHeight: 1, marginBottom: "1.5rem",
+              <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-white" style={{
+                lineHeight: 1.1,
               }}>
                 Your Journey
               </h1>
-              <p style={{ fontSize: "clamp(1rem, 2vw, 1.5rem)", color: "rgba(91,184,255,0.7)", fontWeight: 300, maxWidth: "38rem", lineHeight: 1.65 }}>
+              <p className="font-light" style={{
+                marginTop: "1.5rem",
+                color: "rgba(91,184,255,0.6)",
+                fontSize: "clamp(1.2rem, 2vw, 1.8rem)",
+              }}>
                 Every great venture starts somewhere.<br />Yours starts here.
               </p>
             </motion.div>
 
             {/* ── MOUNTAIN ── */}
-            <img src="/timeline mountain.png" alt="Mountain" className="absolute pointer-events-none"
-              style={{ left: "-10vw", top: 0, width: "120vw", height: "230vh", objectFit: "cover", objectPosition: "center top", zIndex: 20 }} />
+            <div className="absolute pointer-events-none" style={{ left: "-10vw", top: 0, width: "120vw", height: "230vh", zIndex: 20 }}>
+              <img 
+                src="/timeline mountain.png" 
+                alt="Mountain" 
+                className="w-full h-full object-cover object-top" 
+                style={{ 
+                  WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, black 15%, black 100%)", 
+                  maskImage: "linear-gradient(to bottom, transparent 0%, black 15%, black 100%)" 
+                }} 
+              />
+            </div>
 
             {/* ── IMAGES (2.png, 3.png) ──
                 Placed independently with objectFit: cover to prevent insane width while keeping 80vh height.
@@ -216,7 +228,7 @@ export default function JourneySection() {
                 className="absolute pointer-events-none"
                 style={{
                   left: `${img.left}vw`,
-                  top: img.num === 3 ? `58vh` : `${IMG_TOP}vh`,
+                  top: img.num === 3 ? `98vh` : `${IMG_TOP}vh`,
                   height: img.num === 3 ? `120vh` : `${IMG_H}vh`,
                   width: `${img.width}vw`,
                   zIndex: 3,
@@ -257,7 +269,7 @@ export default function JourneySection() {
             {/* ── SOLID FLOOR (To prevent gaps when camera drops) ── */}
             <div className="absolute" style={{
               left: 0,
-              top: `150vh`,
+              top: `190vh`,
               width: `500vw`,
               height: "50vh",
               background: "#010814",
@@ -293,9 +305,9 @@ export default function JourneySection() {
                       x: isGF ? "-50%" : "0%", // Center GF exactly over the coordinate
                       alignItems: isGF ? "center" : "flex-start",
                       textAlign: isGF ? "center" : ("left" as any),
-                      // Anchor to the 100vh line based on whether it is above or below
+                      // Anchor to the 140vh line based on whether it is above or below
                       // GF is brought up and made bigger!
-                      ...(isBelow ? { top: "100vh", paddingTop: "16px" } : { bottom: "100vh", paddingBottom: isGF ? "80px" : "16px" }),
+                      ...(isBelow ? { top: "140vh", paddingTop: "16px" } : { bottom: "60vh", paddingBottom: isGF ? "80px" : "16px" }),
                       width: isGF ? "20vw" : "15vw",
                       minWidth: isGF ? "260px" : "210px",
                       maxWidth: isGF ? "320px" : "260px",
@@ -303,27 +315,24 @@ export default function JourneySection() {
                       y: nodeYs[i],
                     }}
                   >
-                    <div style={{
-                      color: BRAND, fontWeight: 700,
-                      fontSize: isGF ? "1rem" : "0.75rem", letterSpacing: "0.22em",
-                      textTransform: "uppercase", marginBottom: "0.3rem",
+                    <div className="font-bold uppercase" style={{
+                      color: BRAND,
+                      fontSize: isGF ? "1rem" : "0.75rem", letterSpacing: "0.15em",
+                      marginBottom: "0.3rem",
                       textShadow: "0 2px 10px rgba(0,0,0,0.8)",
                     }}>
                       {stage.date}
                     </div>
-                    <div style={{
-                      fontFamily: "'TT Hoves Pro Expanded', sans-serif",
-                      fontSize: isGF ? "clamp(1.3rem, 2vw, 1.8rem)" : "clamp(1rem, 1.4vw, 1.35rem)",
-                      fontWeight: 900, color: "white",
-                      textTransform: "uppercase", letterSpacing: "0.04em",
+                    <div className="font-extrabold tracking-tight text-white" style={{
+                      fontSize: isGF ? "clamp(1.5rem, 2vw, 2rem)" : "clamp(1.1rem, 1.4vw, 1.5rem)",
                       lineHeight: 1.15, marginBottom: "0.4rem",
-                      textShadow: isGF
-                        ? `0 0 30px rgba(91,184,255,0.6), 0 4px 20px rgba(0,0,0,0.9)`
+                      textShadow: isGF 
+                        ? `0 0 30px rgba(91,184,255,0.6), 0 4px 20px rgba(0,0,0,0.9)` 
                         : `0 4px 15px rgba(0,0,0,0.9)`,
                     }}>
                       {stage.title}
                     </div>
-                    <div style={{
+                    <div className="font-light" style={{
                       color: "rgba(240,250,255,0.85)",
                       fontSize: isGF ? "0.95rem" : "0.8rem", lineHeight: 1.55,
                       textShadow: "0 2px 15px rgba(0,0,0,0.9)",

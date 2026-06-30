@@ -1,18 +1,30 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
 export default function NavBar() {
   const [scrolled, setScrolled] = useState(false);
+  const [hidden, setHidden] = useState(false);
+  const lastScrollY = useRef(0);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+      const currentScrollY = window.scrollY;
+      setScrolled(currentScrollY > 50);
+      
+      // Smart Nav Logic: Hide when scrolling down, show when scrolling up
+      if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
+        setHidden(true);
+        setMobileMenuOpen(false);
+      } else {
+        setHidden(false);
+      }
+      lastScrollY.current = currentScrollY;
       
       const sectionIds = ["about", "timeline", "rewards", "ambassadors", "memories", "faq"];
       let bestSection = "";
@@ -56,8 +68,8 @@ export default function NavBar() {
   return (
     <motion.header
       initial={{ y: -100, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      animate={{ y: hidden ? -100 : 0, opacity: hidden ? 0 : 1 }}
+      transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
       className="fixed top-0 left-0 right-0 z-50"
       style={{ 
         paddingTop: scrolled ? "12px" : "20px", 
