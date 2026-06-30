@@ -138,59 +138,58 @@ function CoordCard({ coord }: { coord: typeof coordinators[0] }) {
 }
 
 export default function TeamSection() {
-  const [active, setActive] = useState(1000); // Start high for infinite looping
-  const N = coordinators.length;
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const isInteracting = useRef(false);
 
-  const next = useCallback(() => setActive(a => a + 1), []);
-  const prev = useCallback(() => setActive(a => a - 1), []);
+  const getMetrics = () => {
+    const isMob = typeof window !== "undefined" && window.innerWidth < 768;
+    const gap = isMob ? 12 : 16; // gap-3 is 12px, gap-4 is 16px
+    const cardWidth = isMob ? 220 : 280;
+    const totalItemWidth = cardWidth + gap;
+    const cycleWidth = coordinators.length * totalItemWidth;
+    return { totalItemWidth, cycleWidth };
+  };
 
-  const [isMobile, setIsMobile] = useState(false);
-  const [translateXStep, setTranslateXStep] = useState(280);
-  // Use a ref so the auto-scroll interval always reads the live value
-  // without a stale closure — avoids the race condition where isMobile
-  // is false on first render and starts the timer before handleResize fires.
-  const isMobileRef = useRef(false);
-  // Native touch tracking for mobile swipe
-  const touchStartX = useRef<number | null>(null);
-
+  // Initialize scroll position to the second cycle so users can freely swipe left immediately
   useEffect(() => {
-    const handleResize = () => {
-      const width = window.innerWidth;
-      const mobile = width < 768;
-      isMobileRef.current = mobile;
-      setIsMobile(mobile);
-      if (!mobile) {
-        // Card is 280px wide (md). Keep the step above that so neighbouring
-        // cards sit side-by-side with a small gap instead of overlapping.
-        const val = width * 0.26;
-        setTranslateXStep(Math.max(304, Math.min(val, 344)));
-      }
-    };
-    handleResize(); // sets isMobileRef.current immediately
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    if (scrollRef.current) {
+      const { cycleWidth } = getMetrics();
+      scrollRef.current.scrollLeft = cycleWidth;
+    }
   }, []);
 
-  // Auto-scroll on all devices
+  const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    const el = e.currentTarget;
+    const { cycleWidth } = getMetrics();
+
+    // We render 4 cycles. Keep the user in the middle cycles to allow infinite swipe.
+    if (el.scrollLeft > cycleWidth * 2.5) {
+      el.scrollLeft -= cycleWidth;
+    } else if (el.scrollLeft < cycleWidth * 0.5) {
+      el.scrollLeft += cycleWidth;
+    }
+  };
+
+  // Auto-advance scroll natively
   useEffect(() => {
     const timer = setInterval(() => {
-      setActive((a) => a + 1);
-    }, 2000);
+      const el = scrollRef.current;
+      if (el && !isInteracting.current) {
+        const { totalItemWidth } = getMetrics();
+        el.scrollBy({ left: totalItemWidth, behavior: "smooth" });
+      }
+    }, 2500); // Advance every 2.5 seconds
     return () => clearInterval(timer);
   }, []);
 
-  const handleTouchStart = (e: React.TouchEvent) => {
-    touchStartX.current = e.touches[0].clientX;
+  const next = () => {
+    const { totalItemWidth } = getMetrics();
+    scrollRef.current?.scrollBy({ left: totalItemWidth, behavior: "smooth" });
   };
 
-  const handleTouchEnd = (e: React.TouchEvent) => {
-    if (touchStartX.current === null) return;
-    const delta = touchStartX.current - e.changedTouches[0].clientX;
-    if (Math.abs(delta) > 50) {
-      if (delta > 0) next(); // swipe left → next
-      else prev();           // swipe right → prev
-    }
-    touchStartX.current = null;
+  const prev = () => {
+    const { totalItemWidth } = getMetrics();
+    scrollRef.current?.scrollBy({ left: -totalItemWidth, behavior: "smooth" });
   };
 
   return (
@@ -252,73 +251,31 @@ export default function TeamSection() {
             </button>
           </div>
         </div>
+      </div>
 
-        {/* ─── Straight Line Carousel ─── */}
+      {/* Auto-advancing infinite native scroll container */}
+      <div className="relative w-full overflow-hidden bg-[#010814] mt-8 md:mt-12">
+        {/* Shadow overlays for smooth fade on edges */}
+        <div className="absolute top-0 bottom-0 left-0 w-16 md:w-32 bg-gradient-to-r from-[#010814] to-transparent z-20 pointer-events-none" />
+        <div className="absolute top-0 bottom-0 right-0 w-16 md:w-32 bg-gradient-to-l from-[#010814] to-transparent z-20 pointer-events-none" />
+        
         <div 
-          className="relative w-full h-[350px] md:h-[550px] mt-8 md:mt-16 flex justify-center items-center overflow-hidden [perspective:1200px]"
-          style={{
-            maskImage: "linear-gradient(to right, transparent, black 15%, black 85%, transparent)",
-            WebkitMaskImage: "linear-gradient(to right, transparent, black 15%, black 85%, transparent)",
-          }}
-          onTouchStart={handleTouchStart}
-          onTouchEnd={handleTouchEnd}
+          ref={scrollRef}
+          onScroll={handleScroll}
+          className="flex gap-3 md:gap-4 px-6 md:px-12 py-4 overflow-x-auto snap-x snap-mandatory hide-scrollbar items-center h-[360px] md:h-[460px]"
+          onMouseEnter={() => { isInteracting.current = true; }}
+          onMouseLeave={() => { isInteracting.current = false; }}
+          onTouchStart={() => { isInteracting.current = true; }}
+          onTouchEnd={() => { isInteracting.current = false; }}
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
         >
-          {[-3, -2, -1, 0, 1, 2, 3].map((offset) => {
-            const absoluteIndex = active + offset;
-            const wrappedIndex = ((absoluteIndex % N) + N) % N;
-            const coord = coordinators[wrappedIndex];
-            const absOffset = Math.abs(offset);
-            
-            // Align in a straight horizontal line (no rotateZ, no translateY curve)
-            const rotateZ = 0;
-            const translateY = 0;
-            
-            // Dynamic translation for responsive horizontal spread
-            const translateX = isMobile
-              ? offset * 230 // Solid numeric pixel step for mobile (avoiding calc/clamp issues)
-              : offset * translateXStep; 
-            
-            const scale = isMobile 
-              ? (1 - absOffset * 0.20) 
-              : (1 - absOffset * 0.05); // Slightly shrink outer cards for focus/depth
-              
-            const opacity = isMobile
-              ? (absOffset > 1 ? 0 : (absOffset === 0 ? 1 : 0.35))
-              : (absOffset > 2 ? 0 : 1); // Hide items too far out
-              
-            const zIndex = 20 - absOffset; // Center item on top
-            
-            return (
-              <motion.div
-                key={absoluteIndex}
-                className="absolute w-[220px] h-[320px] md:w-[280px] md:h-[420px] cursor-pointer"
-                initial={{
-                  x: translateX,
-                  y: translateY,
-                  rotateZ: rotateZ,
-                  scale: scale,
-                  opacity: 0,
-                }}
-                animate={{
-                  x: translateX,
-                  y: translateY,
-                  rotateZ: rotateZ,
-                  scale: scale,
-                  zIndex: zIndex,
-                  opacity: opacity,
-                }}
-                transition={{
-                  type: "spring",
-                  stiffness: 250,
-                  damping: 28,
-                  mass: 0.8
-                }}
-                onClick={() => setActive(absoluteIndex)}
-              >
-                <CoordCard coord={coord} />
-              </motion.div>
-            );
-          })}
+          {/* Output 4 complete cycles for a seamless infinite scroll experience */}
+          {[...coordinators, ...coordinators, ...coordinators, ...coordinators].map((coord, idx) => (
+            <div key={idx} className="relative w-[220px] h-[320px] md:w-[280px] md:h-[420px] shrink-0 snap-center">
+              <CoordCard coord={coord} />
+            </div>
+          ))}
+          
         </div>
       </div>
 

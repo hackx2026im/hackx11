@@ -339,7 +339,7 @@ Moments of Innovation
 
 
 **Body**
-Experience the highlights, energy, and unforgettable moments that have defined hackX over the years. 
+Experience the highlights, energy, and unforgettable moments that have defined hackX 10.0 last year. 
 
 
 **Text above button**

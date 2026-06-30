@@ -37,7 +37,7 @@ const MemoryCard = ({ memory, idx, activeIndex, isMobile, cardRef }: any) => {
   return (
     <div 
       ref={cardRef}
-      className={`relative w-[280px] h-[300px] md:w-[450px] md:h-[400px] rounded-3xl overflow-hidden shrink-0 border border-white/5 shadow-xl group cursor-pointer`}
+      className={`relative w-[280px] h-[300px] md:w-[450px] md:h-[400px] rounded-3xl overflow-hidden shrink-0 border border-white/5 shadow-xl group cursor-pointer snap-center`}
     >
       <div className="absolute inset-0 bg-gradient-to-t from-[#010814] via-transparent to-transparent opacity-80 z-10 group-hover:opacity-40 transition-opacity duration-300 pointer-events-none" />
       
@@ -61,20 +61,47 @@ export default function MemoriesSection() {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const [isMobile, setIsMobile] = useState(false);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const isInteracting = useRef(false);
 
   useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    const handleResize = () => setIsMobile(typeof window !== "undefined" && window.innerWidth < 768);
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  useEffect(() => {
-    if (!isMobile) {
-      setActiveIndex(null);
-      return;
-    }
+  const getMetrics = () => {
+    const isMob = typeof window !== "undefined" && window.innerWidth < 768;
+    const gap = isMob ? 16 : 24; // md:gap-6 (24px), gap-4 (16px)
+    const cardWidth = isMob ? 280 : 450;
+    const totalItemWidth = cardWidth + gap;
+    const cycleWidth = memories.length * totalItemWidth;
+    return { totalItemWidth, cycleWidth };
+  };
 
+  // Initialize scroll position to the second cycle so users can freely swipe left immediately
+  useEffect(() => {
+    if (scrollRef.current) {
+      const { cycleWidth } = getMetrics();
+      scrollRef.current.scrollLeft = cycleWidth;
+    }
+  }, []);
+
+  const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    const el = e.currentTarget;
+    const { cycleWidth } = getMetrics();
+
+    // We render 4 cycles. Keep the user in the middle cycles to allow infinite swipe.
+    if (el.scrollLeft > cycleWidth * 2.5) {
+      el.scrollLeft -= cycleWidth;
+    } else if (el.scrollLeft < cycleWidth * 0.5) {
+      el.scrollLeft += cycleWidth;
+    }
+  };
+
+  // Track center card for mobile auto-hover effect
+  useEffect(() => {
     let animationFrameId: number;
     const checkCenter = () => {
       const centerX = window.innerWidth / 2;
@@ -84,14 +111,13 @@ export default function MemoriesSection() {
       cardRefs.current.forEach((el, index) => {
         if (!el) return;
         const rect = el.getBoundingClientRect();
-        // Skip elements completely out of horizontal view to avoid edge cases
         if (rect.right < 0 || rect.left > window.innerWidth) return;
         
         const elCenter = rect.left + rect.width / 2;
         const distance = Math.abs(centerX - elCenter);
         if (distance < minDistance) {
           minDistance = distance;
-          closestIdx = index;
+          closestIdx = index % memories.length; // Ensure activeIndex maps to 0-4 for correct state
         }
       });
 
@@ -101,7 +127,19 @@ export default function MemoriesSection() {
 
     animationFrameId = requestAnimationFrame(checkCenter);
     return () => cancelAnimationFrame(animationFrameId);
-  }, [isMobile]);
+  }, []);
+
+  // Auto-advance scroll natively
+  useEffect(() => {
+    const timer = setInterval(() => {
+      const el = scrollRef.current;
+      if (el && !isInteracting.current) {
+        const { totalItemWidth } = getMetrics();
+        el.scrollBy({ left: totalItemWidth, behavior: "smooth" });
+      }
+    }, 2500); // Advance every 2.5 seconds
+    return () => clearInterval(timer);
+  }, []);
 
   return (
     <section id="memories" className="relative w-full bg-[#010814] pt-12 pb-10 md:py-20 overflow-hidden z-10">
@@ -118,45 +156,39 @@ export default function MemoriesSection() {
             Moments of Innovation
           </h2>
           <p className="text-lg text-white/60 font-light max-w-3xl mx-auto text-center">
-            Experience the highlights, energy, and unforgettable moments that have defined hackX over the years.
+            Experience the highlights, energy, and unforgettable moments that have defined hackX 10.0 last year.
           </p>
         </motion.div>
       </div>
 
-      {/* Infinite Horizontal Marquee */}
-      <div className="relative w-full h-[350px] md:h-[500px] overflow-hidden flex items-center bg-[#010814] marquee-container">
+      {/* Auto-advancing infinite native scroll container */}
+      <div className="relative w-full overflow-hidden bg-[#010814]">
         {/* Shadow overlays for smooth fade on edges */}
-        <div className="absolute top-0 bottom-0 left-0 w-32 bg-gradient-to-r from-[#010814] to-transparent z-20 pointer-events-none" />
-        <div className="absolute top-0 bottom-0 right-0 w-32 bg-gradient-to-l from-[#010814] to-transparent z-20 pointer-events-none" />
+        <div className="absolute top-0 bottom-0 left-0 w-16 md:w-32 bg-gradient-to-r from-[#010814] to-transparent z-20 pointer-events-none" />
+        <div className="absolute top-0 bottom-0 right-0 w-16 md:w-32 bg-gradient-to-l from-[#010814] to-transparent z-20 pointer-events-none" />
         
-        <div className="flex w-max animate-marquee">
+        <div 
+          ref={scrollRef}
+          onScroll={handleScroll}
+          className="flex gap-4 md:gap-6 px-6 md:px-12 py-4 overflow-x-auto snap-x snap-mandatory hide-scrollbar"
+          onMouseEnter={() => { isInteracting.current = true; }}
+          onMouseLeave={() => { isInteracting.current = false; }}
+          onTouchStart={() => { isInteracting.current = true; }}
+          onTouchEnd={() => { isInteracting.current = false; }}
+          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        >
+          {/* Output 4 complete cycles for a seamless infinite scroll experience */}
+          {[...memories, ...memories, ...memories, ...memories].map((memory, idx) => (
+            <MemoryCard 
+              key={`mem-${idx}`} 
+              memory={memory} 
+              idx={idx % memories.length} 
+              activeIndex={activeIndex} 
+              isMobile={isMobile}
+              cardRef={(el: HTMLDivElement) => { cardRefs.current[idx] = el; }} 
+            />
+          ))}
           
-          <div className="flex gap-4 md:gap-6 px-2 md:px-3">
-            {memories.map((memory, idx) => (
-              <MemoryCard 
-                key={`set1-${idx}`} 
-                memory={memory} 
-                idx={idx} 
-                activeIndex={activeIndex} 
-                isMobile={isMobile}
-                cardRef={(el: HTMLDivElement) => { cardRefs.current[idx] = el; }} 
-              />
-            ))}
-          </div>
-
-          <div className="flex gap-4 md:gap-6 px-2 md:px-3">
-            {memories.map((memory, idx) => (
-              <MemoryCard 
-                key={`set2-${idx}`} 
-                memory={memory} 
-                idx={idx + memories.length} 
-                activeIndex={activeIndex} 
-                isMobile={isMobile}
-                cardRef={(el: HTMLDivElement) => { cardRefs.current[idx + memories.length] = el; }} 
-              />
-            ))}
-          </div>
-
         </div>
       </div>
       
@@ -176,16 +208,8 @@ export default function MemoriesSection() {
       </div>
 
       <style>{`
-        @keyframes marquee {
-          0% { transform: translateX(0%); }
-          100% { transform: translateX(-50%); }
-        }
-        .animate-marquee {
-          animation: marquee 30s linear infinite;
-        }
-        .marquee-container:hover .animate-marquee,
-        .marquee-container:active .animate-marquee {
-          animation-play-state: paused;
+        .hide-scrollbar::-webkit-scrollbar {
+          display: none;
         }
       `}</style>
     </section>
