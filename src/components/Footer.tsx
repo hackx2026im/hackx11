@@ -53,7 +53,7 @@ export default function Footer() {
       {/* ── LAYER 1: Side pillars ── */}
       {/* Left */}
       <div
-        className="hidden md:block absolute bottom-0 left-0 w-[400px] h-[420px] pointer-events-none overflow-hidden"
+        className="hidden lg:block absolute bottom-0 left-0 w-[400px] h-[420px] pointer-events-none overflow-hidden"
         style={{ zIndex: 1, opacity: 0.75 }}
       >
         <div className="relative w-full h-full translate-y-16">
@@ -69,7 +69,7 @@ export default function Footer() {
 
       {/* Right */}
       <div
-        className="hidden md:block absolute bottom-0 right-0 w-[400px] h-[420px] pointer-events-none overflow-hidden"
+        className="hidden lg:block absolute bottom-0 right-0 w-[400px] h-[420px] pointer-events-none overflow-hidden"
         style={{ zIndex: 1, opacity: 0.75 }}
       >
         <div className="relative w-full h-full translate-y-16">
