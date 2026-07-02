@@ -54,7 +54,7 @@ export default function Footer() {
       {/* Left */}
       <div
         className="hidden lg:block absolute bottom-0 left-0 w-[400px] h-[420px] pointer-events-none overflow-hidden"
-        style={{ zIndex: 1, opacity: 0.75 }}
+        style={{ zIndex: 1, opacity: 0.95 }}
       >
         <div className="relative w-full h-full translate-y-16">
           <Image
@@ -70,7 +70,7 @@ export default function Footer() {
       {/* Right */}
       <div
         className="hidden lg:block absolute bottom-0 right-0 w-[400px] h-[420px] pointer-events-none overflow-hidden"
-        style={{ zIndex: 1, opacity: 0.75 }}
+        style={{ zIndex: 1, opacity: 0.95 }}
       >
         <div className="relative w-full h-full translate-y-16">
           <Image
