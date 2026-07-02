@@ -9,18 +9,17 @@ export default function ScrollToTop() {
 
   useEffect(() => {
     const handleScroll = () => {
-      // Show button after scrolling down 500px (roughly past the hero)
-      if (window.scrollY > 500) {
-        setIsVisible(true);
-      } else {
-        setIsVisible(false);
-      }
-
-      // Calculate scroll progress percentage
       const windowHeight = window.innerHeight;
       const documentHeight = document.documentElement.scrollHeight;
       const scrollTop = window.scrollY;
 
+      // Show after scrolling down 500px (roughly past the hero), but hide again
+      // near the very bottom so the button doesn't cover the footer social icons
+      // (notably the last/TikTok one) on mobile.
+      const distanceFromBottom = documentHeight - (scrollTop + windowHeight);
+      setIsVisible(scrollTop > 500 && distanceFromBottom > 160);
+
+      // Calculate scroll progress percentage
       // Ensure we don't divide by zero
       if (documentHeight > windowHeight) {
         const progress = scrollTop / (documentHeight - windowHeight);
