@@ -409,7 +409,7 @@ function DesktopJourneySection() {
               const x = SX[i];
 
               return (
-                <motion.g key={i} style={{ display: "contents" }} >
+                <motion.div key={i} style={{ display: "contents" }} >
                   {/* Card Container */}
                   <motion.div
                     className="absolute z-30 flex flex-col"
@@ -492,7 +492,7 @@ function DesktopJourneySection() {
                       opacity: nodeOps[i],
                     }}
                   />
-                </motion.g>
+                </motion.div>
               );
             })}
           </motion.div>
@@ -815,7 +815,7 @@ function MobileJourneySection() {
               const x       = SX_M[i];
 
               return (
-                <motion.g key={i} style={{ display: "contents" }}>
+                <motion.div key={i} style={{ display: "contents" }}>
                   <motion.div
                     className="absolute z-30 flex flex-col"
                     style={{
@@ -890,7 +890,7 @@ function MobileJourneySection() {
                     zIndex: 2,
                     opacity: nodeOps[i],
                   }} />
-                </motion.g>
+                </motion.div>
               );
             })}
           </motion.div>
