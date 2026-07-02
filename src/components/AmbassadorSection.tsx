@@ -63,6 +63,8 @@ export default function AmbassadorSection() {
                   src="/Sri Lankan Map.webp"
                   alt=""
                   aria-hidden="true"
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-full object-contain"
                   style={{
                     filter: 'drop-shadow(0 0 5px rgba(91,184,255,0.9)) drop-shadow(0 0 2px rgba(91,184,255,0.4))',
@@ -80,6 +82,8 @@ export default function AmbassadorSection() {
                 <img
                   src="/Sri Lankan Map.webp"
                   alt="Sri Lanka Map"
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-auto object-contain transition-all duration-700"
                   style={{ filter: 'drop-shadow(0 0 0px transparent)' }}
                 />

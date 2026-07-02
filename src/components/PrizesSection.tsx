@@ -164,6 +164,8 @@ export default function PrizesSection() {
                         <img
                           src={prize.imageUrl}
                           alt={prize.label}
+                          loading="lazy"
+                          decoding="async"
                           style={{
                             width: "100%",
                             height: "100%",

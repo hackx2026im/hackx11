@@ -75,6 +75,8 @@ const MemoryFace = ({ memory }: { memory: Memory }) => (
     <img
       src={memory.src}
       alt={memory.title}
+      loading="lazy"
+      decoding="async"
       className="absolute inset-0 w-full h-full object-cover transition-all duration-700 grayscale-0 md:grayscale md:group-hover:grayscale-0 md:group-hover:scale-105"
     />
 

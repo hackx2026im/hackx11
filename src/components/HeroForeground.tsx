@@ -46,6 +46,7 @@ export default function HeroForeground({ scrollProgress }: HeroForegroundProps) 
           <img
             src="/Hero Front Layer New.webp"
             alt=""
+            fetchPriority="high"
             style={{
               width: "100%",
               height: "100%",

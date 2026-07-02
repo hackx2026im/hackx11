@@ -183,9 +183,11 @@ export default function FAQSection() {
               transition={{ duration: 1 }}
               className="relative w-full max-w-[650px]"
             >
-              <img 
-                src="/FAQ Image.webp" 
-                alt="Diver" 
+              <img
+                src="/FAQ Image.webp"
+                alt="Diver"
+                loading="lazy"
+                decoding="async"
                 className="w-full h-auto drop-shadow-[0_0_50px_rgba(91,184,255,0.2)] animate-[float_6s_ease-in-out_infinite]"
               />
             </motion.div>
@@ -200,9 +202,11 @@ export default function FAQSection() {
             viewport={{ once: true }}
             className="relative w-full max-w-[300px] mx-auto pointer-events-none z-30"
           >
-             <img 
-                src="/FAQ Image.webp" 
-                alt="Diver" 
+             <img
+                src="/FAQ Image.webp"
+                alt="Diver"
+                loading="lazy"
+                decoding="async"
                 className="w-full h-auto drop-shadow-[0_0_20px_rgba(91,184,255,0.15)] animate-[float_6s_ease-in-out_infinite]"
               />
           </motion.div>
