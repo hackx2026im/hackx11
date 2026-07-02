@@ -939,10 +939,10 @@ export default function JourneySection() {
   // < 1024px (phones AND tablets) use the vw-scaled mobile layout; the desktop layout's
   // tight vw spacing only reads correctly on wide screens.
   const [isMobile, setIsMobile] = useState(() =>
-    typeof window !== "undefined" ? window.innerWidth < 1024 : false
+    typeof window !== "undefined" ? window.innerWidth < 1280 : false
   );
   useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 1024);
+    const check = () => setIsMobile(window.innerWidth < 1280);
     window.addEventListener("resize", check);
     return () => window.removeEventListener("resize", check);
   }, []);
