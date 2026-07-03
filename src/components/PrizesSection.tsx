@@ -146,7 +146,7 @@ export default function PrizesSection() {
                       <motion.div
                         animate={{ y: [0, -8, 0] }}
                         transition={{ duration: 3 + visualIdx, repeat: Infinity, ease: "easeInOut" }}
-                        className="mb-6 relative mx-auto md:mx-0"
+                        className="mb-6 relative mx-auto"
                         style={{
                           width: isFirst ? 108 : 86,
                           height: isFirst ? 108 : 86,
