@@ -99,12 +99,12 @@ export default function NavBar() {
         >
           {/* Logo */}
           <Link href="/" className="flex items-center group relative z-50">
-            <div className="relative w-[140px] sm:w-[170px] h-[46px] sm:h-[54px] origin-left">
+            <div className="relative w-[180px] sm:w-[220px] h-[60px] sm:h-[70px] origin-left -ml-2">
               <Image
                 src="/hackxlogo.webp"
                 alt="hackX Logo"
                 fill
-                sizes="(max-width: 640px) 140px, 170px"
+                sizes="(max-width: 640px) 180px, 220px"
                 style={{ objectFit: "contain", objectPosition: "left center" }}
                 priority
               />
