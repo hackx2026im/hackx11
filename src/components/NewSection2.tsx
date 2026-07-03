@@ -134,7 +134,7 @@ export default function NewSection2() {
         {/* Top Left (Cylinder) */}
         <motion.div
           style={{ y: y1, rotate: rotate1 }}
-          className="absolute lg:left-[42%] lg:top-[-6%] lg:w-[250px] xl:w-[350px] opacity-100"
+          className="absolute lg:left-[42%] lg:top-[-6%] w-[180px] lg:w-[200px] xl:w-[280px] opacity-100"
         >
           <motion.img
             src="/section 2/Top left.webp"
@@ -147,7 +147,7 @@ export default function NewSection2() {
         {/* Top Right (Pillar) */}
         <motion.div
           style={{ y: y2, rotate: rotate2 }}
-          className="absolute lg:top-[-4%] lg:-right-[2%] xl:-right-[5%] lg:w-[220px] xl:w-[320px] opacity-90"
+          className="absolute lg:top-[-4%] lg:-right-[2%] xl:-right-[5%] w-[150px] lg:w-[180px] xl:w-[250px] opacity-90"
         >
           <motion.img
             src="/section 2/Top Right.webp"
@@ -160,7 +160,7 @@ export default function NewSection2() {
         {/* Bottom Center (Brick) */}
         <motion.div
           style={{ y: y3, rotate: rotate3 }}
-          className="absolute lg:top-[22%] lg:left-[60%] lg:translate-x-0 lg:w-[280px] xl:w-[400px] opacity-90"
+          className="absolute lg:top-[22%] lg:left-[60%] lg:translate-x-0 w-[200px] lg:w-[220px] xl:w-[320px] opacity-90"
         >
           <motion.img
             src="/section 2/Bottom Center.webp"
@@ -219,17 +219,17 @@ export default function NewSection2() {
             {/* ── MOBILE ARTIFACTS (Anchored to the grid) ── */}
             <div className="absolute inset-0 pointer-events-none z-[60] lg:hidden">
               {/* Cylinder: Top Left Card's Top Left */}
-              <motion.div style={{ y: y1, rotate: rotate1 }} className="absolute -top-[30px] -left-[20px] w-[100px] md:w-[130px]">
+              <motion.div style={{ y: y1, rotate: rotate1 }} className="absolute -top-[30px] -left-[20px] w-[150px] md:w-[180px]">
                 <motion.img src="/section 2/Top left.webp" style={{ x: mx1, y: my1 }} className="w-full h-auto drop-shadow-[0_20px_30px_rgba(0,0,0,0.5)]" />
               </motion.div>
               
               {/* Pillar: Top Right Card's Top Right */}
-              <motion.div style={{ y: y2, rotate: rotate2 }} className="absolute -top-[30px] -right-[15px] w-[90px] md:w-[120px]">
+              <motion.div style={{ y: y2, rotate: rotate2 }} className="absolute -top-[30px] -right-[15px] w-[130px] md:w-[150px]">
                 <motion.img src="/section 2/Top Right.webp" style={{ x: mx2, y: my2 }} className="w-full h-auto drop-shadow-[0_20px_30px_rgba(0,0,0,0.5)]" />
               </motion.div>
               
               {/* Brick: Bottom Center Card's Bottom Center */}
-              <motion.div style={{ y: y3, rotate: rotate3 }} className="absolute -bottom-[60px] left-[50%] -translate-x-1/2 w-[130px] md:w-[160px]">
+              <motion.div style={{ y: y3, rotate: rotate3 }} className="absolute -bottom-[60px] left-[50%] -translate-x-1/2 w-[180px] md:w-[220px]">
                 <motion.img src="/section 2/Bottom Center.webp" style={{ x: mx3, y: my3 }} className="w-full h-auto drop-shadow-[0_20px_30px_rgba(0,0,0,0.5)]" />
               </motion.div>
             </div>
