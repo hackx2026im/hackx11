@@ -190,7 +190,12 @@ export default function NewSection2() {
               </motion.h2>
             </div>
 
-            <motion.div {...fade(0.15)} className="space-y-6 text-[1.05rem] md:text-[1.15rem] text-white/55 font-light leading-relaxed relative z-30 text-center md:text-left">
+            <motion.div 
+              {...fade(0.15)} 
+              lang="en"
+              className="space-y-6 text-[1.05rem] md:text-[1.15rem] text-white/55 font-light leading-relaxed relative z-30 text-justify hyphens-auto"
+              style={{ textJustify: "inter-word" }}
+            >
               <p>
                 hackX 11.0 is Sri Lanka&apos;s premier inter-university startup challenge, organized by the Industrial
                 Management Science Students&apos; Association at the Department of Industrial Management,
