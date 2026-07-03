@@ -20,6 +20,11 @@ export const metadata: Metadata = {
     "student startups",
     "entrepreneurship",
   ],
+  icons: {
+    icon: "/Xlogo-favicon.png",
+    shortcut: "/Xlogo-favicon.png",
+    apple: "/Xlogo-favicon.png",
+  },
   alternates: {
     canonical: "/",
   },
@@ -33,7 +38,9 @@ export const metadata: Metadata = {
     images: [
       {
         url: "/hackxlogo.webp",
-        alt: "hackX 11.0",
+        width: 1200,
+        height: 630,
+        alt: "hackX 11.0 — Sri Lanka's Premier Inter-University Startup Challenge",
       },
     ],
   },
