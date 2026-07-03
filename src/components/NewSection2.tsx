@@ -134,7 +134,7 @@ export default function NewSection2() {
         {/* Top Left (Cylinder) */}
         <motion.div
           style={{ y: y1, rotate: rotate1 }}
-          className="absolute md:hidden lg:block top-[60%] left-[-10%] md:left-[5%] lg:left-[42%] lg:top-[-6%] w-[160px] md:w-[220px] lg:w-[250px] xl:w-[350px] opacity-100"
+          className="absolute md:hidden lg:block top-[56%] -left-[4%] lg:left-[42%] lg:top-[-6%] w-[130px] lg:w-[250px] xl:w-[350px] opacity-100"
         >
           <motion.img
             src="/section 2/Top left.webp"
@@ -147,7 +147,7 @@ export default function NewSection2() {
         {/* Top Right (Pillar) */}
         <motion.div
           style={{ y: y2, rotate: rotate2 }}
-          className="absolute md:hidden lg:block top-[38%] right-[2%] md:right-[5%] lg:top-[-4%] lg:-right-[2%] xl:-right-[5%] w-[150px] md:w-[200px] lg:w-[220px] xl:w-[320px] opacity-90"
+          className="absolute md:hidden lg:block top-[52%] -right-[4%] lg:top-[-4%] lg:-right-[2%] xl:-right-[5%] w-[120px] lg:w-[220px] xl:w-[320px] opacity-90"
         >
           <motion.img
             src="/section 2/Top Right.webp"
@@ -160,7 +160,7 @@ export default function NewSection2() {
         {/* Bottom Center (Brick) */}
         <motion.div
           style={{ y: y3, rotate: rotate3 }}
-          className="absolute md:hidden lg:block top-[75%] left-[50%] -translate-x-1/2 lg:top-[22%] lg:left-[60%] lg:translate-x-0 w-[180px] md:w-[250px] lg:w-[280px] xl:w-[400px] opacity-90"
+          className="absolute md:hidden lg:block top-[74%] left-[50%] -translate-x-1/2 lg:top-[22%] lg:left-[60%] lg:translate-x-0 w-[150px] lg:w-[280px] xl:w-[400px] opacity-90"
         >
           <motion.img
             src="/section 2/Bottom Center.webp"
