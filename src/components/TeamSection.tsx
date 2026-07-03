@@ -268,7 +268,7 @@ export default function TeamSection() {
           el.scrollLeft -= cycleWidth;
         } else {
           // Accumulate fractional pixels for smooth slow-speed crawling
-          accumulatedScroll += 0.06 * dt; // approx 3.6px per frame at 60fps
+          accumulatedScroll += 0.08 * dt; // approx 3.6px per frame at 60fps
           if (accumulatedScroll >= 1) {
             el.scrollLeft += Math.floor(accumulatedScroll);
             accumulatedScroll -= Math.floor(accumulatedScroll);

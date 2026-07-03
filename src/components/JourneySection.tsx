@@ -139,7 +139,7 @@ const BRAND2 = "#1A6FD4";
 
 const STAGES = [
   {
-    date: "July 4",
+    date: "July 3",
     title: "Registrations Open",
     desc: "Create your team and secure your place in Sri Lanka's premier inter-university startup challenge.",
   },
