@@ -268,7 +268,7 @@ export default function TeamSection() {
           el.scrollLeft -= cycleWidth;
         } else {
           // Accumulate fractional pixels for smooth slow-speed crawling
-          accumulatedScroll += 0.03 * dt; // approx 1.8px per frame at 60fps
+          accumulatedScroll += 0.06 * dt; // approx 3.6px per frame at 60fps
           if (accumulatedScroll >= 1) {
             el.scrollLeft += Math.floor(accumulatedScroll);
             accumulatedScroll -= Math.floor(accumulatedScroll);
@@ -358,7 +358,7 @@ export default function TeamSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.65, delay: 0.07 }}
-              className="text-4xl md:text-5xl font-extrabold text-white tracking-tight text-center md:text-left uppercase"
+              className="text-4xl md:text-5xl font-extrabold title-gradient tracking-tight text-center md:text-left uppercase"
             >
               Contact Us
             </motion.h2>

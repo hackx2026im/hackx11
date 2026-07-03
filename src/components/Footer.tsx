@@ -56,7 +56,7 @@ export default function Footer() {
         className="hidden lg:block absolute bottom-0 left-0 w-[400px] h-[420px] pointer-events-none overflow-hidden"
         style={{ zIndex: 1, opacity: 0.95 }}
       >
-        <div className="relative w-full h-full translate-y-16">
+        <div className="relative w-full h-full translate-y-16 -ml-4 md:-ml-2">
           <Image
             src="/footer-side.webp"
             alt=""

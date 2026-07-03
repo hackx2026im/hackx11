@@ -139,12 +139,12 @@ const BRAND2 = "#1A6FD4";
 
 const STAGES = [
   {
-    date: "July 1",
+    date: "July 4",
     title: "Registrations Open",
     desc: "Create your team and secure your place in Sri Lanka's premier inter-university startup challenge.",
   },
   {
-    date: "July 31",
+    date: "Aug 1",
     title: "Proposal Submission",
     desc: "Present your concept through a proposal and introductory video showcasing your problem and solution.",
   },
@@ -289,7 +289,7 @@ function DesktopJourneySection() {
               className="absolute w-[100vw] flex flex-col items-center text-center px-10"
               style={{ left: 0, top: "12vh", y: introY, opacity: textOp, zIndex: 10 }}
             >
-              <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight text-white uppercase" style={{
+              <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight title-gradient uppercase" style={{
                 lineHeight: 1.1,
               }}>
                 Your Journey
@@ -448,9 +448,16 @@ function DesktopJourneySection() {
                     <div className="font-extrabold tracking-tight text-white" style={{
                       fontSize: isGF ? "clamp(1.5rem, 2vw, 2rem)" : "clamp(1.1rem, 1.4vw, 1.5rem)",
                       lineHeight: 1.15, marginBottom: "0.4rem",
-                      textShadow: isGF
-                        ? `0 0 30px rgba(91,184,255,0.6), 0 4px 20px rgba(0,0,0,0.9)`
-                        : `0 4px 15px rgba(0,0,0,0.9)`,
+                      ...(isGF ? {
+                        background: "linear-gradient(135deg, #D4AF37 0%, #FFF3A0 50%, #AA8825 100%)",
+                        WebkitBackgroundClip: "text",
+                        WebkitTextFillColor: "transparent",
+                        backgroundClip: "text",
+                        textShadow: "none",
+                        filter: "drop-shadow(0 0 15px rgba(212,175,55,0.4)) drop-shadow(0 4px 10px rgba(0,0,0,0.9))"
+                      } : {
+                        textShadow: `0 4px 15px rgba(0,0,0,0.9)`,
+                      }),
                     }}>
                       {stage.title}
                     </div>
@@ -703,7 +710,7 @@ function MobileJourneySection() {
               className="absolute w-[100vw] flex flex-col items-center text-center px-8"
               style={{ left: 0, top: "12vh", x: introX, y: introY, opacity: textOp, zIndex: 10 }}
             >
-              <h2 className="text-4xl font-extrabold tracking-tight text-white uppercase" style={{ lineHeight: 1.1 }}>
+              <h2 className="text-4xl font-extrabold tracking-tight title-gradient uppercase" style={{ lineHeight: 1.1 }}>
                 Your Journey
               </h2>
               <p className="font-light" style={{

@@ -105,12 +105,18 @@ export default function NewSection2() {
       onMouseMove={handleMouseMove}
       className="relative w-full bg-[#010814] pt-12 md:pt-28 pb-0 overflow-hidden z-10"
     >
+      {/* Seamless top blend to hide clipped blobs */}
+      <div
+        className="absolute top-0 left-0 right-0 h-32 pointer-events-none z-40"
+        style={{ background: "linear-gradient(to bottom, #010814 0%, transparent 100%)" }}
+      />
+
       {/* Ambient blobs - Optimized without CSS blur */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         <motion.div
           animate={{ x: [0, 50, -50, 0], y: [0, -50, 50, 0], scale: [1, 1.1, 0.9, 1] }}
           transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-          className="absolute top-[-10%] left-[10%] w-[600px] h-[600px] rounded-full"
+          className="absolute top-[5%] left-[10%] w-[600px] h-[600px] rounded-full"
           style={{ background: "radial-gradient(circle, rgba(26,111,212,0.15) 0%, rgba(26,111,212,0) 70%)" }}
         />
         <motion.div
@@ -178,9 +184,9 @@ export default function NewSection2() {
             <div className="flex flex-col space-y-3 md:space-y-4">
               <motion.h2
                 {...fade(0.05)}
-                className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.05] text-center md:text-left uppercase"
+                className="text-4xl md:text-5xl lg:text-6xl font-extrabold title-gradient tracking-tight leading-[1.05] text-center md:text-left"
               >
-                What is hackX?
+                <span className="uppercase">What is</span> hackX?
               </motion.h2>
             </div>
 
