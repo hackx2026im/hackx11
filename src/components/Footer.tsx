@@ -131,7 +131,7 @@ export default function Footer() {
           {/* Left Column */}
           <div className="flex flex-col items-center md:items-start gap-4">
             <Link href="/" className="w-fit block">
-              <div className="relative scale-[1.3] md:scale-[1.4] origin-center md:origin-left -mb-2 -ml-1 md:-ml-2" style={{ width: "185px", height: "60px" }}>
+              <div className="relative " style={{ width: "185px", height: "60px" }}>
                 <Image
                   src="/hackxlogo.webp"
                   alt="hackX Logo"
