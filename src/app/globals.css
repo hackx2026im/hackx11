@@ -613,7 +613,7 @@
   mask-repeat: no-repeat;
   -webkit-mask-position: -140% 0;
   mask-position: -140% 0;
-  animation: preloader-sweep 2.4s ease-in-out infinite;
+  animation: preloader-sweep 3.6s ease-in-out infinite;
 }
 @keyframes preloader-sweep {
   0%   { -webkit-mask-position: -140% 0; mask-position: -140% 0; }
