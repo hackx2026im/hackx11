@@ -145,7 +145,19 @@ export default function AskAISection() {
     setIsLoading(true);
 
     try {
-      const response = await fetch(process.env.NEXT_PUBLIC_CHATBOT_API_URL || "http://localhost:5000/api/chat", {
+      let apiUrl = "http://localhost:8000/api/chat/x";
+      const envUrl = process.env.NEXT_PUBLIC_CHATBOT_API_URL;
+      if (envUrl) {
+        try {
+          const parsed = new URL(envUrl);
+          apiUrl = `${parsed.origin}/api/chat/x`;
+        } catch (e) {
+          const base = envUrl.endsWith("/") ? envUrl.slice(0, -1) : envUrl;
+          apiUrl = `${base}/api/chat/x`;
+        }
+      }
+
+      const response = await fetch(apiUrl, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
