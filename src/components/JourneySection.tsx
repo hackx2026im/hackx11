@@ -289,7 +289,7 @@ function DesktopJourneySection() {
               className="absolute w-[100vw] flex flex-col items-center text-center px-10"
               style={{ left: 0, top: "12vh", y: introY, opacity: textOp, zIndex: 10 }}
             >
-              <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight title-gradient uppercase" style={{
+              <h2 className="whitespace-nowrap text-[clamp(1.1rem,4.8vw,2.5rem)] md:text-5xl font-extrabold tracking-tight title-gradient uppercase" style={{
                 lineHeight: 1.1,
               }}>
                 Your Journey
@@ -710,14 +710,14 @@ function MobileJourneySection() {
               className="absolute w-[100vw] flex flex-col items-center text-center px-8"
               style={{ left: 0, top: "12vh", x: introX, y: introY, opacity: textOp, zIndex: 10 }}
             >
-              <h2 className="text-4xl font-extrabold tracking-tight title-gradient uppercase" style={{ lineHeight: 1.1 }}>
+              <h2 className="whitespace-nowrap text-[clamp(1.1rem,4.8vw,2.5rem)] md:text-5xl font-extrabold tracking-tight title-gradient uppercase" style={{ lineHeight: 1.1 }}>
                 Your Journey
               </h2>
               <p className="font-light" style={{
                 marginTop: "1.2rem",
                 fontFamily: "'TT Hoves Pro', sans-serif",
                 color: "rgba(255,255,255,0.6)",
-                fontSize: "clamp(0.9rem, 3.5vw, 1.1rem)",
+                fontSize: "clamp(0.75rem, 3vw, 1.1rem)",
               }}>
                 Every great venture starts somewhere.<br />Yours starts here.
               </p>
@@ -860,9 +860,16 @@ function MobileJourneySection() {
                     <div className="font-extrabold tracking-tight text-white" style={{
                       fontSize: isGF ? "clamp(1rem, 4.5vw, 1.4rem)" : "clamp(0.85rem, 3.8vw, 1.2rem)",
                       lineHeight: 1.15, marginBottom: "0.35rem",
-                      textShadow: isGF
-                        ? "0 0 30px rgba(91,184,255,0.6), 0 4px 20px rgba(0,0,0,0.9)"
-                        : "0 4px 15px rgba(0,0,0,0.9)",
+                      ...(isGF ? {
+                        background: "linear-gradient(135deg, #D4AF37 0%, #FFF3A0 50%, #AA8825 100%)",
+                        WebkitBackgroundClip: "text",
+                        WebkitTextFillColor: "transparent",
+                        backgroundClip: "text",
+                        textShadow: "none",
+                        filter: "drop-shadow(0 0 15px rgba(212,175,55,0.4)) drop-shadow(0 4px 10px rgba(0,0,0,0.9))"
+                      } : {
+                        textShadow: `0 4px 15px rgba(0,0,0,0.9)`,
+                      }),
                     }}>
                       {stage.title}
                     </div>

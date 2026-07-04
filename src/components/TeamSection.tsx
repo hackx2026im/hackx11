@@ -354,7 +354,7 @@ export default function TeamSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.65, delay: 0.07 }}
-              className="text-4xl md:text-5xl font-extrabold title-gradient tracking-tight text-center md:text-left uppercase"
+              className="whitespace-nowrap text-[clamp(1.1rem,4.8vw,2.5rem)] md:text-5xl font-extrabold title-gradient tracking-tight text-center md:text-left uppercase"
             >
               Contact Us
             </motion.h2>

@@ -15,7 +15,7 @@ export default function AmbassadorSection() {
           
           {/* Left: Content & Integrated Description */}
           <div className="lg:col-span-6 flex flex-col justify-center">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold title-gradient mb-6 tracking-tight leading-[1.1] text-center lg:text-left uppercase">
+            <h2 className="whitespace-nowrap text-[clamp(1.1rem,4.8vw,2.5rem)] md:text-5xl lg:text-6xl font-extrabold title-gradient mb-6 tracking-tight leading-[1.1] text-center lg:text-left uppercase">
               The hackX 11.0 <br className="hidden lg:block" /> Ambassador Network
             </h2>
             <div className="text-[1.05rem] text-white/60 font-light leading-relaxed mb-6 md:mb-10 max-w-xl text-center lg:text-left mx-auto lg:mx-0">

@@ -79,11 +79,11 @@ export default function PrizesSection() {
         <div className="text-center mb-12 md:mb-16">
           <motion.h2
             {...fade(0.08)}
-            className="text-4xl md:text-5xl lg:text-6xl font-extrabold title-gradient tracking-tight leading-[1.05] mb-6"
+            className="whitespace-nowrap text-[clamp(1.1rem,4.8vw,2.5rem)] md:text-5xl lg:text-6xl font-extrabold title-gradient tracking-tight leading-[1.05] mb-6"
           >
             hackX 11.0 AWARDS
           </motion.h2>
-          <motion.p {...fade(0.16)} className="text-lg text-white/50 font-light max-w-xl mx-auto leading-relaxed text-center">
+          <motion.p {...fade(0.16)} className="text-sm md:text-lg text-white/50 font-light max-w-xl mx-auto leading-relaxed text-center">
             Celebrating innovation with remarkable rewards and opportunities for the next generation of entrepreneurs.
           </motion.p>
         </div>
@@ -101,7 +101,7 @@ export default function PrizesSection() {
               <motion.div
                 key={prize.rank}
                 {...fade(0.1 + visualIdx * 0.1)}
-                className={`w-full md:flex-1 relative group flex flex-col ${orderClass}`}
+                className={`w-full relative group flex flex-col ${orderClass} ${isFirst ? 'md:flex-[1.05] md:scale-[1.05] z-10' : 'md:flex-1'}`}
                 style={{ alignSelf: "stretch" }}
               >
               <div
@@ -118,7 +118,7 @@ export default function PrizesSection() {
                     boxShadow: isMobile
                       ? `0 0 0 1px ${prize.accent}25, 0 0 24px ${prize.accent}15, 0 8px 32px rgba(0,0,0,0.5)`
                       : "none",
-                    minHeight: isFirst ? "440px" : "380px",
+                    minHeight: isFirst ? "480px" : "380px",
                     transition: "box-shadow 0.5s ease, border-color 0.5s ease, transform 0.5s ease",
                   }}
                   onMouseEnter={e => {

@@ -181,10 +181,10 @@ export default function MemoriesSection() {
           viewport={{ once: true }}
           className="text-center"
         >
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold title-gradient mb-6 tracking-tight uppercase">
+          <h2 className="whitespace-nowrap text-[clamp(1.1rem,4.8vw,2.5rem)] md:text-5xl lg:text-6xl font-extrabold title-gradient mb-6 tracking-tight uppercase">
             Moments of Innovation
           </h2>
-          <p className="text-lg text-white/60 font-light max-w-3xl mx-auto text-center">
+          <p className="text-sm md:text-lg text-white/60 font-light max-w-3xl mx-auto text-center">
             Experience the highlights, energy, and unforgettable moments that have defined hackX 10.0 last year.
           </p>
         </motion.div>
