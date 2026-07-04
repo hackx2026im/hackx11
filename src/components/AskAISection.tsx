@@ -205,6 +205,10 @@ export default function AskAISection() {
         fallbackReply = "designX is an exclusive 4-part workshop series for semi-finalists, covering business modelling, startup structuring, and market validation, led by industry experts.";
       } else if (lowerText.includes("contact") || lowerText.includes("coordinators") || lowerText.includes("email") || lowerText.includes("phone")) {
         fallbackReply = "For official queries, you can reach out directly:\n\n• **Ashan Perera** (President): president@hackx.lk | +94 77 000 0001\n• **Dilmi Rathnayake** (Secretary): secretary@hackx.lk\n• **Kavinda Silva** (Tech): tech@hackx.lk";
+      } else if (lowerText.includes("about hackx") || lowerText.includes("what is hackx")) {
+        fallbackReply = "hackX 11.0 is Sri Lanka's premier inter-university startup challenge, designed to empower undergraduates to transform real-world problems into tech-driven business ventures. Participants gain access to expert mentoring, workshops, and startup validation.";
+      } else if (lowerText.includes("prize") || lowerText.includes("price")) {
+        fallbackReply = "hackX 11.0 offers cash prizes, industry incubation resources, and mentoring support to accelerate the winning startup ideas into commercial business ventures. The exact prize pool structure will be announced shortly!";
       }
 
       setTimeout(() => {
@@ -315,8 +319,8 @@ export default function AskAISection() {
                             "Eligibility",
                             "Timeline",
                             "Rules & Guidelines",
-                            "hackX",
-                            "hackX Jr",
+                            "About hackX",
+                            "Prizes",
                             "Contact",
                           ].map((item) => (
                             <button
