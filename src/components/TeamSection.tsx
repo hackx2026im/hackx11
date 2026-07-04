@@ -24,7 +24,6 @@ const coordinators = [
     name: "Sameera Ekanayaka",
     role: "Financial Coordinator",
     email: "sameera.hackx@gmail.com",
-    phone: "+94 76 142 7662",
     avatar: "/OC/Sameera.webp",
   },
   {

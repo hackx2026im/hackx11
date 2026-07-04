@@ -204,7 +204,7 @@ export default function AskAISection() {
       } else if (lowerText.includes("designx") || lowerText.includes("workshop")) {
         fallbackReply = "designX is an exclusive 4-part workshop series for semi-finalists, covering business modelling, startup structuring, and market validation, led by industry experts.";
       } else if (lowerText.includes("contact") || lowerText.includes("coordinators") || lowerText.includes("email") || lowerText.includes("phone")) {
-        fallbackReply = "For official queries, you can reach out directly:\n\n• **Ashan Perera** (President): president@hackx.lk | +94 77 000 0001\n• **Dilmi Rathnayake** (Secretary): secretary@hackx.lk\n• **Kavinda Silva** (Tech): tech@hackx.lk";
+        fallbackReply = "For official queries, you can reach out directly:\n\n• **Praveen Madawalage** (Chief Coordinator): praveen.hackx@gmail.com | +94 77 286 8600\n• **Tharushi Kulathunga** (Chief Coordinator): tharushi.hackx@gmail.com | +94 70 725 3446\n• **Tharindu Dhanushka** (Partnership Coordinator): tharindu.hackx@gmail.com";
       } else if (lowerText.includes("about hackx") || lowerText.includes("what is hackx")) {
         fallbackReply = "hackX 11.0 is Sri Lanka's premier inter-university startup challenge, designed to empower undergraduates to transform real-world problems into tech-driven business ventures. Participants gain access to expert mentoring, workshops, and startup validation.";
       } else if (lowerText.includes("prize") || lowerText.includes("price")) {
