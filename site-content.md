@@ -411,42 +411,36 @@ Phone: +94 70 725 3446
 Name: Tharindu Dhanushka
 Role: Partnership Coordinator
 Email: tharindu.hackx@gmail.com
-Phone: +94 76 219 5995 
 
 
 **Member 4**
 Name: Thilini Bhagya
 Role: Partnership Coordinator
 Email: thilini.hackx@gmail.com
-Phone: +94 76 947 6496 
 
 
 **Member 5**
 Name: Sameera Ekanayaka
 Role: Financial Coordinator
 Email: sameera.hackx@gmail.com
-Phone: +94 76 142 7662 
 
 
 **Member 6**
 Name: Imasha Karunathilaka
 Role: Financial Coordinator
 Email: imashaa.hackx@gmail.com
-Phone: +94 77 485 2074 
 
 
 **Member 7**
 Name: Charith Fonseka
 Role: Marketing Coordinator
 Email: charith.hackx@gmail.com
-Phone: +94 78 256 7430 
 
 
 **Member 8**
 Name: Manumi Senevirathna
 Role: Marketing Coordinator
 Email: manumi.hackx@gmail.com
-Phone: +94 77 015 0508 
 
 
 ---
