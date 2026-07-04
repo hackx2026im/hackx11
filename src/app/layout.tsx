@@ -54,6 +54,7 @@ export const metadata: Metadata = {
 };
 
 import SmoothScroll from "@/components/SmoothScroll";
+import SitePreloader from "@/components/SitePreloader";
 
 export default function RootLayout({
   children,
@@ -72,6 +73,7 @@ export default function RootLayout({
             })(window, document, "clarity", "script", "xgq8qj5yrh");
           `}
         </Script>
+        <SitePreloader />
         <SmoothScroll>
           {children}
         </SmoothScroll>
