@@ -588,41 +588,42 @@
   width: 100%;
   height: auto;
 }
-/* Soft light band that sweeps left-to-right and back across the logo,
-   masked to the logo's own silhouette so it only glows over its pixels. */
+/* Soft light band that sweeps left-to-right and back across the logo.
+   The sheen is a second copy of the logo <img> turned solid white via
+   `filter` (its own alpha keeps the silhouette), then a moving CSS
+   *gradient* mask reveals only a band of it at a time. Gradients are
+   used as the mask source (not the raster .webp) because mobile Safari
+   / Chrome can fail to render a raster image as a mask source — when
+   that happens the masked layer is hidden entirely, so the sweep
+   silently disappears on phones even though it works on desktop. */
 .preloader__sheen {
   position: absolute;
   inset: 0;
-  overflow: hidden;
-  mix-blend-mode: screen;
-  pointer-events: none;
-  -webkit-mask-image: url('/hackxlogo.webp');
-  -webkit-mask-size: contain;
-  -webkit-mask-repeat: no-repeat;
-  -webkit-mask-position: center;
-  mask-image: url('/hackxlogo.webp');
-  mask-size: contain;
-  mask-repeat: no-repeat;
-  mask-position: center;
-}
-.preloader__sheen::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -60%;
-  width: 55%;
+  width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(91,184,255,0.9), rgba(255,255,255,0.85), rgba(91,184,255,0.9), transparent);
+  object-fit: contain;
+  pointer-events: none;
+  filter: brightness(0) invert(1);
+  mix-blend-mode: screen;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, transparent 40%, rgba(255,255,255,0.95) 50%, transparent 60%, transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, transparent 40%, rgba(255,255,255,0.95) 50%, transparent 60%, transparent 100%);
+  -webkit-mask-size: 320% 100%;
+  mask-size: 320% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: -140% 0;
+  mask-position: -140% 0;
   animation: preloader-sweep 2.4s ease-in-out infinite;
 }
 @keyframes preloader-sweep {
-  0%   { left: -60%; }
-  50%  { left: 105%; }
-  100% { left: -60%; }
+  0%   { -webkit-mask-position: -140% 0; mask-position: -140% 0; }
+  50%  { -webkit-mask-position: 140% 0; mask-position: 140% 0; }
+  100% { -webkit-mask-position: -140% 0; mask-position: -140% 0; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .preloader__sheen::before {
+  .preloader__sheen {
     animation: none;
+    opacity: 0;
   }
 }
 

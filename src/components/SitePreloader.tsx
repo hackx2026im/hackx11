@@ -35,7 +35,8 @@ export default function SitePreloader() {
       <div className="preloader__logo-wrap">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/hackxlogo.webp" alt="" className="preloader__logo" />
-        <div className="preloader__sheen" />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/hackxlogo.webp" alt="" aria-hidden="true" className="preloader__sheen" />
       </div>
     </div>
   );
