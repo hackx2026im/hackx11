@@ -89,12 +89,8 @@ function formatMessageText(text: string) {
 export default function AskAISection() {
   const [messages, setMessages] = useState<Message[]>([
     {
-      sender: "user",
-      text: "Does our product need to be fully built by the time we register?",
-    },
-    {
       sender: "ai",
-      text: "No, it does not. At the registration stage, you only need to submit your idea and a structured proposal outlining the problem, solution, and impact. A working prototype is only required later, by the ideaX Semi-Finals on October 3. Take your time to refine the core concept first!",
+      text: "Hi! 👋 Welcome to **hackX 11.0**, Sri Lanka's premier startup challenge. I'm your AI assistant, here to answer any questions about registration, eligibility, workshops, timelines, or requirements. How can I help you build your startup today?",
       showMenu: true,
     },
   ]);
