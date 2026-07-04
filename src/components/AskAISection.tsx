@@ -196,7 +196,7 @@ export default function AskAISection() {
       } else if (lowerText.includes("fee") || lowerText.includes("cost") || lowerText.includes("free") || lowerText.includes("pay")) {
         fallbackReply = "hackX 11.0 is **completely free** to enter! There are no registration fees or hidden prerequisites.";
       } else if (lowerText.includes("date") || lowerText.includes("timeline") || lowerText.includes("deadline") || lowerText.includes("when")) {
-        fallbackReply = "Here is the key timeline for **hackX 11.0**:\n\n• **June 23**: Registrations Open\n• **July 31**: Proposal Submission & Video Submission\n• **Sep – Oct**: designX Expert Workshops\n• **October 3**: ideaX Semi-Finals\n• **November 11**: Grand Finals (Tentative)";
+        fallbackReply = "Here is the key timeline for **hackX 11.0**:\n\n• **July 4**: Registrations Open\n• **July 31**: Proposal Submission & Video Submission\n• **Sep – Oct**: designX Expert Workshops\n• **October 3**: ideaX Semi-Finals\n• **November 11**: Grand Finals (Tentative)";
       } else if (lowerText.includes("register") || lowerText.includes("sign up") || lowerText.includes("apply")) {
         fallbackReply = "You can register for hackX 11.0 by clicking any of the **Register Now** buttons on this website. Registrations close when proposals are due on **July 31**.";
       } else if (lowerText.includes("criteria") || lowerText.includes("compete") || lowerText.includes("eligible")) {
