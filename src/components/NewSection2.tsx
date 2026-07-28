@@ -5,6 +5,7 @@ import { ReactNode, useState, useRef, useEffect } from "react";
 import { PixelCanvas } from "@/components/ui/pixel-canvas";
 import AnimatedDownloadIcon from "@/components/ui/AnimatedDownloadIcon";
 import VimeoPlayer from "@/components/ui/VimeoPlayer";
+import ProposalModal from "@/components/ui/ProposalModal";
 
 const fade = (delay = 0) => ({
   initial: { opacity: 0, y: 24, filter: "blur(4px)" },
@@ -48,6 +49,7 @@ const StatCard = ({
 
 export default function NewSection2() {
   const [thumbnailUrl, setThumbnailUrl] = useState("");
+  const [isProposalModalOpen, setIsProposalModalOpen] = useState(false);
 
   const sectionRef = useRef<HTMLElement>(null);
 
@@ -206,16 +208,24 @@ export default function NewSection2() {
               </p>
             </motion.div>
 
-            <motion.div {...fade(0.25)} className="relative z-30 flex justify-center md:justify-start">
+            <motion.div {...fade(0.25)} className="relative z-30 flex flex-col sm:flex-row items-stretch sm:items-center justify-center md:justify-start gap-3 sm:gap-4 w-full">
               <a
                 href="/hackX-11.0-Delegate-Booklet.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-primary group inline-flex items-center gap-2"
+                className="btn-primary group inline-flex items-center justify-center gap-2 w-full sm:w-auto !px-6 sm:!px-8 !py-3.5 sm:!py-4 text-sm sm:text-base text-center whitespace-nowrap"
               >
-                Delegate Booklet
+                <span>Delegate Booklet</span>
                 <AnimatedDownloadIcon size={17} />
               </a>
+              <button
+                type="button"
+                onClick={() => setIsProposalModalOpen(true)}
+                className="btn-primary group inline-flex items-center justify-center gap-2 w-full sm:w-auto !px-6 sm:!px-8 !py-3.5 sm:!py-4 text-sm sm:text-base text-center whitespace-nowrap"
+              >
+                <span>Proposal Template</span>
+                <AnimatedDownloadIcon size={17} />
+              </button>
             </motion.div>
           </div>
 
@@ -315,6 +325,11 @@ export default function NewSection2() {
       <div
         className="absolute bottom-0 left-0 right-0 h-20 md:h-48 pointer-events-none z-40"
         style={{ background: "linear-gradient(to bottom, transparent, #010814)" }}
+      />
+      {/* Proposal Template Modal Window */}
+      <ProposalModal
+        isOpen={isProposalModalOpen}
+        onClose={() => setIsProposalModalOpen(false)}
       />
     </section>
   );
