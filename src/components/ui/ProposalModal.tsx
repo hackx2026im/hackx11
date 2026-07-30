@@ -69,7 +69,7 @@ export default function ProposalModal({ isOpen, onClose }: ProposalModalProps) {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.92, y: 20 }}
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
-            className="relative w-full max-w-2xl bg-[#041A3A]/95 border border-[#5BB8FF]/20 rounded-3xl p-6 sm:p-8 shadow-[0_0_60px_rgba(26,111,212,0.25)] backdrop-blur-2xl z-10 my-auto text-white"
+            className="relative w-full max-w-2xl bg-[#041A3A]/95 border border-[#5BB8FF]/20 rounded-3xl p-5 sm:p-8 shadow-[0_0_60px_rgba(26,111,212,0.25)] backdrop-blur-2xl z-10 my-auto text-white"
           >
             {/* Ambient Background Glow */}
             <div className="absolute -top-24 -left-24 w-60 h-60 bg-[#1A6FD4]/20 rounded-full blur-3xl pointer-events-none" />
@@ -113,20 +113,20 @@ export default function ProposalModal({ isOpen, onClose }: ProposalModalProps) {
                 return (
                   <div
                     key={idx}
-                    className={`group relative flex items-center justify-between gap-4 p-4 rounded-2xl border transition-all duration-300 ${
+                    className={`group relative flex items-center justify-between gap-3 sm:gap-4 p-3.5 sm:p-4 rounded-2xl border transition-all duration-300 ${
                       opt.isPrimary
                         ? "bg-gradient-to-r from-[#1A6FD4]/30 to-[#5BB8FF]/10 border-[#5BB8FF]/40 hover:border-[#5BB8FF]/70"
                         : "bg-white/[0.03] border-white/10 hover:border-white/20 hover:bg-white/[0.06]"
                     }`}
                   >
-                    <div className="flex items-center gap-3.5 min-w-0">
-                      <div className="w-11 h-11 rounded-xl bg-[#1A6FD4]/20 border border-[#5BB8FF]/30 flex items-center justify-center shrink-0 p-2 overflow-hidden">
+                    <div className="flex items-center gap-3 sm:gap-3.5 min-w-0 flex-1">
+                      <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-[#1A6FD4]/20 border border-[#5BB8FF]/30 flex items-center justify-center shrink-0 p-2 overflow-hidden">
                         <img src="/Xlogo-favicon.png" alt="hackX Logo" className="w-full h-full object-contain" />
                       </div>
-                      <div className="min-w-0">
-                        <div className="flex items-center gap-2">
-                          <h4 className="text-base font-semibold text-white truncate">{opt.title}</h4>
-                        </div>
+                      <div className="min-w-0 flex-1">
+                        <h4 className="text-sm sm:text-base font-semibold text-white leading-snug whitespace-normal break-words">
+                          {opt.title}
+                        </h4>
                       </div>
                     </div>
 
@@ -134,7 +134,7 @@ export default function ProposalModal({ isOpen, onClose }: ProposalModalProps) {
                       href={opt.href}
                       target={opt.isExternal ? "_blank" : undefined}
                       rel={opt.isExternal ? "noopener noreferrer" : undefined}
-                      className={`shrink-0 inline-flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold text-xs sm:text-sm transition-all duration-300 ${
+                      className={`shrink-0 inline-flex items-center gap-1.5 sm:gap-2 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-xl font-semibold text-xs sm:text-sm transition-all duration-300 ${
                         opt.isPrimary
                           ? "bg-gradient-to-r from-[#1A6FD4] to-[#5BB8FF] text-white hover:shadow-[0_0_20px_rgba(91,184,255,0.4)] hover:scale-[1.02]"
                           : "bg-white/10 text-white hover:bg-white/20"
