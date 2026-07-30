@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import "./globals.css";
+import SmoothScroll from "@/components/SmoothScroll";
+import SitePreloader from "@/components/SitePreloader";
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://hackx.lk";
 const TITLE = "hackX 11.0 — Sri Lanka's Premier Inter-University Startup Challenge";
@@ -52,9 +54,6 @@ export const metadata: Metadata = {
     images: ["/hackxlogo.webp"],
   },
 };
-
-import SmoothScroll from "@/components/SmoothScroll";
-import SitePreloader from "@/components/SitePreloader";
 
 export default function RootLayout({
   children,
