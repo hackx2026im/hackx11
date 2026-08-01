@@ -216,18 +216,23 @@ export default function Hero() {
             href={process.env.NEXT_PUBLIC_REGISTRATION_URL || "#"}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-primary w-full max-w-[280px] md:w-auto"
+            className="btn-primary w-full max-w-[240px] sm:w-[230px] h-[52px] px-5 py-0 flex items-center justify-center text-sm sm:text-[0.95rem] font-semibold whitespace-nowrap gap-2"
           >
             Register Now
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
               <path d="M5 12h14M12 5l7 7-7 7"/>
             </svg>
           </a>
           <a
-            href="#about"
-            className="btn-secondary w-full max-w-[280px] md:w-auto"
+            href={process.env.NEXT_PUBLIC_PROPOSAL_SUBMISSION_URL || "https://portal.hackx.lk/"}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-primary w-full max-w-[240px] sm:w-[230px] h-[52px] px-4 py-0 flex items-center justify-center text-xs sm:text-[0.88rem] font-semibold whitespace-nowrap gap-2"
           >
-            Learn More
+            Proposal Submission
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
           </a>
         </motion.div>
 
