@@ -227,12 +227,12 @@ export default function MemoriesSection() {
           Every name on that list started with one idea. What is yours?
         </p>
         <a
-          href={process.env.NEXT_PUBLIC_REGISTRATION_URL || "#"}
+          href={process.env.NEXT_PUBLIC_PROPOSAL_SUBMISSION_URL || "https://portal.hackx.lk/x/proposal"}
           target="_blank"
           rel="noopener noreferrer"
           className="btn-primary"
         >
-          Register Now
+          Submit Proposal
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
       </div>

@@ -6,8 +6,10 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import ShaderBackground from './ShaderBackground';
 import UnderwaterEffect from './UnderwaterEffect';
 import HeroForeground from './HeroForeground';
+import ProposalModal from './ui/ProposalModal';
 
 export default function Hero() {
+  const [isProposalModalOpen, setIsProposalModalOpen] = useState(false);
   // Drive everything off the ABSOLUTE page scroll (monotonic) instead of a
   // section-relative progress. Framer's target progress (with Lenis smooth
   // scroll) resets back toward 0 once the hero scrolls out of view, which made
@@ -213,27 +215,26 @@ export default function Hero() {
           className="flex flex-col md:flex-row gap-3.5 items-center justify-center w-full px-6 md:px-0"
         >
           <a
-            href={process.env.NEXT_PUBLIC_REGISTRATION_URL || "#"}
+            href={process.env.NEXT_PUBLIC_PROPOSAL_SUBMISSION_URL || "https://portal.hackx.lk/x/proposal"}
             target="_blank"
             rel="noopener noreferrer"
             className="btn-primary w-full max-w-[260px] sm:w-[245px] h-[50px] px-5 flex items-center justify-center text-[14px] sm:text-[15px] font-semibold whitespace-nowrap gap-2 shrink-0"
           >
-            Register Now
+            Submit Proposal
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
               <path d="M5 12h14M12 5l7 7-7 7"/>
             </svg>
           </a>
-          <a
-            href={process.env.NEXT_PUBLIC_PROPOSAL_SUBMISSION_URL || "https://portal.hackx.lk/"}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-primary w-full max-w-[260px] sm:w-[245px] h-[50px] px-4 flex items-center justify-center text-[12px] sm:text-[13px] font-semibold whitespace-nowrap gap-2 shrink-0 tracking-tight sm:tracking-normal"
+          <button
+            type="button"
+            onClick={() => setIsProposalModalOpen(true)}
+            className="btn-primary w-full max-w-[260px] sm:w-[245px] h-[50px] px-5 flex items-center justify-center text-[14px] sm:text-[15px] font-semibold whitespace-nowrap gap-2 shrink-0"
           >
-            Proposal Submission
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
+            Proposal Template
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
               <path d="M5 12h14M12 5l7 7-7 7"/>
             </svg>
-          </a>
+          </button>
         </motion.div>
 
         {/* Scroll cue */}
@@ -272,6 +273,10 @@ export default function Hero() {
           </div>
         </motion.div>
       </motion.div>
+      <ProposalModal
+        isOpen={isProposalModalOpen}
+        onClose={() => setIsProposalModalOpen(false)}
+      />
     </motion.section>
   );
 }

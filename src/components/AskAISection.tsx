@@ -197,8 +197,8 @@ export default function AskAISection() {
         fallbackReply = "hackX 11.0 is **completely free** to enter! There are no registration fees or hidden prerequisites.";
       } else if (lowerText.includes("date") || lowerText.includes("timeline") || lowerText.includes("deadline") || lowerText.includes("when")) {
         fallbackReply = "Here is the key timeline for **hackX 11.0**:\n\n• **July 4**: Registrations Open\n• **July 31**: Proposal Submission & Video Submission\n• **Sep – Oct**: designX Expert Workshops\n• **October 3**: ideaX Semi-Finals\n• **November 11**: Grand Finals (Tentative)";
-      } else if (lowerText.includes("register") || lowerText.includes("sign up") || lowerText.includes("apply")) {
-        fallbackReply = "You can register for hackX 11.0 by clicking any of the **Register Now** buttons on this website. Registrations close when proposals are due on **July 31**.";
+      } else if (lowerText.includes("register") || lowerText.includes("sign up") || lowerText.includes("apply") || lowerText.includes("proposal")) {
+        fallbackReply = "Registrations for hackX 11.0 are currently closed. However, you can submit your proposal by clicking any of the **Submit Proposal** buttons on this website or directly visiting [Submit Proposal](https://portal.hackx.lk/x/proposal).";
       } else if (lowerText.includes("criteria") || lowerText.includes("compete") || lowerText.includes("eligible")) {
         fallbackReply = "All currently enrolled undergraduates from Sri Lankan universities or higher education institutes are eligible. Innovation from all disciplines (tech, business, science, etc.) is welcome as long as there is a technology-driven solution.";
       } else if (lowerText.includes("designx") || lowerText.includes("workshop")) {

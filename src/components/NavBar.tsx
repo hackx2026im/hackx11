@@ -157,7 +157,7 @@ export default function NavBar() {
               Contact
             </a>
             <a
-              href={process.env.NEXT_PUBLIC_REGISTRATION_URL || "#"}
+              href={process.env.NEXT_PUBLIC_PROPOSAL_SUBMISSION_URL || "https://portal.hackx.lk/x/proposal"}
               target="_blank"
               rel="noopener noreferrer"
               className="hidden sm:flex items-center justify-center px-4 lg:px-5 py-1.5 lg:py-2 rounded-full text-[13px] lg:text-sm xl:text-[15px] font-bold text-white transition-all duration-300"
@@ -168,7 +168,7 @@ export default function NavBar() {
               onMouseEnter={e => (e.currentTarget.style.boxShadow = "0 0 32px rgba(91,184,255,0.5), inset 0 1px 0 rgba(255,255,255,0.2)")}
               onMouseLeave={e => (e.currentTarget.style.boxShadow = "0 0 20px rgba(91,184,255,0.25), inset 0 1px 0 rgba(255,255,255,0.2)")}
             >
-              Register Now
+              Submit Proposal
             </a>
             
             {/* Mobile Hamburger Icon */}
@@ -232,7 +232,7 @@ export default function NavBar() {
                 })}
                 <div className="h-px w-full bg-white/10 my-2" />
                 <a
-                  href={process.env.NEXT_PUBLIC_REGISTRATION_URL || "#"}
+                  href={process.env.NEXT_PUBLIC_PROPOSAL_SUBMISSION_URL || "https://portal.hackx.lk/x/proposal"}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full flex sm:hidden items-center justify-center px-5 py-3 rounded-xl text-sm font-bold text-white transition-all duration-300 mt-2"
@@ -241,7 +241,7 @@ export default function NavBar() {
                   }}
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  Register Now
+                  Submit Proposal
                 </a>
                 <a
                   href="#oc"
