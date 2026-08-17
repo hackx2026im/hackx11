@@ -144,7 +144,7 @@ const STAGES = [
     desc: "Create your team and secure your place in Sri Lanka's premier inter-university startup challenge.",
   },
   {
-    date: "Aug 1",
+    date: "Aug 21",
     title: "Proposal Submission",
     desc: "Present your concept through a proposal and introductory video showcasing your problem and solution.",
   },

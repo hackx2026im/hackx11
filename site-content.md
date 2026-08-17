@@ -205,7 +205,7 @@ Create your team, submit your details, and secure your place in Sri Lanka's prem
 ### Stage 2
 
 
-**Date:** July 31
+**Date:** August 21
 **Title:** Proposal Submission
 **Description**
 Present your startup concept through a proposal and introductory video, showcasing the problem, solution, and potential behind your idea.
