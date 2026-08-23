@@ -208,7 +208,26 @@ export default function Hero() {
           Where university students transform bold ideas into opportunities.
         </motion.p>
 
-
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, delay: 1.2, ease: [0.22, 1, 0.36, 1] }}
+          className="flex items-center justify-center w-full px-6 md:px-0 mb-6 relative z-30"
+        >
+          <a
+            href="#about"
+            onClick={(e) => {
+              e.preventDefault();
+              document.getElementById("about")?.scrollIntoView({ behavior: "smooth" });
+            }}
+            className="btn-primary w-full max-w-[260px] sm:w-[245px] h-[50px] px-5 flex items-center justify-center text-[14px] sm:text-[15px] font-semibold whitespace-nowrap gap-2 shrink-0 cursor-pointer"
+          >
+            <span>Learn More</span>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">
+              <path d="M5 12h14M12 5l7 7-7 7"/>
+            </svg>
+          </a>
+        </motion.div>
 
         {/* Scroll cue */}
         <motion.div

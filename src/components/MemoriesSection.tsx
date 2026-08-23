@@ -226,7 +226,17 @@ export default function MemoriesSection() {
         <p className="text-xl text-white font-medium mb-8">
           Every name on that list started with one idea. What is yours?
         </p>
-
+        <a
+          href="#oc"
+          onClick={(e) => {
+            e.preventDefault();
+            document.getElementById("oc")?.scrollIntoView({ behavior: "smooth" });
+          }}
+          className="btn-primary cursor-pointer"
+        >
+          Learn More
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
       </div>
 
       {/* Lightbox Modal */}
