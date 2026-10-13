@@ -9,6 +9,7 @@ import AmbassadorSection from "@/components/AmbassadorSection";
 import MemoriesSection from "@/components/MemoriesSection";
 import PrizesSection from "@/components/PrizesSection";
 import TeamSection from "@/components/TeamSection";
+import PartnersSection from "@/components/PartnersSection";
 import FAQSection from "@/components/FAQSection";
 import AskAISection from "@/components/AskAISection";
 import Footer from "@/components/Footer";
@@ -27,6 +28,7 @@ export default function Home() {
         {/* <AmbassadorSection /> */}
         <MemoriesSection />
         <TeamSection />
+        <PartnersSection />
         <FAQSection />
         <AskAISection />
       </main>
