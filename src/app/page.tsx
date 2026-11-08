@@ -14,6 +14,7 @@ import FAQSection from "@/components/FAQSection";
 import AskAISection from "@/components/AskAISection";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
+import GrandFinalsPopup from "@/components/GrandFinalsPopup";
 
 export default function Home() {
   return (
@@ -34,6 +35,7 @@ export default function Home() {
       </main>
       <Footer />
       <ScrollToTop />
+      <GrandFinalsPopup />
     </>
   );
 }
