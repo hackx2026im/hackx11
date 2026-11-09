@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { LogoCloud } from "@/components/ui/logo-cloud-3";
 
-// href omitted for Generation Alpha: official URLs still to be confirmed.
+// href omitted for Generation Alpha and Perfect Events: official URLs still to be confirmed.
 const logos = [
   { src: "/partners-logos/01-ministry.png", href: "https://most.gov.lk", alt: "Ministry of Science & Technology", width: 256, height: 240 },
   { src: "/partners-logos/02-nsf.png", href: "https://www.nsf.gov.lk", alt: "National Science Foundation", width: 1412, height: 562 },
@@ -14,6 +14,11 @@ const logos = [
   { src: "/partners-logos/07-slasscom.png", href: "https://slasscom.lk", alt: "SLASSCOM", width: 1400, height: 267 },
   { src: "/partners-logos/08-tie-colombo.png", href: "https://colombo.tie.org", alt: "TiE Colombo", width: 631, height: 719 },
   { src: "/partners-logos/09-virtusa.png", href: "https://www.virtusa.com", alt: "Virtusa", width: 1132, height: 263 },
+  { src: "/partners-logos/10-helakuru-esana.png", href: "https://www.helakuru.lk", alt: "Helakuru & Esana", width: 1145, height: 400 },
+  { src: "/partners-logos/11-escape-the-room.png", href: "https://escapetheroom.lk", alt: "Escape The Room", width: 682, height: 400 },
+  { src: "/partners-logos/12-waters-edge.png", href: "https://www.watersedge.lk", alt: "Waters Edge", width: 407, height: 400 },
+  { src: "/partners-logos/13-xtreamyouth.png", href: "https://www.xtreamyouth.com", alt: "XtreamYouth", width: 1400, height: 289 },
+  { src: "/partners-logos/14-perfect-events.png", alt: "Perfect Events", width: 897, height: 300 },
 ];
 
 export default function PartnersSection() {
