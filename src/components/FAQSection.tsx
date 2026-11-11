@@ -39,6 +39,12 @@ const faqs = [
     category: "FACULTIES", 
     title: "Can students from non-tech faculties participate?", 
     answer: "Absolutely. hackX welcomes innovation from any discipline. Healthcare, agriculture, finance, education or any other field is fair game as long as there is a technology-driven solution behind it." 
+  },
+  { 
+    id: "07",
+    category: "RULES", 
+    title: "What if we have a concern or complaint during the event?", 
+    answer: "Any concerns, complaints or issues must be raised with the Executive Committee on the event day itself, before the final judgement is announced. Complaints raised after the Grand Finals will not be entertained." 
   }
 ];
 
